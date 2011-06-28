@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+    <metal:block metal:fill-slot="head_slot">
+        <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
+              tal:define="here_url context/@@plone_context_state/object_url"
+              tal:condition="request/SearchableText|nothing"
+              tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}"/>
+    </metal:block>
+
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1);
+                             disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                             disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+</head>
+
+<body>
+<metal:main fill-slot="main">
+	<script>
+	    function setObjectId(id)
+	    {
+	      var elOptNew = document.createElement('option');
+	      elOptNew.text = id;
+	      elOptNew.value = id;
+	      var elSel = document.getElementById('selectX');
+	
+	      try {
+	        elSel.add(elOptNew, null); // standards compliant; doesn't work in IE
+	      } catch(ex) {
+	        elSel.add(elOptNew); // IE only
+	      }
+	    }
+	
+	    function removeOptionSelected()
+	    {
+	      var elSel = document.getElementById('selectX');
+	      var i;
+	      for (i = elSel.length - 1; i>=0; i--) {
+	        if (elSel.options[i].selected) {
+	          elSel.remove(i);
+	        }
+	      }
+	    }
+	
+	    function serializeList() {
+	      var elSel = document.getElementById('selectX');
+	      var i;
+	      var result = '';
+	      for (i = elSel.length - 1; i>=0; i--) {
+	          if (result.match(elSel.options[i].value) == null) {
+	              result += elSel.options[i].value + ',';
+	          }
+	      }
+	
+	      return result;
+	    }
+	</script>
+	
+	<form name='legalSelectObjects' action='legalValidation' method='POST'>
+		<table>
+			<tr>
+				<td>
+				    <select name='objectList' id='selectX' size='10'>
+				    </select>
+			    </td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>
+					<input type='button' value='Seek' onclick="var seekWin = window.open('./selectObject'); ">
+	    			<input type='button' value='Remove' onclick=" removeOptionSelected(); ">
+	    			<input type='hidden' name='objectIdsVal' value=''>
+	    			<input type='button' value='Ok' onclick=" document.legalSelectObjects.objectIdsVal.value = serializeList(); document.legalSelectObjects.submit(); ">
+	    		</td>
+	    	</tr>
+	    </table>
+	</form>
+</metal:main>
+</body>
+</html>
+

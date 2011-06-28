@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+    <metal:block metal:fill-slot="head_slot">
+        <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
+              tal:define="here_url context/@@plone_context_state/object_url"
+              tal:condition="request/SearchableText|nothing"
+              tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}"/>
+    </metal:block>
+
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1);
+                             disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                             disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+</head>
+
+<body>
+<metal:main fill-slot="main">
+    <div id="content-core">
+        <div>
+        	<table>
+	        	<tbody tal:repeat="item view/results">
+	        		<tr tal:condition="item/name">
+						<td width="150px" tal:content="item/name" i18n:translate="">Name</td>
+						<td tal:content="item/value">Value</td>
+						<td>&nbsp;<a tal:condition="item/link" tal:attributes="href item/link">Veure</a></td>
+					</tr>
+        		</tbody>
+        	</table>
+        </div>
+    </div>
+    <div tal:condition="view/mediaLink">
+    	<iframe width='100%' height='800px' tal:attributes="src view/mediaLink"></iframe>
+    </div>
+    <div tal:condition="view/isAdmin">
+    	<input type="button" value="Modificar" tal:attributes="onclick view/editLink">
+    </div>
+</metal:main>
+</body>
+</html>

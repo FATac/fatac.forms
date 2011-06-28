@@ -2,10 +2,110 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    i18n_domain="fatac.forms">
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="fat.demo">
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <browser:page
+    for="*"
+    name="uploadData"
+    class=".uploadData.uploadData"
+    permission="zope2.Public"
+    />
+
+  <browser:page
+	for="*"
+	name="uploadNew"
+	class=".uploadNew.uploadNew"
+	permission="zope2.Public"
+	/>
+  
+  <browser:page
+	for="*"
+	name="uploadObject"
+	class=".uploadObject.uploadObject"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="seek"
+	class=".searchForm.searchForm"
+	permission="zope2.Public"
+	/>
+   
+  <browser:page
+	for="*"
+	name="updateExisting"
+	class=".updateExisting.updateExisting"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="updateObject"
+	class=".updateObject.updateObject"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="deleteObject"
+	class=".deleteObject.deleteObject"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="selectObject"
+	class=".searchFormSelect.searchFormSelect"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="changeUser"
+	class=".changeUser.changeUser"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="legalSelectObjects"
+	class=".legalSelectObjects.legalSelectObjects"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="legalValidation"
+	class=".legalValidation.legalValidation"
+	permission="zope2.Public"
+	/>
+
+  <browser:page
+	for="*"
+	name="viewObject"
+	class=".viewObject.viewObject"
+	permission="zope2.Public"
+	/>
+  
+  <browser:page
+	for="*"
+	name="viewRdf"
+	class=".viewRdf.viewRdf"
+	permission="zope2.Public"
+	/>
+  
+  <genericsetup:registerProfile
+      name="default"
+      title="fat.demo"
+      directory="profiles/default"
+      description="Installs the fat.demo package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
   <!-- -*- extra stuff goes here -*- -->
   
 </configure>
