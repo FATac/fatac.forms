@@ -49,8 +49,11 @@ class legalValidation(BrowserView):
         
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            return jsonResult
+            crida = 'http://localhost:8080/ArtsCombinatoriesRest/getObjectLegalColor?id='+objectIdsVal.split(",")[0]
+            resp = request(crida)
+            return "<div style='width:150px;height:150px;background-color: "+resp.tee().read()+"'> &nbsp;</div>";
         
+        print jsonResult
         jsonTree = json.loads(jsonResult)
         
         tmpstore = dict()
@@ -62,6 +65,7 @@ class legalValidation(BrowserView):
         fieldList = list()
 
         for s in jsonTree:
+            if s is None: continue
             fieldList.append(s['name'])
             
             if s.has_key('values'):
@@ -70,7 +74,8 @@ class legalValidation(BrowserView):
                 inputField = colander.SchemaNode(
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
-                    name=s['name']
+                    name=s['name'],
+                    required=False
                     )           
             elif s['type'] == 'date':
                 import datetime
@@ -109,6 +114,13 @@ class legalValidation(BrowserView):
             widget = deform.widget.HiddenWidget(),
             name='userId',
             default=userId,)
+        )
+        
+        schema.add(colander.SchemaNode(
+            colander.String(),
+            widget = deform.widget.HiddenWidget(),
+            name='objectIdsVal',
+            default=objectIdsVal,)
         )
             
         form = deform.Form(schema, action='legalValidation', buttons=('submit',))
