@@ -50,10 +50,9 @@ class legalValidation(BrowserView):
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
             crida = 'http://localhost:8080/ArtsCombinatoriesRest/getObjectLegalColor?id='+objectIdsVal.split(",")[0]
-            resp = request(crida)
-            return "<div style='width:150px;height:150px;background-color: "+resp.tee().read()+"'> &nbsp;</div>";
+            resp = request(crida) 
+            return "<div style='width:150px;height:150px;background-color:"+resp.tee().read()+"'> &nbsp;</div>";
         
-        print jsonResult
         jsonTree = json.loads(jsonResult)
         
         tmpstore = dict()
@@ -63,10 +62,13 @@ class legalValidation(BrowserView):
         
         schema = Schema()
         fieldList = list()
+        
+        autodataKey = None
 
         for s in jsonTree:
             if s is None: continue
             fieldList.append(s['name'])
+            if not s.has_key('defaultValue'): s['defaultValue'] = ''
             
             if s.has_key('values'):
                 L = list()
@@ -75,7 +77,7 @@ class legalValidation(BrowserView):
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
                     name=s['name'],
-                    required=False
+                    default=s['defaultValue']
                     )           
             elif s['type'] == 'date':
                 import datetime
@@ -91,16 +93,28 @@ class legalValidation(BrowserView):
                 inputField = colander.SchemaNode(
                     colander.Boolean(),
                     widget=deform.widget.CheckboxWidget(),
-                    name=s['name']
+                    name=s['name'],
+                    default=s['defaultValue']
+                    )
+            elif s['type'] == 'hidden':
+                inputField = colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.HiddenWidget(),
+                    name=s['name'],
+                    default=s['defaultValue']
                     )
             else:
                 inputField = colander.SchemaNode(
                     colander.String(),
                     widget=deform.widget.TextInputWidget(size=60),
-                    name=s['name']
+                    name=s['name'],
+                    default=s['defaultValue']
                     )
 
             schema.add(inputField)
+            
+            if s.has_key('autodata'):
+                autodataKey = s['name']
         
         schema.add(colander.SchemaNode(
             colander.String(),
@@ -124,4 +138,9 @@ class legalValidation(BrowserView):
         )
             
         form = deform.Form(schema, action='legalValidation', buttons=('submit',))
-        return form.render()
+        
+        ajaxLink = ''
+        if autodataKey is not None:
+            ajaxLink = "<a id='autodataLink'>Autodata</a><script> function getKeyVal() { return document.getElementById('deform')."+autodataKey+".value; } $('#autodataLink').click(function() { $('#legalDataAjax').load('legalDataAjax?keyName="+autodataKey+"&keyValue='+getKeyVal()+'&userId="+userId+"') }); </script>"
+        
+        return form.render() + ajaxLink

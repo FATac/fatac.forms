@@ -98,6 +98,13 @@
 	class=".viewRdf.viewRdf"
 	permission="zope2.Public"
 	/>
+	
+  <browser:page
+  	for="*"
+  	name="legalDataAjax"
+  	class=".legalDataAjax.legalDataAjax"
+  	permission="zope2.Public"
+  />
   
   <genericsetup:registerProfile
       name="default"
