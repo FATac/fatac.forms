@@ -16,7 +16,7 @@ class uploadObject(BrowserView):
     def render(self):
         if 'submit' in self.request and 'className' in self.request:
             className = self.request['className']
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/getInsertObjectForm?className='+className)
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
@@ -30,7 +30,7 @@ class uploadObject(BrowserView):
                     upload = self.request.get('upload')
                     jsonRequest[fieldName] = upload.filename
 
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/uploadObject', 
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/upload', 
                                 method='POST', 
                                 headers={'Content-Type': 'application/json'}, 
                                 body=json.dumps(jsonRequest))
@@ -40,7 +40,7 @@ class uploadObject(BrowserView):
                 return 'Error'
             else:
                 try:
-                    resp = request('http://localhost:8080/ArtsCombinatoriesRest/uploadObjectFile?id='+result+'&fn='+upload.filename, 
+                    resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/'+result+'/file/upload?fn='+upload.filename,
                                         method='POST',
                                         headers={'Content-Type': 'multipart/form-data'},
                                         body=upload.read())

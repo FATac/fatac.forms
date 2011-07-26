@@ -17,7 +17,7 @@ class updateObject(BrowserView):
         if 'className' in self.request and 'objectId' in self.request:
             objectId = self.request['objectId']
             className = self.request['className']
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/getInsertObjectForm?className='+className)
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
@@ -31,7 +31,7 @@ class updateObject(BrowserView):
                     upload = self.request.get('upload')
                     jsonRequest[fieldName] = upload.filename
 
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/updateObject', 
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/'+objectId+'/update', 
                                 method='POST', 
                                 headers={'Content-Type': 'application/json'}, 
                                 body=json.dumps(jsonRequest))
@@ -41,12 +41,12 @@ class updateObject(BrowserView):
                 return 'Error'
             else:
                 try:
-                    resp = request('http://localhost:8080/ArtsCombinatoriesRest/uploadObjectFile?id='+objectId+'&fn='+upload.filename, 
+                    resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/'+objectId+'/file/upload?fn='+upload.filename,
                                         method='POST',
                                         headers={'Content-Type': 'multipart/form-data'},
                                         body=upload.read())
-                    return result + ' ' + resp.tee().read()
+                    return resp.tee().read()
                 except NameError:
-                    return result
+                    return ''
         else:
             return 'Oops!'

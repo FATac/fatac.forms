@@ -42,9 +42,9 @@ class uploadData(BrowserView):
         if self.request.form.has_key('c'):
             qs = '?c=' + self.request.form['c']
         else:
-            qs = '?c=identiferObject'
+            qs = '?c=Root'
 
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/getClassesTree'+qs);
+        resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/tree'+qs);
         jsonResult = resp.tee().read()
         jsonTree = json.loads(jsonResult)
         L = list()

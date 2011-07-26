@@ -25,7 +25,7 @@ class legalValidation(BrowserView):
             userId = self.request['userId']
         
         if userId == '':
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/startLegal', 
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/start', 
                                 method='POST', 
                                 headers={'Content-Type': 'application/json'}, 
                                 body=json.dumps(objectIdsVal.split(",")))
@@ -42,14 +42,14 @@ class legalValidation(BrowserView):
                 if self.request.get(s,None):
                     jsonData[s] = self.request[s]
             
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/legalNext', 
+        resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/next', 
                                 method='POST', 
                                 headers={'Content-Type': 'application/json'}, 
                                 body=json.dumps(jsonData))
         
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://localhost:8080/ArtsCombinatoriesRest/getObjectLegalColor?id='+objectIdsVal.split(",")[0]
+            crida = 'http://localhost:8080/ArtsCombinatoriesRest/objects/'+objectIdsVal.split(",")[0]+'/color'
             resp = request(crida) 
             return "<div style='width:150px;height:150px;background-color:"+resp.tee().read()+"'> &nbsp;</div>";
         

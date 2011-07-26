@@ -41,12 +41,12 @@ class searchForm(BrowserView):
             
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
-            if session.has_key('userType'):
-                usrTyp = session['userType']
+            if self.request.AUTHENTICATED_USER:
+                usrId = '&u=' + self.request.AUTHENTICATED_USER.getId()
             else:
-                usrTyp = '1'
-            
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/search?s='+self.request['text']+'&r='+usrTyp);
+                usrId = ''
+                
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/search?s='+self.request['text']+usrId);
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             

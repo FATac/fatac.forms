@@ -17,7 +17,16 @@ class updateExisting(BrowserView):
 
     def render(self):
         oid = self.request.form['id']
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/getObject?id='+oid)
+        
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        if self.request.AUTHENTICATED_USER:
+            usrId = '?u=' + self.request.AUTHENTICATED_USER.getId()
+        else:
+            usrId = ''
+        
+        print "http://localhost:8080/ArtsCombinatoriesRest/objects/"+oid+usrId
+        resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/'+oid+usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -29,7 +38,7 @@ class updateExisting(BrowserView):
         if className != None:
             tmpstore = dict()
             hasFile = False
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/getInsertObjectForm?className='+className)
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             
@@ -99,7 +108,14 @@ class updateExisting(BrowserView):
             r1 = form.render()
 
             if hasFile:
-                r1 += "<div width='100%' height='800px'><iframe width='100%' height='800px' src='http://stress.upc.es:8080/ArtsCombinatoriesRest/getObjectFile?id="+oid+"'></iframe></div>"
+                sdm = self.context.session_data_manager
+                session = sdm.getSessionData(create=True)
+                if self.request.AUTHENTICATED_USER:
+                    usrId = '?u=' + self.request.AUTHENTICATED_USER.getId()
+                else:
+                    usrId = ''
+                        
+                r1 += "<div width='100%' height='800px'><iframe width='100%' height='800px' src='http://stress.upc.es:8080/ArtsCombinatoriesRest/objects/"+oid+"/file"+usrId+"'></iframe></div>"
                 
             class Schema(colander.Schema):
                 objectId = colander.SchemaNode(
