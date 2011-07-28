@@ -111,13 +111,27 @@
   	permission="zope2.Public"
   />
   
+  <browser:page
+	for="*"
+	name="legalValidationAux"
+	class=".legalValidationAux.legalValidationAux"
+	permission="zope2.Public"
+	/>
+  
   <genericsetup:registerProfile
-      name="default"
-      title="fat.demo"
-      directory="profiles/default"
-      description="Installs the fat.demo package"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    name="default"
+    title="fat.demo"
+    directory="profiles/default"
+    description="Installs the fat.demo package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+      
+  <browser:page
+	for="*"
+	name="legalSelectObjectsAux"
+	class=".legalSelectObjectsAux.legalSelectObjectsAux"
+	permission="zope2.Public"
+	/>
   <!-- -*- extra stuff goes here -*- -->
   
 </configure>

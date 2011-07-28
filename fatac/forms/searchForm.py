@@ -41,7 +41,7 @@ class searchForm(BrowserView):
             
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
-            if self.request.AUTHENTICATED_USER:
+            if self.request.AUTHENTICATED_USER and (self.request.AUTHENTICATED_USER.getId() is not None):
                 usrId = '&u=' + self.request.AUTHENTICATED_USER.getId()
             else:
                 usrId = ''

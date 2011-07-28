@@ -10,10 +10,12 @@
     	<script>
     		function setFormValue(n, v) {
     			field = eval('document.getElementById("deform").'+n);
-    			if (field.type=='checkbox') { if(v=='true') field.checked = true; }
-    			else field.value = v;
+    			if (field) {
+	    			if (field.type=='checkbox') { if(v=='true') field.checked = true; }
+	    			else field.value = v;
+    			}
     		}
-    	</script>    
+    	</script>
     </metal:block>
 
     <metal:block fill-slot="top_slot"

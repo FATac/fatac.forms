@@ -8,7 +8,7 @@ from deform import Form
 import LegalResultWidget
 from LegalResultWidget import LegalResultWidget
 
-class legalValidation(BrowserView):
+class legalValidationAux(BrowserView):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -50,8 +50,8 @@ class legalValidation(BrowserView):
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
             crida = 'http://localhost:8080/ArtsCombinatoriesRest/objects/'+objectIdsVal.split(",")[0]+'/color'
-            resp = request(crida) 
-            return "<div style='width:150px;height:150px;background-color:"+resp.tee().read()+"'> &nbsp;</div>";
+            resp = request(crida)
+            return "<script> window.opener.setLegalResult('"+resp.tee().read()+"'); window.close(); </script>";
         
         jsonTree = json.loads(jsonResult)
         
@@ -143,7 +143,7 @@ class legalValidation(BrowserView):
             default=objectIdsVal,)
         )
             
-        form = deform.Form(schema, action='legalValidation', buttons=('submit',))
+        form = deform.Form(schema, action='legalValidationAux', buttons=('submit',))
         
         ajaxLink = ''
         if autodataKey is not None:
