@@ -15,6 +15,9 @@ class uploadNew(BrowserView):
         self.context = context
         
     __call__ = ViewPageTemplateFile('templates/uploadNew.pt')
+    
+    def className(self):
+        return self.request['item']
 
     def render(self):
         if 'submit' in self.request and 'item' in self.request:

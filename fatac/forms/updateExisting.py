@@ -9,18 +9,26 @@ import ObjectInputWidget
 from ObjectInputWidget import ObjectInputWidget
 
 class updateExisting(BrowserView):
+    
     def __init__(self, context, request):
         self.request = request
         self.context = context
         
     __call__ = ViewPageTemplateFile('templates/updateExisting.pt')
-
+    
+    def className(self):
+        self.returnHTML = self.render2()
+        return self.className
+    
     def render(self):
+        return self.returnHTML
+
+    def render2(self):
         oid = self.request.form['id']
         
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
-        if self.request.AUTHENTICATED_USER:
+        if self.request.AUTHENTICATED_USER and self.request.AUTHENTICATED_USER.getId() is not None:
             usrId = '?u=' + self.request.AUTHENTICATED_USER.getId()
         else:
             usrId = ''
@@ -31,14 +39,14 @@ class updateExisting(BrowserView):
         obj = json.loads(jsonResult)
 
         try:
-            className = obj['type']
+            self.className = obj['type']
         except KeyError:
-            className = None
+            self.className = None
 
-        if className != None:
+        if self.className != None:
             tmpstore = dict()
             hasFile = False
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form')
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+self.className+'/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             

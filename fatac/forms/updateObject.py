@@ -20,6 +20,8 @@ class updateObject(BrowserView):
             resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
+            
+            print self.request
 
             jsonRequest = {'id':objectId}
             for s in jsonTree['inputList']:

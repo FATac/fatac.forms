@@ -54,7 +54,7 @@ class viewObject(BrowserView):
         
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
-        if self.request.AUTHENTICATED_USER:
+        if self.request.AUTHENTICATED_USER and self.request.AUTHENTICATED_USER.getId() is not None:
             usrId = '?u=' + self.request.AUTHENTICATED_USER.getId()
         else:
             usrId = ''
@@ -83,7 +83,11 @@ class viewObject(BrowserView):
             try:
                 currValue = obj[s['name']]
                 if s['controlType'] == 'objectInput':
-                    result.append(self.resultItem(s['name'], currValue, './viewObject?id='+currValue))
+                    try:
+                        result.append(self.resultItem(s['name'], currValue, './viewObject?id='+currValue))
+                    except TypeError:
+                        for v in currValue:
+                            result.append(self.resultItem(s['name'], v, './viewObject?id='+v))
                 else:
                     result.append(self.resultItem(s['name'], currValue, None))
             except KeyError:

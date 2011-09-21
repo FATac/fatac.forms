@@ -21,6 +21,9 @@
 
 <body>
 <metal:main fill-slot="main">
+	<div>
+		<div tal:content="view/className"> </div>
+	</div>
     <div id="content-core">
         <div tal:replace="structure view/render">
         </div>
