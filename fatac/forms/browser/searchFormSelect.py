@@ -1,9 +1,9 @@
-import deform 
+import deform
 import colander
 import json
 from Products.Five.browser import BrowserView
 from restkit import request
-from deform import Form
+
 
 class searchFormSelect(BrowserView):
     def __init__(self, context, request):
@@ -19,8 +19,10 @@ class searchFormSelect(BrowserView):
             c = colander.SchemaNode(
                 colander.String(),
                 widget=deform.widget.HiddenWidget())
-            if self.request.has_key('c'): c.default = self.request['c']
-            elif self.request.form.has_key('c'): c.default = self.request.form['c']
+            if 'c' in self.request:
+                c.default = self.request['c']
+            elif 'c' in self.request.form:
+                c.default = self.request.form['c']
 
         schema = Schema()
         form = deform.Form(schema, action='selectObject', buttons=('submit',))
@@ -28,10 +30,12 @@ class searchFormSelect(BrowserView):
 
         r2 = ''
         if 'submit' in self.request:
-            clause = "";
-            if self.request.has_key('c'): clause = "&c=" + self.request['c']
-            elif self.request.form.has_key('c'): clause = "&c=" + self.request.form['c']
-            
+            clause = ""
+            if 'c' in self.request:
+                clause = "&c=" + self.request['c']
+            elif 'c' in self.request.form:
+                clause = "&c=" + self.request.form['c']
+
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
             if self.request.AUTHENTICATED_USER:
@@ -39,7 +43,7 @@ class searchFormSelect(BrowserView):
             else:
                 usrId = ''
 
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/search?s='+self.request['text']+clause+usrId);
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/search?s=' + self.request['text'] + clause + usrId)
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
@@ -47,7 +51,7 @@ class searchFormSelect(BrowserView):
             for s in jsonTree.keys():
                 for k in jsonTree[s].keys():
                     r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k] + '</td></tr>'
-                r2 = r2 + '<tr><td>&nbsp;</td><td><a href=\"javascript:window.opener.setObjectId(\''+s+'\'); window.close();\">[Seleccionar]</a></tr>'
+                r2 = r2 + '<tr><td>&nbsp;</td><td><a href=\"javascript:window.opener.setObjectId(\'' + s + '\'); window.close();\">[Seleccionar]</a></tr>'
                 r2 = r2 + '<tr><td>&nbsp;</td></tr>'
             r2 = r2 + '</table>'
 

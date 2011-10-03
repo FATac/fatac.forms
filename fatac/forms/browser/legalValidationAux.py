@@ -1,84 +1,84 @@
-import deform 
+import deform
 import colander
 import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
-from deform import Form
-import LegalResultWidget
-from LegalResultWidget import LegalResultWidget
+from widgets import LegalResultWidget
+
 
 class legalValidationAux(BrowserView):
     def __init__(self, context, request):
         self.request = request
         self.context = context
-        
+
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
 
     def render(self):
-        responseId = ''
         userId = ''
-        if self.request.has_key('objectIdsVal'):
+        if 'objectIdsVal' in self.request:
             objectIdsVal = self.request['objectIdsVal']
-        
+
         if 'userId' in self.request:
             userId = self.request['userId']
-        
+
         if userId == '':
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/start', 
-                                method='POST', 
-                                headers={'Content-Type': 'application/json'}, 
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/start',
+                                method='POST',
+                                headers={'Content-Type': 'application/json'},
                                 body=json.dumps(objectIdsVal.split(",")))
-            
+
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             userId = jsonTree['userId']
-        
+
         jsonData = dict()
-        jsonData['userId'] = userId;
+        jsonData['userId'] = userId
         if 'submit' in self.request and 'fieldList' in self.request:
             fl = self.request['fieldList'].split(",")
             for s in fl:
-                if self.request.get(s,None):
+                if self.request.get(s, None):
                     jsonData[s] = self.request[s]
-            
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/next', 
-                                method='POST', 
-                                headers={'Content-Type': 'application/json'}, 
+
+        resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/next',
+                                method='POST',
+                                headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonData))
-        
+
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://localhost:8080/ArtsCombinatoriesRest/objects/'+objectIdsVal.split(",")[0]+'/color'
+            crida = 'http://localhost:8080/ArtsCombinatoriesRest/objects/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
-            return "<script> window.opener.setLegalResult('"+resp.tee().read()+"'); window.close(); </script>";
-        
+            return "<script> window.opener.setLegalResult('" + resp.tee().read() + "'); window.close(); </script>"
+
         jsonTree = json.loads(jsonResult)
-        
-        tmpstore = dict()
+
         class Schema(colander.Schema):
             ""
             ""
-        
+
         schema = Schema()
         fieldList = list()
-        
+
         autodataKey = None
 
         for s in jsonTree:
-            if s is None: continue
+            if s is None:
+                continue
             fieldList.append(s['name'])
-            if not s.has_key('defaultValue'): s['defaultValue'] = ''
-            
-            if s.has_key('values') and s['type'] == 'string':
+            if not 'defaultValue' in s:
+                s['defaultValue'] = ''
+
+            if 'values' in s and s['type'] == 'string':
                 L = list()
-                for v in s['values']: L.append((v,v))                 
+                for v in s['values']:
+                    L.append((v, v))
                 inputField = colander.SchemaNode(
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
                     name=s['name'],
                     default=s['defaultValue']
-                    )           
+                    )
             elif s['type'] == 'date':
                 import datetime
                 from colander import Range
@@ -118,35 +118,35 @@ class legalValidationAux(BrowserView):
                     )
 
             schema.add(inputField)
-            
-            if s.has_key('autodata'):
+
+            if 'autodata' in s:
                 autodataKey = s['name']
-        
+
         schema.add(colander.SchemaNode(
             colander.String(),
-            widget = deform.widget.HiddenWidget(),
+            widget=deform.widget.HiddenWidget(),
             name='fieldList',
             default=",".join(fieldList),)
         )
-        
+
         schema.add(colander.SchemaNode(
             colander.String(),
-            widget = deform.widget.HiddenWidget(),
+            widget=deform.widget.HiddenWidget(),
             name='userId',
             default=userId,)
         )
-        
+
         schema.add(colander.SchemaNode(
             colander.String(),
-            widget = deform.widget.HiddenWidget(),
+            widget=deform.widget.HiddenWidget(),
             name='objectIdsVal',
             default=objectIdsVal,)
         )
-            
+
         form = deform.Form(schema, action='legalValidationAux', buttons=('submit',))
-        
+
         ajaxLink = ''
         if autodataKey is not None:
-            ajaxLink = "<a id='autodataLink'>Autodata</a><script> function getKeyVal() { return document.getElementById('deform')."+autodataKey+".value; } $('#autodataLink').click(function() { $('#legalDataAjax').load('legalDataAjax?keyName="+autodataKey+"&keyValue='+getKeyVal()+'&userId="+userId+"') }); </script>"
-        
+            ajaxLink = "<a id='autodataLink'>Autodata</a><script> function getKeyVal() { return document.getElementById('deform')." + autodataKey + ".value; } $('#autodataLink').click(function() { $('#legalDataAjax').load('legalDataAjax?keyName=" + autodataKey + "&keyValue='+getKeyVal()+'&userId=" + userId + "') }); </script>"
+
         return form.render() + ajaxLink

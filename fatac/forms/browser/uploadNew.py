@@ -1,38 +1,37 @@
-import deform 
+import deform
 import colander
 import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
-from deform import Form
-import ObjectInputWidget
-from ObjectInputWidget import ObjectInputWidget
+from widgets import ObjectInputWidget
 from fatac.forms import FatAcMessageFactory as _
+
 
 class uploadNew(BrowserView):
     def __init__(self, context, request):
         self.request = request
         self.context = context
-        
+
     __call__ = ViewPageTemplateFile('templates/uploadNew.pt')
-    
+
     def className(self):
         return self.request['item']
 
     def render(self):
         if 'submit' in self.request and 'item' in self.request:
             className = self.request['item']
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/'+className+'/form');
+            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
-            
+
             if jsonTree['className'] == className:
                 tmpstore = dict()
-            
+
                 class Schema(colander.Schema):
                     className = colander.SchemaNode(
                        colander.String(),
-                        widget = deform.widget.HiddenWidget(),
+                        widget=deform.widget.HiddenWidget(),
                         default=jsonTree['className'],
                         )
 
@@ -74,13 +73,13 @@ class uploadNew(BrowserView):
                     elif s['controlType'] == 'fileInput':
                         inputField = colander.SchemaNode(
                             deform.FileData(),
-                            widget = deform.widget.FileUploadWidget(tmpstore),
+                            widget=deform.widget.FileUploadWidget(tmpstore),
                             name=s['name'],
                             title=_(s['name']),
                             )
 
                     schema.add(inputField)
-                    
+
                 form = deform.Form(schema, action='uploadObject', buttons=('submit',))
                 return form.render()
             else:
