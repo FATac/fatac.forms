@@ -9,7 +9,7 @@ from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
 ptc.setupPloneSite()
 
-import fat.demo
+import fatac.forms
 
 
 class TestCase(ptc.PloneTestCase):
@@ -19,7 +19,7 @@ class TestCase(ptc.PloneTestCase):
         @classmethod
         def setUp(cls):
             fiveconfigure.debug_mode = True
-            ztc.installPackage(fat.demo)
+            ztc.installPackage(fatac.forms)
             fiveconfigure.debug_mode = False
 
         @classmethod
@@ -32,21 +32,21 @@ def test_suite():
 
         # Unit tests
         #doctestunit.DocFileSuite(
-        #    'README.txt', package='fat.demo',
+        #    'README.txt', package='fatac.forms',
         #    setUp=testing.setUp, tearDown=testing.tearDown),
 
         #doctestunit.DocTestSuite(
-        #    module='fat.demo.mymodule',
+        #    module='fatac.forms.mymodule',
         #    setUp=testing.setUp, tearDown=testing.tearDown),
 
 
         # Integration tests that use PloneTestCase
         #ztc.ZopeDocFileSuite(
-        #    'README.txt', package='fat.demo',
+        #    'README.txt', package='fatac.forms',
         #    test_class=TestCase),
 
         #ztc.FunctionalDocFileSuite(
-        #    'browser.txt', package='fat.demo',
+        #    'browser.txt', package='fatac.forms',
         #    test_class=TestCase),
 
         ])

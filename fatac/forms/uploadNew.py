@@ -7,7 +7,7 @@ from restkit import request
 from deform import Form
 import ObjectInputWidget
 from ObjectInputWidget import ObjectInputWidget
-from fat.demo import FatAcMessageFactory as _
+from fatac.forms import FatAcMessageFactory as _
 
 class uploadNew(BrowserView):
     def __init__(self, context, request):

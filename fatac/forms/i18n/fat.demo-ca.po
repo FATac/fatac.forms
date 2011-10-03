@@ -13,7 +13,7 @@ msgstr ""
 "Language-Code: ca\n"
 "Language-Name: Catalan\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: fat.demo\n"
+"Domain: fatac.forms\n"
 
 msgid "isRefrencedBy*"
 msgstr "Referenciat per"
