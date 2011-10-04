@@ -55,7 +55,7 @@ class viewObject(BrowserView):
         else:
             usrId = ''
 
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -64,7 +64,7 @@ class viewObject(BrowserView):
         except KeyError:
             className = None
 
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
         jsonResult = resp.tee().read()
         jsonTree = json.loads(jsonResult)
 

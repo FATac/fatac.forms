@@ -5,6 +5,13 @@
 
     <browser:page
         for="*"
+        name="inici"
+        class=".inici.Inici"
+        permission="zope2.Public"
+        />
+
+    <browser:page
+        for="*"
         name="LegalResultWidget"
         class=".widgets.LegalResultWidget"
         permission="zope2.Public"
@@ -13,7 +20,7 @@
     <browser:page
         for="*"
         name="ObjectInputWidget"
-        class=".widgets.ObjectInputtWidget"
+        class=".widgets.ObjectInputWidget"
         permission="zope2.Public"
         />
 
@@ -73,15 +80,6 @@
         permission="zope2.Public"
         />
 
-      <!--
-    <browser:page
-        for="*"
-        name="changeUser"
-        class=".changeUser.changeUser"
-        permission="zope2.Public"
-        />
-      -->
-
     <browser:page
         for="*"
         name="legalSelectObjects"
@@ -91,10 +89,31 @@
 
     <browser:page
         for="*"
+        name="legalSelectObjectsAux"
+        class=".legalSelectObjects.legalSelectObjectsAux"
+        permission="zope2.Public"
+        />
+
+    <browser:page
+        for="*"
         name="legalValidation"
         class=".legalValidation.legalValidation"
         permission="zope2.Public"
         />
+
+    <browser:page
+        for="*"
+        name="legalValidationAux"
+        class=".legalValidation.legalValidationAux"
+        permission="zope2.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="legalDataAjax"
+        class=".legalDataAjax.legalDataAjax"
+        permission="zope2.Public"
+      />
 
     <browser:page
         for="*"
@@ -109,26 +128,5 @@
         class=".viewRdf.viewRdf"
         permission="zope2.Public"
         />
-        
-    <browser:page
-        for="*"
-        name="legalDataAjax"
-        class=".legalDataAjax.legalDataAjax"
-        permission="zope2.Public"
-      />
       
-    <browser:page
-        for="*"
-        name="legalValidationAux"
-        class=".legalValidationAux.legalValidationAux"
-        permission="zope2.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="legalSelectObjectsAux"
-        class=".legalSelectObjectsAux.legalSelectObjectsAux"
-        permission="zope2.Public"
-        />
-
 </configure>

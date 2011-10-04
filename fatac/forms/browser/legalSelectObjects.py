@@ -8,3 +8,11 @@ class legalSelectObjects(BrowserView):
         self.context = context
 
     __call__ = ViewPageTemplateFile('templates/legalSelectObjects.pt')
+
+
+class legalSelectObjectsAux(BrowserView):
+    def __init__(self, context, request):
+        self.request = request
+        self.context = context
+
+    __call__ = ViewPageTemplateFile('templates/legalSelectObjectsAux.pt')

@@ -11,5 +11,5 @@ class viewRdf(BrowserView):
     __call__ = ViewPageTemplateFile('templates/viewRdf.pt')
 
     def rdf(self):
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/getRdf')
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/getRdf')
         return resp.tee().read()

@@ -32,8 +32,8 @@ class updateExisting(BrowserView):
         else:
             usrId = ''
 
-        print "http://localhost:8080/ArtsCombinatoriesRest/objects/" + oid + usrId
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
+        print "http://stress:8080/ArtsCombinatoriesRest/objects/" + oid + usrId
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -45,7 +45,7 @@ class updateExisting(BrowserView):
         if self.className != None:
             tmpstore = dict()
             hasFile = False
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/' + self.className + '/form')
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + self.className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 

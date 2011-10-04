@@ -14,7 +14,7 @@ class legalDataAjax(BrowserView):
         keyValue = self.request['keyValue']
         userId = self.request['userId']
 
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/legal/restore?key=' + keyName + '&value=' + keyValue + '&userId=' + userId)
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/restore?key=' + keyName + '&value=' + keyValue + '&userId=' + userId)
         jsonResult = resp.tee().read()
 
         if jsonResult == 'error':

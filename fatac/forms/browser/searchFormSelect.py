@@ -43,7 +43,7 @@ class searchFormSelect(BrowserView):
             else:
                 usrId = ''
 
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/search?s=' + self.request['text'] + clause + usrId)
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/search?s=' + self.request['text'] + clause + usrId)
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 

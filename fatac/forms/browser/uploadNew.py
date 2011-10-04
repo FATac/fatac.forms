@@ -21,7 +21,7 @@ class uploadNew(BrowserView):
     def render(self):
         if 'submit' in self.request and 'item' in self.request:
             className = self.request['item']
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 

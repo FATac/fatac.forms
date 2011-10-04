@@ -41,7 +41,7 @@ class uploadData(BrowserView):
         else:
             qs = '?c=Root'
 
-        resp = request('http://localhost:8080/ArtsCombinatoriesRest/classes/tree' + qs)
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/tree' + qs)
         jsonResult = resp.tee().read()
         jsonTree = json.loads(jsonResult)
         L = list()

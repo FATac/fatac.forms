@@ -13,8 +13,8 @@ class deleteObject(BrowserView):
     def render(self):
         if 'delete' in self.request and 'objectId' in self.request:
             oid = self.request['objectId']
-            #resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/'+oid+'/delete')
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/objects/' + oid + '/delete')
+            #resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/'+oid+'/delete')
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + oid + '/delete')
 
             result = resp.tee().read()
             if result == 'error':
