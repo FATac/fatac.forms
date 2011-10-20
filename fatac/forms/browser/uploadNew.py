@@ -24,15 +24,20 @@ class uploadNew(BrowserView):
             resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
-
+            
             if jsonTree['className'] == className:
                 tmpstore = dict()
 
                 class Schema(colander.Schema):
                     className = colander.SchemaNode(
-                       colander.String(),
+                        colander.String(),
                         widget=deform.widget.HiddenWidget(),
                         default=jsonTree['className'],
+                        )
+                    about = colander.SchemaNode(
+                        colander.String(),
+                        widget=deform.widget.TextInputWidget(size=60),
+                        name='about'
                         )
 
                 schema = Schema()

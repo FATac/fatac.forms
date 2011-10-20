@@ -14,11 +14,12 @@ class uploadObject(BrowserView):
     def render(self):
         if 'submit' in self.request and 'className' in self.request:
             className = self.request['className']
+            about = self.request['about']
             resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
-            jsonRequest = {'className': className}
+            jsonRequest = {'className': className, 'about':about}
             for s in jsonTree['inputList']:
                 fieldName = s['name']
                 if fieldName in self.request:
@@ -28,7 +29,7 @@ class uploadObject(BrowserView):
                     upload = self.request.get('upload')
                     jsonRequest[fieldName] = upload.filename
 
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/upload',
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/upload',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonRequest))
