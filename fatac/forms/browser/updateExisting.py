@@ -1,27 +1,52 @@
 import deform
 import colander
 import json
+import myControls
+import re
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from widgets import ObjectInputWidget
-
+from fatac.forms import FatAcMessageFactory as _
 
 class updateExisting(BrowserView):
-
     def __init__(self, context, request):
         self.request = request
         self.context = context
 
     __call__ = ViewPageTemplateFile('templates/updateExisting.pt')
-
-    def className(self):
-        self.returnHTML = self.render2()
-        return self.className
+    
+    def about(self):
+        self.render2()
+        oid = self.request.form['id']
+        
+        if type(self.className) == list:
+            classList = ""
+            for c in self.className: classList += c + " - "
+            classList = classList[:-2]
+        else:
+            classList = self.className
+        
+        return str.replace(oid, "_", " ") + " ( " + classList + ")"
+    
+    def separate(self, value):
+        if type(value) != list:
+            if value is None or value == '': 
+                return ['', '']
+            
+            res = re.findall('@[a-z]{2}$', value)
+            if res == []:
+                return [value, '']
+            else:
+                return [value[:-3], res[0][1:]]
+        else:
+            result = []
+            for v in value: result.append(self.separate(v))
+            return result
 
     def render(self):
-        return self.returnHTML
-
+        return self.html
+    
     def render2(self):
         oid = self.request.form['id']
 
@@ -32,106 +57,50 @@ class updateExisting(BrowserView):
         else:
             usrId = ''
 
-        print "http://stress:8080/ArtsCombinatoriesRest/objects/" + oid + usrId
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
         try:
-            self.className = obj['type']
+            self.className = obj['rdf:type']
         except KeyError:
             self.className = None
-
+        
         if self.className != None:
-            tmpstore = dict()
-            hasFile = False
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + self.className + '/form')
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + self.className[0] + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
-
-            class Schema(colander.Schema):
-                className = colander.SchemaNode(
-                    colander.String(),
-                    widget=deform.widget.HiddenWidget(),
-                    default=jsonTree['className'],
-                    )
-
-                objectId = colander.SchemaNode(
-                    colander.String(),
-                    widget=deform.widget.HiddenWidget(),
-                    default=oid,
-                    )
-
-            schema = Schema()
-
+            
+            controlList = []
+            controlList.append(myControls.HiddenInputControl('type', jsonTree['className']))
+            controlList.append(myControls.HiddenInputControl('about', oid))
+            
             for s in jsonTree['inputList']:
-
                 try:
                     currValue = obj[s['name']]
                 except KeyError:
-                    currValue = None
-
+                    currValue = ''
+            
+                valueType = type(currValue)
+                if valueType != list: currValue = [currValue]
+                
                 if s['controlType'] == 'textInput':
-                    inputField = colander.SchemaNode(
-                        colander.String(),
-                        widget=deform.widget.TextInputWidget(size=60),
-                        name=s['name'],
-                        )
+                    sep = zip(*self.separate(currValue)) 
+                    controlList.append(myControls.TextControl(_(s['name']), s['name'], list(sep[0]), list(sep[1])))
+                elif s['controlType'] == 'textAreaInput':
+                    sep = zip(*self.separate(currValue)) 
+                    controlList.append(myControls.TextAreaControl(_(s['name']), s['name'], list(sep[0]), list(sep[1])))
                 elif s['controlType'] == 'dateInput':
-                    inputField = colander.SchemaNode(
-                        colander.String(),
-                        widget=deform.widget.TextInputWidget(size=20),
-                        name=s['name'],
-                        )
+                    controlList.append(myControls.DateControl(_(s['name']), s['name'], currValue))
                 elif s['controlType'] == 'objectInput':
-                    inputField = colander.SchemaNode(
-                        colander.String(),
-                        widget=ObjectInputWidget(objectClass=s['objectClass']),
-                        name=s['name'],
-                        )
+                    controlList.append(myControls.ObjectInputControl(_(s['name']), s['name'], currValue, s['objectClass']))
                 elif s['controlType'] == 'checkInput':
-                    inputField = colander.SchemaNode(
-                        colander.Boolean(),
-                        widget=deform.widget.CheckboxWidget(),
-                        name=s['name'],
-                        )
+                    if currValue == 'true':
+                        controlList.append(myControls.CheckControl(_(s['name']), s['name'], True))
+                    else:
+                        controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                 elif s['controlType'] == 'fileInput':
-                    inputField = colander.SchemaNode(
-                        deform.FileData(),
-                        widget=deform.widget.FileUploadWidget(tmpstore),
-                        name=s['name']
-                        )
-                    currValue = None
-                    hasFile = True
-
-                if currValue is not None:
-                    inputField.default = currValue
-
-                schema.add(inputField)
-
-            form = deform.Form(schema, action='updateObject', buttons=('submit',))
-            r1 = form.render()
-
-            if hasFile:
-                sdm = self.context.session_data_manager
-                session = sdm.getSessionData(create=True)
-                if self.request.AUTHENTICATED_USER:
-                    usrId = '?u=' + self.request.AUTHENTICATED_USER.getId()
-                else:
-                    usrId = ''
-
-                r1 += "<div width='100%' height='800px'><iframe width='100%' height='800px' src='http://stress.upc.es:8080/ArtsCombinatoriesRest/objects/" + oid + "/file" + usrId + "'></iframe></div>"
-
-            class Schema(colander.Schema):
-                objectId = colander.SchemaNode(
-                    colander.String(),
-                    widget=deform.widget.HiddenWidget(),
-                    default=oid,
-                    )
-
-            form = deform.Form(Schema(), action='deleteObject', buttons=('delete',))
-            r1 = r1 + form.render()
-
-            return r1
-        else:
-            return 'Oops!'
+                    controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], currValue))
+            
+            form = myControls.Form('updateObject', controlList)                
+            self.html = form.render()

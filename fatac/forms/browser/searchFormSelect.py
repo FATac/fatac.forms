@@ -38,7 +38,7 @@ class searchFormSelect(BrowserView):
 
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
-            if self.request.AUTHENTICATED_USER:
+            if self.request.AUTHENTICATED_USER and self.request.AUTHENTICATED_USER is not None and self.request.AUTHENTICATED_USER.getId() is not None:
                 usrId = '&u=' + self.request.AUTHENTICATED_USER.getId()
             else:
                 usrId = ''
@@ -50,7 +50,10 @@ class searchFormSelect(BrowserView):
             r2 = '<table>'
             for s in jsonTree.keys():
                 for k in jsonTree[s].keys():
-                    r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k] + '</td></tr>'
+                    if type(jsonTree[s][k]) != list:
+                        r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k] + '</td></tr>'
+                    else:
+                        r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k][0] + '</td></tr>'
                 r2 = r2 + '<tr><td>&nbsp;</td><td><a href=\"javascript:window.opener.setObjectId(\'' + s + '\'); window.close();\">[Seleccionar]</a></tr>'
                 r2 = r2 + '<tr><td>&nbsp;</td></tr>'
             r2 = r2 + '</table>'

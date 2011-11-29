@@ -128,5 +128,18 @@
         class=".viewRdf.viewRdf"
         permission="zope2.Public"
         />
+        
+    <browser:page
+        for="*"
+        name="uploadMedia"
+        class=".uploadMedia.uploadMedia"
+        permission="zope2.Public"
+        />
+        
+    <!-- Resource directory for stylesheets -->
+    <browser:resourceDirectory
+        name="fatac.forms.js"
+        directory="js"
+        />
       
 </configure>

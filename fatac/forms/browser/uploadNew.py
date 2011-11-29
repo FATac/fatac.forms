@@ -1,6 +1,7 @@
 import deform
 import colander
 import json
+import myControls
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
@@ -25,67 +26,29 @@ class uploadNew(BrowserView):
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             
+            controlList = []
+            
             if jsonTree['className'] == className:
                 tmpstore = dict()
-
-                class Schema(colander.Schema):
-                    className = colander.SchemaNode(
-                        colander.String(),
-                        widget=deform.widget.HiddenWidget(),
-                        default=jsonTree['className'],
-                        )
-                    about = colander.SchemaNode(
-                        colander.String(),
-                        widget=deform.widget.TextInputWidget(size=60),
-                        name='about'
-                        )
-
-                schema = Schema()
-
+                
+                controlList.append(myControls.HiddenInputControl('type', jsonTree['className']))
+                controlList.append(myControls.TextControl('About', 'about', '', lang=None, multi=False))
+                
                 for s in jsonTree['inputList']:
                     if s['controlType'] == 'textInput':
-                        inputField = colander.SchemaNode(
-                            colander.String(),
-                            widget=deform.widget.TextInputWidget(size=60),
-                            name=s['name'],
-                            title=_(s['name']),
-                            )
+                        controlList.append(myControls.TextControl( _(s['name']), s['name'], ''))
+                    elif s['controlType'] == 'textAreaInput':
+                        controlList.append(myControls.TextAreaControl(_(s['name']), s['name'], ''))
                     elif s['controlType'] == 'dateInput':
-                        import datetime
-                        from colander import Range
-                        inputField = colander.SchemaNode(
-                            colander.Date(),
-                            validator=Range(
-                                min=datetime.date(2010, 5, 5)
-                                ),
-                            name=s['name'],
-                            title=_(s['name']),
-                            )
+                        controlList.append(myControls.DateControl(_(s['name']), s['name'], ''))
                     elif s['controlType'] == 'objectInput':
-                        inputField = colander.SchemaNode(
-                            colander.String(),
-                            widget=ObjectInputWidget(objectClass=s['objectClass']),
-                            name=s['name'],
-                            title=_(s['name']),
-                            )
+                        controlList.append(myControls.ObjectInputControl(_(s['name']), s['name'], '', s['objectClass']))
                     elif s['controlType'] == 'checkInput':
-                        inputField = colander.SchemaNode(
-                            colander.Boolean(),
-                            widget=deform.widget.CheckboxWidget(),
-                            name=s['name'],
-                            title=_(s['name']),
-                            )
+                        controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                     elif s['controlType'] == 'fileInput':
-                        inputField = colander.SchemaNode(
-                            deform.FileData(),
-                            widget=deform.widget.FileUploadWidget(tmpstore),
-                            name=s['name'],
-                            title=_(s['name']),
-                            )
-
-                    schema.add(inputField)
-
-                form = deform.Form(schema, action='uploadObject', buttons=('submit',))
+                        controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], ''))                    
+                
+                form = myControls.Form('uploadObject', controlList)                
                 return form.render()
             else:
                 return 'Oops!'

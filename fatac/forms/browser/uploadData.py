@@ -39,7 +39,7 @@ class uploadData(BrowserView):
         if 'c' in self.request.form:
             qs = '?c=' + self.request.form['c']
         else:
-            qs = '?c=Root'
+            qs = ''
 
         resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/tree' + qs)
         jsonResult = resp.tee().read()

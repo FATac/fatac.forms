@@ -1,8 +1,17 @@
 from deform.widget import Widget
 from colander import null
 
+class GenericInputWidget(Widget):
+    
+    def __init__(self, objectClass=None, **kw):
+        Widget.__init__(self, **kw)
+        self.objectClass = objectClass
 
-class ObjectInputWidget(Widget):
+    def serialize(self, field, cstruct, readonly=False):
+        ""
+        ""
+        
+class ObjectInputWidget(GenericInputWidget):
     objectClass = ""
 
     def __init__(self, objectClass=None, **kw):

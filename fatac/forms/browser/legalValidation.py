@@ -47,7 +47,7 @@ class legalValidation(BrowserView):
 
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://stress:8080/ArtsCombinatoriesRest/objects/' + objectIdsVal.split(",")[0] + '/color'
+            crida = 'http://stress:8080/ArtsCombinatoriesRest/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<div style='width:150px;height:150px;background-color:" + resp.tee().read() + "'> &nbsp;</div>"
 
@@ -192,7 +192,7 @@ class legalValidationAux(BrowserView):
 
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://stress:8080/ArtsCombinatoriesRest/objects/' + objectIdsVal.split(",")[0] + '/color'
+            crida = 'http://stress:8080/ArtsCombinatoriesRest/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<script> window.opener.setLegalResult('" + resp.tee().read() + "'); window.close(); </script>"
 

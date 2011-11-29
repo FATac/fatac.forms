@@ -12,41 +12,55 @@ class updateObject(BrowserView):
     __call__ = ViewPageTemplateFile('templates/updateObject.pt')
 
     def render(self):
-        if 'className' in self.request and 'objectId' in self.request:
-            objectId = self.request['objectId']
-            className = self.request['className']
+        if 'submit' in self.request and 'type' in self.request:
+            className = self.request['type']
+            about = self.request['about']
             resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
-            print self.request
-
-            jsonRequest = {'id': objectId}
+            jsonRequest = {'type': className}
             for s in jsonTree['inputList']:
-                fieldName = s['name']
+                nameparts = s['name'].split(":")
+                
+                if len(nameparts)>1:
+                    fieldName = nameparts[1]
+                    prefix = nameparts[0]
+                else:
+                    fieldName = nameparts[0]
+                    prefix = None
+                
+                print fieldName
                 if fieldName in self.request:
                     fieldValue = self.request[fieldName]
+                    if fieldName+'_lang' in self.request:
+                        tmp = []
+                        fieldLang = self.request[fieldName+'_lang']
+                        if type(fieldValue) == list:
+                            for v,l in zip(fieldValue, fieldLang):
+                                tmp.append(v+'@'+l)
+                        else:
+                            tmp = fieldValue+'@'+fieldLang
+                        
+                        if tmp == '@': tmp = ''    
+                        fieldValue = tmp
+                            
+                    if fieldName+'_prefix' in self.request:
+                        fieldPrefix = self.request[fieldName+'_prefix']
+                        if type(fieldPrefix) == list:
+                            fieldName = fieldPrefix[0] + ":" + fieldName
+                        else:
+                            fieldName = fieldPrefix + ":" + fieldName
+                    
                     jsonRequest[fieldName] = fieldValue
-                elif fieldName == 'filePath':
-                    upload = self.request.get('upload')
-                    jsonRequest[fieldName] = upload.filename
 
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + objectId + '/update',
+            resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/'+about+'/update',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonRequest))
 
             result = resp.tee().read()
-            if result == 'error':
-                return 'Error'
-            else:
-                try:
-                    resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + objectId + '/file/upload?fn=' + upload.filename,
-                                        method='POST',
-                                        headers={'Content-Type': 'multipart/form-data'},
-                                        body=upload.read())
-                    return resp.tee().read()
-                except NameError:
-                    return ''
+            
+            return result
         else:
             return 'Oops!'

@@ -55,7 +55,7 @@ class viewObject(BrowserView):
         else:
             usrId = ''
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/objects/' + oid + usrId)
+        resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -73,7 +73,7 @@ class viewObject(BrowserView):
 
         for s in jsonTree['inputList']:
             if s['controlType'] == 'fileInput':
-                self.mLink = 'http://stress.upc.es:8080/ArtsCombinatoriesRest/objects/' + oid + '/file' + usrId
+                self.mLink = ''
 
             try:
                 currValue = obj[s['name']]
