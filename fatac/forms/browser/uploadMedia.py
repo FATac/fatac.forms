@@ -2,6 +2,9 @@ import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from fatac.theme.browser.interfaces import IFatacSettings
 
 
 class uploadMedia(BrowserView):
@@ -10,6 +13,12 @@ class uploadMedia(BrowserView):
         self.context = context
         
     __call__ = ViewPageTemplateFile('templates/uploadMedia.pt')
+    
+    def getHost(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFatacSettings)
+        url = settings.rest_server
+        return url
     
     def render(self):
         if 'mediafile' in self.request:

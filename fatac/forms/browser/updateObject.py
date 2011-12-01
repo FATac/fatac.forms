@@ -30,7 +30,6 @@ class updateObject(BrowserView):
                     fieldName = nameparts[0]
                     prefix = None
                 
-                print fieldName
                 if fieldName in self.request:
                     fieldValue = self.request[fieldName]
                     if fieldName+'_lang' in self.request:
@@ -38,9 +37,15 @@ class updateObject(BrowserView):
                         fieldLang = self.request[fieldName+'_lang']
                         if type(fieldValue) == list:
                             for v,l in zip(fieldValue, fieldLang):
-                                tmp.append(v+'@'+l)
+                                if fieldLang!='':
+                                    tmp.append(v+'@'+l)
+                                else:
+                                    tmp.append(v)
                         else:
-                            tmp = fieldValue+'@'+fieldLang
+                            if fieldLang!='':
+                                tmp = fieldValue+'@'+fieldLang
+                            else:
+                                tmp = fieldValue
                         
                         if tmp == '@': tmp = ''    
                         fieldValue = tmp
