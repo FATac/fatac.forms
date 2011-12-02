@@ -5,9 +5,9 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
-<head>
-    <metal:block metal:fill-slot="head_slot">
-    	<script>
+    <head>
+        <metal:block metal:fill-slot="head_slot">
+            <script>
     		function setFormValue(n, v) {
     			field = eval('document.getElementById("deform").'+n);
     			if (field) {
@@ -15,22 +15,30 @@
 	    			else field.value = v;
     			}
     		}
-    	</script>
-    </metal:block>
+            </script>
+        </metal:block>
 
-    <metal:block fill-slot="top_slot"
-                 tal:define="dummy python:request.set('disable_border',1);
-                             disable_column_one python:request.set('disable_plone.leftcolumn',1);
-                             disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
-</head>
+        <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1);
+                                                      disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                                                      disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+    </head>
 
-<body>
-<metal:main fill-slot="main">
-    <div id="content-core">
-        <div tal:replace="structure view/render">
-        </div>
-    </div>
-    <div id="legalDataAjax"></div>
-</metal:main>
-</body>
+    <body>
+        <metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Validació legal</h1>
+        </metal:content-title>
+
+        <metal:content-description fill-slot="content-description">
+            <div class="documentDescription" tal:content="view/retIdObjecte"></div>
+            <div class="miniatura_objecte_validacio_legal">
+                <tal:repl tal:replace="structure view/retMiniaturaObjecte" />
+            </div>
+            <div class="visualClear"></div>
+        </metal:content-description>
+
+        <metal:content-core fill-slot="content-core">
+            <div tal:replace="structure view/render"></div>
+            <div id="legalDataAjax"></div>
+        </metal:content-core>
+    </body>
 </html>

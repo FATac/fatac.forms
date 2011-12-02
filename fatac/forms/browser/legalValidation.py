@@ -6,6 +6,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from widgets import LegalResultWidget
 from fatac.theme.browser.funcionsCerca import funcionsCerca
+from Products.CMFCore.utils import getToolByName
 
 
 class legalValidation(BrowserView, funcionsCerca):
@@ -14,6 +15,24 @@ class legalValidation(BrowserView, funcionsCerca):
         self.context = context
 
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
+
+    def retIdObjecte(self):
+        """ retorna l'id de l'objecte sobre el que estem treballant
+        """
+        if 'objectIdsVal' in self.request:
+            return self.request['objectIdsVal']
+        return None
+
+    def retMiniaturaObjecte(self):
+        """ retorna l'html de la miniatura de l'objecte
+        """
+        portal = getToolByName(self, 'portal_url')
+        portal = portal.getPortalObject()
+        self.request.set('idobjecte', self.retIdObjecte())
+        self.request.set('visualitzacio', 'imatge')
+        self.request.set('zoom', 1)
+        html = portal.restrictedTraverse('@@genericView')()
+        return html
 
     def render(self):
         userId = ''
