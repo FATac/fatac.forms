@@ -2,9 +2,11 @@ import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
 
-class viewObject(BrowserView):
+
+class viewObject(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -55,7 +57,7 @@ class viewObject(BrowserView):
         else:
             usrId = ''
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/' + oid + usrId)
+        resp = request(self.retServidorRest() + '/resource/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -64,7 +66,7 @@ class viewObject(BrowserView):
         except KeyError:
             className = None
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
+        resp = request(self.retServidorRest() + '/classes/' + className + '/form')
         jsonResult = resp.tee().read()
         jsonTree = json.loads(jsonResult)
 

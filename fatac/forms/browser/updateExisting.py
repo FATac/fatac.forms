@@ -8,8 +8,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from widgets import ObjectInputWidget
 from fatac.forms import FatAcMessageFactory as _
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
-class updateExisting(BrowserView):
+class updateExisting(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -57,7 +58,7 @@ class updateExisting(BrowserView):
         else:
             usrId = ''
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/' + oid + usrId)
+        resp = request(self.retServidorRest() + '/resource/' + oid + usrId)
         jsonResult = resp.tee().read()
         obj = json.loads(jsonResult)
 
@@ -67,7 +68,7 @@ class updateExisting(BrowserView):
             self.className = None
         
         if self.className != None:
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + self.className[0] + '/form')
+            resp = request(self.retServidorRest() + '/classes/' + self.className[0] + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             

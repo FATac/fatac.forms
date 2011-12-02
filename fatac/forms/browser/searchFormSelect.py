@@ -3,9 +3,9 @@ import colander
 import json
 from Products.Five.browser import BrowserView
 from restkit import request
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
-
-class searchFormSelect(BrowserView):
+class searchFormSelect(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -43,7 +43,7 @@ class searchFormSelect(BrowserView):
             else:
                 usrId = ''
 
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/search?s=' + self.request['text'] + clause + usrId)
+            resp = request(self.retServidorRest() + '/search?s=' + self.request['text'] + clause + usrId)
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 

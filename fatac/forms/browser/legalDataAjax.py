@@ -1,9 +1,10 @@
 import json
 from Products.Five.browser import BrowserView
 from restkit import request
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
 
-class legalDataAjax(BrowserView):
+class legalDataAjax(BrowserView, funcionsCerca):
 
     def __init__(self, context, request):
         self.request = request
@@ -14,7 +15,7 @@ class legalDataAjax(BrowserView):
         keyValue = self.request['keyValue']
         userId = self.request['userId']
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/restore?key=' + keyName + '&value=' + keyValue + '&userId=' + userId)
+        resp = request(self.retServidorRest() + '/legal/restore?key=' + keyName + '&value=' + keyValue + '&userId=' + userId)
         jsonResult = resp.tee().read()
 
         if jsonResult == 'error':

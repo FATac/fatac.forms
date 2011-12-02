@@ -5,9 +5,10 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from widgets import LegalResultWidget
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
 
-class legalValidation(BrowserView):
+class legalValidation(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -23,7 +24,7 @@ class legalValidation(BrowserView):
             userId = self.request['userId']
 
         if userId == '':
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/start',
+            resp = request(self.retServidorRest() + '/legal/start',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(objectIdsVal.split(",")))
@@ -40,14 +41,14 @@ class legalValidation(BrowserView):
                 if self.request.get(s, None):
                     jsonData[s] = self.request[s]
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/next',
+        resp = request(self.retServidorRest() + '/legal/next',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonData))
 
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://stress:8080/ArtsCombinatoriesRest/resource/' + objectIdsVal.split(",")[0] + '/color'
+            crida = self.retServidorRest() + '/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<div style='width:150px;height:150px;background-color:" + resp.tee().read() + "'> &nbsp;</div>"
 
@@ -168,7 +169,7 @@ class legalValidationAux(BrowserView):
             userId = self.request['userId']
 
         if userId == '':
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/start',
+            resp = request(self.retServidorRest() + '/legal/start',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(objectIdsVal.split(",")))
@@ -185,14 +186,14 @@ class legalValidationAux(BrowserView):
                 if self.request.get(s, None):
                     jsonData[s] = self.request[s]
 
-        resp = request('http://stress:8080/ArtsCombinatoriesRest/legal/next',
+        resp = request(self.retServidorRest() + '/legal/next',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonData))
 
         jsonResult = resp.tee().read()
         if jsonResult == 'error' or jsonResult == 'success':
-            crida = 'http://stress:8080/ArtsCombinatoriesRest/resource/' + objectIdsVal.split(",")[0] + '/color'
+            crida = self.retServidorRest() + '/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<script> window.opener.setLegalResult('" + resp.tee().read() + "'); window.close(); </script>"
 

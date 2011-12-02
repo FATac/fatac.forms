@@ -7,9 +7,10 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from widgets import ObjectInputWidget
 from fatac.forms import FatAcMessageFactory as _
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
 
-class uploadNew(BrowserView):
+class uploadNew(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -22,7 +23,7 @@ class uploadNew(BrowserView):
     def render(self):
         if 'submit' in self.request and 'item' in self.request:
             className = self.request['item']
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
+            resp = request(self.retServidorRest() + '/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             

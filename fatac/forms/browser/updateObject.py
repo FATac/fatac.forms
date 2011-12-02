@@ -2,9 +2,9 @@ import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
+from fatac.theme.browser.funcionsCerca import funcionsCerca
 
-
-class updateObject(BrowserView):
+class updateObject(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -15,7 +15,7 @@ class updateObject(BrowserView):
         if 'submit' in self.request and 'type' in self.request:
             className = self.request['type']
             about = self.request['about']
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/classes/' + className + '/form')
+            resp = request(self.retServidorRest() + '/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
@@ -59,7 +59,7 @@ class updateObject(BrowserView):
                     
                     jsonRequest[fieldName] = fieldValue
 
-            resp = request('http://stress:8080/ArtsCombinatoriesRest/resource/'+about+'/update',
+            resp = request(self.retServidorRest() + '/resource/'+about+'/update',
                                 method='POST',
                                 headers={'Content-Type': 'application/json'},
                                 body=json.dumps(jsonRequest))
