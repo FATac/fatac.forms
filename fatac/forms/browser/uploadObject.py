@@ -39,9 +39,11 @@ class uploadObject(BrowserView, funcionsCerca):
                         fieldLang = self.request[fieldName+'_lang']
                         if type(fieldValue) == list:
                             for v,l in zip(fieldValue, fieldLang):
-                                tmp.append(v+'@'+l)
+                                if l!='': tmp.append(v+'@'+l)
+                                else: tmp.append(v)
                         else:
-                            tmp = fieldValue+'@'+fieldLang
+                            if fieldLang!='': tmp = fieldValue+'@'+fieldLang
+                            else: tmp = fieldValue
                         
                         if tmp == '@': tmp = ''    
                         fieldValue = tmp
