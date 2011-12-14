@@ -29,13 +29,13 @@ class uploadMedia(BrowserView, funcionsCerca):
             resp = resp.tee().read()
             
             if resp != "error":            
-                return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a>&nbsp;<a href='"+resp+"'>Delete</a></div>"
+                return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a>&nbsp;<a href='"+resp+"/delete'>Delete</a></div>"
             else:
                 return "Error"
             
         if 'f' in self.request:
             resp = self.request["f"]
-            return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a></div>"
+            return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a></div>&nbsp;<a href='"+resp+"/delete'>Delete</a></div>"
             
         return "Select a media to upload."
     
