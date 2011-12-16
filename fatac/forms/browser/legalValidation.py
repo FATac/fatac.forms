@@ -20,7 +20,7 @@ class legalValidation(BrowserView, funcionsCerca):
         """ retorna l'id de l'objecte sobre el que estem treballant
         """
         if 'objectIdsVal' in self.request:
-            return self.request['objectIdsVal']
+            return str.replace(self.request['objectIdsVal'], "_", " ")
         return None
 
     def retMiniaturaObjecte(self):

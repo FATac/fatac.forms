@@ -20,13 +20,18 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
+	<metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Selecció de URL</h1><br>
+    </metal:content-title>
+	<metal:content-core fill-slot="content-core">
 	<form action="uploadMedia" method="post" enctype="multipart/form-data" name="mediaForm">
 	    <div id="header-core">
 	        <label>Url</label>
-	        <input type="url" name="mediaurl" size="40">
-	        <input type="submit" value="Ok">
+	        <input type="text" name="mediaurl" size="40" tal:attributes="value view/url">
+	        <input type="submit" value="Preview">
 	        <br><br>
+	        <div class="documentDescription">Utilitzar fitxer media</div><br/>
+            <div class="visualClear"></div>
 	        <label>Media</label>
 	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();">
 	    </div>
@@ -35,7 +40,11 @@
 	    	<div tal:replace="structure view/render">
 	        </div>
 	    </div>
+	    <div>
+	    	<br/><br/><br/>
+	    	<input type="button" value="D'acord">
+	    </div>
 	</form>
-</metal:main>
+	</metal:content-core>
 </body>
 </html>

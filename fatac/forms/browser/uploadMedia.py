@@ -14,28 +14,57 @@ class uploadMedia(BrowserView, funcionsCerca):
         
     __call__ = ViewPageTemplateFile('templates/uploadMedia.pt')
     
+    def url(self):
+        self.html = self.render2()
+        try:
+            if self.urlValue is not None:
+                return self.urlValue
+        except AttributeError:
+            return ""
+        
+        return ""
+    
     def render(self):
-        if 'mediafile' in self.request:
+        return self.html
+    
+    def render2(self):
+        if 'mediaurl' in self.request and self.request['mediaurl'] != '':
+            self.urlValue = self.request['mediaurl']
+        
+        if 'mediafile' in self.request and self.request['mediafile'] != '':
             upload = self.request.get("mediafile")
-            
+            content = upload.read()
             parts = upload.filename.split(".")
             last = len(parts) - 1
             ext = parts[last]
             
-            resp = request('http://localhost:8080/ArtsCombinatoriesRest/media/upload?fn='+ext,
-                                            method='POST',
-                                            headers={'Content-Type': 'multipart/form-data'},
-                                            body=upload.read())
-            resp = resp.tee().read()
-            
-            if resp != "error":            
-                return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a>&nbsp;<a href='"+resp+"/delete'>Delete</a></div>"
-            else:
-                return "Error"
+            if content is not None and content != '':
+                parts = upload.filename.split(".")
+                last = len(parts) - 1
+                ext = parts[last]
+                
+                resp = request('http://localhost:8080/ArtsCombinatoriesRest/media/upload?fn='+ext,
+                                                method='POST',
+                                                headers={'Content-Type': 'multipart/form-data'},
+                                                body=upload)
+                resp = resp.tee().read()
+                self.urlValue = resp
+                
+                if resp != "error":            
+                    return "<div><iframe width='600' height='400' src='"+resp+"'></iframe></div>\n"
+                else:
+                    return "Error"
             
         if 'f' in self.request:
             resp = self.request["f"]
-            return "<div><iframe src='"+resp+"'></iframe></div>\n <div><a href='"+resp+"'>"+resp+"</a></div>&nbsp;<a href='"+resp+"/delete'>Delete</a></div>"
+            self.urlValue = resp
+            return "<div><iframe width='600' height='400' src='"+resp+"'></iframe></div>\n"
+        
+        try:
+            if self.urlValue is not None and self.urlValue!='':
+                return "<div><iframe width='600' height='400' src='"+self.urlValue+"'></iframe></div>\n"
+        except AttributeError:
+            ""
             
-        return "Select a media to upload."
+        return "Seleccioni un fitxer media."
     

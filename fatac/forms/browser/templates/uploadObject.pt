@@ -20,11 +20,11 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
-    <div id="content-core">
-        <div tal:replace="structure view/render">
-        </div>
-    </div>
-</metal:main>
+	<metal:main fill-slot="main">
+	    <div id="content-core">
+	        <div tal:replace="structure view/render">
+	        </div>
+	    </div>
+	</metal:main>
 </body>
 </html>
