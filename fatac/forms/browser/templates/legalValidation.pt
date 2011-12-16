@@ -29,16 +29,53 @@
         </metal:content-title>
 
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription" tal:content="view/retIdObjecte"></div>
-            <div class="miniatura_objecte_validacio_legal">
-                <tal:repl tal:replace="structure view/retMiniaturaObjecte" />
+            <div class="documentDescription">
+                <tal:rep tal:repeat="idObj view/retIdsObjectes">
+                    <tal:repl tal:replace="idObj" />
+                    <tal:co tal:condition="not: repeat/idObj/end">, </tal:co>
+                </tal:rep>
             </div>
-            <div class="visualClear"></div>
         </metal:content-description>
 
         <metal:content-core fill-slot="content-core">
             <div tal:replace="structure view/render"></div>
             <div id="legalDataAjax"></div>
+
+            <div class="visualClear"></div>
+            <!-- TODO: fer la crida on toqui! -->
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $(".scrollable_legal_documents").scrollable({api:true, vertical: true, mousewheel: true});
+                });
+            </script>
+            <div id="legal_documents" i18n:domain="fatac.theme">
+                <div class="requadre_resultats">
+                    <a class="arrow_left prev browse left">
+                        <img class="arrow_up" src="++resource++fatac.theme.images/arrow_up_search.png" />
+                    </a>
+                    <div class="visualClear"><!--  --></div>
+
+                    <div class="scrollable_legal_documents scrollable_fatac">
+                        <div class="items_legal_documents items_fatac">
+                            <tal:def tal:define="resultats view/retLegalDocuments" tal:repeat="resultat resultats">
+                                <tal:cond tal:define="num repeat/resultat/number; final repeat/resultat/end" tal:condition="python: num%5 == 1" tal:replace='structure string:<div class="item_legal item_fatac">' />
+                                <div tal:attributes="id resultat/id; class string:resultat resultat-${repeat/resultat/number}">
+                                    <a tal:attributes="href string:${here/portal_url}/legalValidation?objectIdsVal=${resultat/id}">
+                                        <tal:repl tal:replace="structure resultat/html" />
+                                    </a>
+                                </div>
+                                <tal:cond tal:condition="python: num%5 == 0 or final" tal:define="num repeat/resultat/number; final repeat/resultat/end" tal:replace="structure string:</div>" />
+                            </tal:def>
+                        </div>
+                    </div>
+
+                    <div class="visualClear"><!--  --></div>
+                    <a class="arrow_right next browse right">
+                        <img class="arrow_down" src="++resource++fatac.theme.images/arrow_down_search.png" />
+                    </a>
+                </div>
+            </div>
+
         </metal:content-core>
     </body>
 </html>
