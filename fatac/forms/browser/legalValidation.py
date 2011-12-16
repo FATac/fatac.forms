@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import deform
 import colander
 import json
@@ -16,23 +18,27 @@ class legalValidation(BrowserView, funcionsCerca):
 
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
 
-    def retIdObjecte(self):
-        """ retorna l'id de l'objecte sobre el que estem treballant
+    def retIdsObjectes(self):
+        """ retorna una llista amb els ids dels objectes sobre els que estem
+        treballant
         """
         if 'objectIdsVal' in self.request:
             return str.replace(self.request['objectIdsVal'], "_", " ")
         return None
 
-    def retMiniaturaObjecte(self):
-        """ retorna l'html de la miniatura de l'objecte
+    def retLegalDocuments(self):
+        """ retorna una llista de dicionaris amb l'id i l'html de la visualització
+        'fitxa_home' dels objectes sobre els que estem treballant
         """
         portal = getToolByName(self, 'portal_url')
         portal = portal.getPortalObject()
-        self.request.set('idobjecte', self.retIdObjecte())
-        self.request.set('visualitzacio', 'imatge')
-        self.request.set('zoom', 1)
-        html = portal.restrictedTraverse('@@genericView')()
-        return html
+        dades_resultats = []
+        for id_objecte in self.retIdsObjectes():
+            self.request.set('idobjecte', id_objecte)
+            self.request.set('visualitzacio', 'fitxa_home')
+            html = portal.restrictedTraverse('@@genericView')()
+            dades_resultats.append({'id': id_objecte, 'html': html})
+        return dades_resultats
 
     def render(self):
         userId = ''
