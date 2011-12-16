@@ -21,14 +21,19 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
-	<div>
-		<div tal:content="view/className"> </div>
-	</div>
-    <div id="content-core">
-        <div tal:replace="structure view/render">
-        </div>
-    </div>
-</metal:main>
+	<metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Nou objecte</h1>
+    </metal:content-title>
+    <metal:content-description fill-slot="content-description">
+            <div class="documentDescription" tal:content="view/className"></div>
+            <div class="visualClear"></div>
+    </metal:content-description>
+    <metal:content-core fill-slot="content-core">
+    	<br/><br/>
+	    <div class="deformFormFieldset" id="content-core">
+	        <div tal:replace="structure view/render">
+	        </div>
+	    </div>
+    </metal:content-core>
 </body>
 </html>

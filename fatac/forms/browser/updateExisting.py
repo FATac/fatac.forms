@@ -23,12 +23,12 @@ class updateExisting(BrowserView, funcionsCerca):
         
         if type(self.className) == list:
             classList = ""
-            for c in self.className: classList += c + " - "
+            for c in self.className: classList += c + ", "
             classList = classList[:-2]
         else:
             classList = self.className
         
-        return str.replace(oid, "_", " ") + " ( " + classList + ")"
+        return str.replace(oid, "_", " ") + " (" + classList + ")"
     
     def separate(self, value):
         if type(value) != list:

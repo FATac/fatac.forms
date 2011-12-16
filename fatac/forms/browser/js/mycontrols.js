@@ -6,6 +6,7 @@ function showMediaSelector(obj) {
 
 function autocompleteLanguages(control) {
 	if (control.value == "") return;
+	control.value = control.value.toLowerCase();
 	for (var i=0;i<langList.length;i++) {
 		if  (langList[i].match("^"+control.value)) {
 			control.value = langList[i]; return; 

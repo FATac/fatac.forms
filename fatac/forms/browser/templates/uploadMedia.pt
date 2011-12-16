@@ -30,7 +30,8 @@
 	        <label>Media</label>
 	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();">
 	    </div>
-	    <div id='content-core'>
+	    <div>&nbsp;</div>
+	    <div id='content-core' >
 	    	<div tal:replace="structure view/render">
 	        </div>
 	    </div>
