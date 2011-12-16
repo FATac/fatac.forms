@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import deform
 import colander
 import json
