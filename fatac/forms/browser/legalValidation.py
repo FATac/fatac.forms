@@ -23,7 +23,7 @@ class legalValidation(BrowserView, funcionsCerca):
         treballant
         """
         if 'objectIdsVal' in self.request:
-            return str.replace(self.request['objectIdsVal'], "_", " ")
+            return self.request['objectIdsVal'].split(",")
         return None
 
     def retLegalDocuments(self):
