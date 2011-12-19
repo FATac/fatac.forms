@@ -30,11 +30,13 @@ class searchForm(BrowserView, funcionsCerca):
         name = None
         value = None
         link = None
+        legalLink = None
 
-        def __init__(self, name, value, link):
+        def __init__(self, name, value, link, legalLink):
             self.name = name
             self.value = value
             self.link = link
+            self.legalLink = legalLink
 
     def results(self):
         result = list()
@@ -47,13 +49,16 @@ class searchForm(BrowserView, funcionsCerca):
             else:
                 usrId = ''
 
-            resp = request(self.retServidorRest() + '/search?s=' + self.request['text'] + usrId)
+            self.text = self.request['text']
+             
+            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + usrId)
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
             for s in jsonTree.keys():
+                result.append(self.resultItem("ID", s, None, None))
                 for k in jsonTree[s].keys():
-                    result.append(self.resultItem(k, jsonTree[s][k], None))
-                result.append(self.resultItem('', '', './updateExisting?id=' + s))
+                    result.append(self.resultItem(k, jsonTree[s][k], None, None))
+                result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s))
 
         return result
