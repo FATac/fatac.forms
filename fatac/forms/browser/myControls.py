@@ -147,6 +147,8 @@ class ObjectInputControl(GenericControl):
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v+"'>&nbsp;<input type='button' value='...' onclick='selectObject(\""+self.classNames+"\")' >\n"
+            if v != '':
+                html += "        &nbsp;<a href='/fatac/updateExisting?id="+v+"'>[Editar]</a>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"
