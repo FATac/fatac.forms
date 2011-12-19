@@ -54,6 +54,6 @@ class searchForm(BrowserView, funcionsCerca):
             for s in jsonTree.keys():
                 for k in jsonTree[s].keys():
                     result.append(self.resultItem(k, jsonTree[s][k], None))
-                result.append(self.resultItem('', '', './viewObject?id=' + s))
+                result.append(self.resultItem('', '', './updateExisting?id=' + s))
 
         return result

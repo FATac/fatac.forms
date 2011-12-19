@@ -34,7 +34,7 @@
 					<tr tal:condition="item/link">
 						<td>&nbsp;</td>
 						<td>
-							<a tal:attributes="href item/link" href="">Veure</a>
+							<a tal:attributes="href item/link" href="">Editar</a>
 						</td>
 					</tr>
 					<tr tal:condition="item/link">
