@@ -46,6 +46,15 @@ function removeControl(name, obj) {
 	}
 }
 
+function goToObject(id, pos) {
+	var locator = document.myform.locator.value;
+	if (pos!=null)
+		$("#mydiv").append('<form action="/fatac/updateExisting" name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
+	else
+		$("#mydiv").append('<form action="/fatac/updateExisting" name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"></form>');
+	document.myform2.submit();
+}
+
 (function($){
     
     $.fn.autoResize = function(options) {

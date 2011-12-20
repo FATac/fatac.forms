@@ -22,6 +22,9 @@
 
 <body>
 	<metal:content-title fill-slot="content-title">
+			<span tal:repeat="item view/locator">
+				<a tal:content="item/value" tal:attributes="href item/link"></a>&nbsp;>&nbsp;
+			</span>
             <h1 class="documentFirstHeading">Edició objecte</h1>
     </metal:content-title>
     <metal:content-description fill-slot="content-description">

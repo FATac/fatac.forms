@@ -11,6 +11,7 @@ from fatac.forms import FatAcMessageFactory as _
 from fatac.theme.browser.funcionsCerca import funcionsCerca
 
 class updateExisting(BrowserView, funcionsCerca):
+    
     def __init__(self, context, request):
         self.request = request
         self.context = context
@@ -29,6 +30,40 @@ class updateExisting(BrowserView, funcionsCerca):
             classList = self.className
         
         return str.replace(oid, "_", " ") + " (" + classList + ")"
+    
+    class resultItem:
+        value = None
+        link = None
+        
+        def __init__(self, value, link):
+            self.value = value
+            self.link = link
+    
+    def locator(self):
+        try:
+            oid = self.request.form['id']
+            loc = self.request.form['locator']
+            loclist = loc.split(",")[:-1]
+            if self.request.get('pos', None):
+                pos = self.request.form['pos']
+                loclist = loclist[:int(pos)+1]
+            else:
+                pos = None
+                        
+            result = []
+            idx = 0
+            for l in loclist:
+                result.append(self.resultItem(l,'javascript:goToObject("'+l+'","'+str(idx)+'")'))
+                idx = idx + 1
+            
+            if pos is None:
+                result.append(self.resultItem(oid,'javascript:goToObject("'+oid+'","'+str(idx)+'")'))
+                
+            return result
+        except KeyError:
+            oid = self.request.form['id']
+            result = [self.resultItem(oid,'javascript:goToObject("'+oid+'","0")')]
+            return result
     
     def separate(self, value):
         if type(value) != list:
@@ -50,6 +85,10 @@ class updateExisting(BrowserView, funcionsCerca):
     
     def render2(self):
         oid = self.request.form['id']
+        try:
+            loc = self.request.form['locator']
+        except KeyError:
+            loc = ''
 
         sdm = self.context.session_data_manager
         session = sdm.getSessionData(create=True)
@@ -65,10 +104,13 @@ class updateExisting(BrowserView, funcionsCerca):
         try:
             self.className = obj['rdf:type']
         except KeyError:
-            self.className = None
+            self.className = ""
         
         if self.className != None:
-            resp = request(self.retServidorRest() + '/classes/' + self.className[0] + '/form')
+            if type(self.className)==list:
+                resp = request(self.retServidorRest() + '/classes/' + self.className[0] + '/form')
+            else:
+                resp = request(self.retServidorRest() + '/classes/' + self.className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
             
@@ -102,6 +144,16 @@ class updateExisting(BrowserView, funcionsCerca):
                         controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                 elif s['controlType'] == 'fileInput':
                     controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], currValue))
+                    
+            if self.request.get('pos', None):
+                pos = self.request.form['pos']
+                loclist = loc.split(",")[:int(pos)+1]
+                loc2 = ''
+                for l in loclist: loc2 += l + ","
+                    
+                controlList.append(myControls.HiddenInputControl('locator', loc2))
+            else:
+                controlList.append(myControls.HiddenInputControl('locator', loc + oid + ","))
             
             form = myControls.Form('updateObject', controlList)                
             self.html = form.render()

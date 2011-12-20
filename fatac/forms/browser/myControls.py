@@ -7,12 +7,13 @@ class Form(object):
     def render(self):
         js = "  "
         
-        html = "<form action='"+self.action+"' method='"+self.method+"' name='myForm'>\n"
+        html = "<form action='"+self.action+"' method='"+self.method+"' name='myform'>\n"
         for control in self.controlList:
             html += control.render()
         
         html += "<input name='submit' type='submit' value='OK' >\n"
         html += "</form>\n"
+        html += "<div id='mydiv'></div>\n"
         
         return html
 
@@ -148,7 +149,7 @@ class ObjectInputControl(GenericControl):
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v+"'>&nbsp;<input type='button' value='...' onclick='selectObject(\""+self.classNames+"\")' >\n"
             if v != '':
-                html += "        &nbsp;<a href='/fatac/updateExisting?id="+v+"'>[Editar]</a>\n"
+                html += "        &nbsp;<a href='javascript:goToObject(\""+v+"\")'>[Anar-hi]</a>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"
