@@ -85,6 +85,7 @@ class updateExisting(BrowserView, funcionsCerca):
     
     def render2(self):
         oid = self.request.form['id']
+        
         try:
             loc = self.request.form['locator']
         except KeyError:
