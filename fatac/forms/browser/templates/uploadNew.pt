@@ -34,6 +34,7 @@
 	        <div tal:replace="structure view/render">
 	        </div>
 	    </div>
-    </metal:content-core>
+	    <a href="./uploadMedia" id="uploadMediaLink"></a>
+	</metal:content-core>
 </body>
 </html>

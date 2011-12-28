@@ -27,7 +27,7 @@ class legalValidation(BrowserView, funcionsCerca):
         return None
 
     def retLegalDocuments(self):
-        """ retorna una llista de dicionaris amb l'id i l'html de la visualització
+        """ retorna una llista de dicionaris amb l'id i l'html de la visualitzacio
         'fitxa_home' dels objectes sobre els que estem treballant
         """
         portal = getToolByName(self, 'portal_url')
@@ -72,10 +72,12 @@ class legalValidation(BrowserView, funcionsCerca):
                                 body=json.dumps(jsonData))
 
         jsonResult = resp.tee().read()
-        if jsonResult == 'error' or jsonResult == 'success':
+        if jsonResult == 'success':
             crida = self.retServidorRest() + '/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<div style='width:150px;height:150px;background-color:" + resp.tee().read() + "'> &nbsp;</div>"
+        elif jsonResult == 'error':
+            return "<br/>Error: unexpected termination of legal flow.<br/>"
 
         jsonTree = json.loads(jsonResult)
 
@@ -91,6 +93,7 @@ class legalValidation(BrowserView, funcionsCerca):
         for s in jsonTree:
             if s is None:
                 continue
+            
             fieldList.append(s['name'])
             if not 'defaultValue' in s:
                 s['defaultValue'] = ''
@@ -103,7 +106,8 @@ class legalValidation(BrowserView, funcionsCerca):
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
                     name=s['name'],
-                    default=s['defaultValue']
+                    missing=u'',
+                    required=False
                     )
             elif s['type'] == 'date':
                 import datetime
@@ -113,14 +117,16 @@ class legalValidation(BrowserView, funcionsCerca):
                     validator=Range(
                         min=datetime.date(2010, 5, 5)
                         ),
-                    name=s['name']
+                    name=s['name'],
+                    missing=u''
                     )
             elif s['type'] == 'boolean':
                 inputField = colander.SchemaNode(
                     colander.Boolean(),
                     widget=deform.widget.CheckboxWidget(),
                     name=s['name'],
-                    default=s['defaultValue']
+                    default=s['defaultValue'],
+                    missing=False
                     )
             elif s['type'] == 'hidden':
                 inputField = colander.SchemaNode(
@@ -142,11 +148,14 @@ class legalValidation(BrowserView, funcionsCerca):
                     name=s['name'],
                     default=s['defaultValue']
                     )
-
+                
+                if 'autodata' in s:
+                    autodataKey = s['name']
+                    inputField.id = 'autodataField'
+                else:
+                    inputField.missing = u''
+                
             schema.add(inputField)
-
-            if 'autodata' in s:
-                autodataKey = s['name']
 
         schema.add(colander.SchemaNode(
             colander.String(),
@@ -173,17 +182,39 @@ class legalValidation(BrowserView, funcionsCerca):
 
         ajaxLink = ''
         if autodataKey is not None:
-            ajaxLink = "<a id='autodataLink'>Autodata</a><script> function getKeyVal() { return document.getElementById('deform')." + autodataKey + ".value; } $('#autodataLink').click(function() { $('#legalDataAjax').load('legalDataAjax?keyName=" + autodataKey + "&keyValue='+getKeyVal()+'&userId=" + userId + "') }); </script>"
+            ajaxLink = "<span>(*) Recupera dades de processos anteriors d'acord amb la referencia</span><script> function getKeyVal() { return document.getElementById('deform')." + autodataKey + ".value; } $(\"input[name='"+autodataKey+"']\").blur(function() { $('#legalDataAjax').load('legalDataAjax?keyName=" + autodataKey + "&keyValue='+getKeyVal()+'&userId=" + userId + "') }); </script>"
 
         return form.render() + ajaxLink
 
 
-class legalValidationAux(BrowserView):
+class legalValidationAux(BrowserView, funcionsCerca):
     def __init__(self, context, request):
         self.request = request
         self.context = context
 
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
+    
+    def retIdsObjectes(self):
+        """ retorna una llista amb els ids dels objectes sobre els que estem
+        treballant
+        """
+        if 'objectIdsVal' in self.request:
+            return self.request['objectIdsVal'].split(",")
+        return None
+
+    def retLegalDocuments(self):
+        """ retorna una llista de dicionaris amb l'id i l'html de la visualitzacio
+        'fitxa_home' dels objectes sobre els que estem treballant
+        """
+        portal = getToolByName(self, 'portal_url')
+        portal = portal.getPortalObject()
+        dades_resultats = []
+        for id_objecte in self.retIdsObjectes():
+            self.request.set('idobjecte', id_objecte)
+            self.request.set('visualitzacio', 'fitxa_home')
+            html = portal.restrictedTraverse('@@genericView')()
+            dades_resultats.append({'id': id_objecte, 'html': html})
+        return dades_resultats
 
     def render(self):
         userId = ''
@@ -217,10 +248,12 @@ class legalValidationAux(BrowserView):
                                 body=json.dumps(jsonData))
 
         jsonResult = resp.tee().read()
-        if jsonResult == 'error' or jsonResult == 'success':
+        if jsonResult == 'success':
             crida = self.retServidorRest() + '/resource/' + objectIdsVal.split(",")[0] + '/color'
             resp = request(crida)
             return "<script> window.opener.setLegalResult('" + resp.tee().read() + "'); window.close(); </script>"
+        elif jsonResult == 'error':
+            return "Error: unexpected termination of legal flow."
 
         jsonTree = json.loads(jsonResult)
 

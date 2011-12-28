@@ -135,6 +135,14 @@
         class=".uploadMedia.uploadMedia"
         permission="zope2.Public"
         />
+
+    <browser:page
+        for="*"
+        name="uploadMediaAjax"
+        class=".uploadMediaAjax.uploadMediaAjax"
+        permission="zope2.Public"
+        />
+
         
     <!-- Resource directory for stylesheets -->
     <browser:resourceDirectory

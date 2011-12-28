@@ -1,7 +1,27 @@
 var langList = ["ca", "es", "en", "fr", "it", "de", "ar", "zh", "pt"]
 
+function getCurrentInputValue() {
+	if (window['currentInput'] != undefined) window['currentInput'].value;
+}
+function setCurrentInputValue(value) {
+	if (window['currentInput'] != undefined) window['currentInput'].value = value;
+}
+
+function mediaUrlPreview(url) {
+	$("#mediaurl").val(url);
+	if (url!='')
+		$("#preview").html("<iframe src='"+url+"' width='600' height='400' name='mediaFrame'></iframe>");
+	else
+		$("#preview").html("<iframe width='600' height='400' name='mediaFrame'></iframe>");
+}
+
+function setMediaUrl(url) {
+	if (window['mediaurl'] != undefined) window['mediaurl'].value = url;
+}
+
 function showMediaSelector(obj) {
-	window.open("./uploadMedia?f=" + obj.value);
+	currentInput = obj
+	$('#uploadMediaLink').trigger('click');
 }
 
 function autocompleteLanguages(control) {
@@ -146,5 +166,14 @@ function goToObject(id, pos) {
 
 jQuery(document).ready(function() {
 	callExpander();
+	
+	jQuery(function ($) { 
+	    $('#uploadMediaLink') 
+	        .prepOverlay({ 
+	            subtype: 'ajax', 
+	            filter: '#content > *',
+	            api: true
+	        }); 
+	});
 
 });

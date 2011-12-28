@@ -24,25 +24,24 @@
             <h1 class="documentFirstHeading">Selecció de URL</h1><br>
     </metal:content-title>
 	<metal:content-core fill-slot="content-core">
-	<form action="uploadMedia" method="post" enctype="multipart/form-data" name="mediaForm">
+	<form name="mediaForm" id="mediaForm" target="mediaFrame" enctype="multipart/form-data" method="post" action="./uploadMediaAjax">
 	    <div id="header-core">
 	        <label>Url</label>
-	        <input type="text" name="mediaurl" size="40" tal:attributes="value view/url">
-	        <input type="submit" value="Preview">
+	        <input type="text" name="mediaurl" id="mediaurl" size="40">
+	        <input type="button" value="Preview" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)">
 	        <br><br>
-	        <div class="documentDescription">Utilitzar fitxer media</div><br/>
+	        <h3 class="documentDescription">Utilitzar fitxer media</h3><br/>
             <div class="visualClear"></div>
 	        <label>Media</label>
 	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();">
 	    </div>
 	    <div>&nbsp;</div>
-	    <div id='content-core' >
-	    	<div tal:replace="structure view/render">
-	        </div>
+	    <div id='preview' style='horizontal-align:center'>
+	    <iframe width='600' height='400' name='mediaFrame'></iframe>
 	    </div>
 	    <div>
 	    	<br/><br/><br/>
-	    	<input type="button" value="D'acord">
+	    	<input type="button" value="D'acord" class="close" onclick="setCurrentInputValue(document.mediaForm.mediaurl.value);">
 	    </div>
 	</form>
 	</metal:content-core>

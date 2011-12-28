@@ -215,7 +215,7 @@ class FileUrlInput(GenericControl):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
-            html += "        <input type='text' name='"+self.name+"' value='"+v+"' onclick='showMediaSelector(this)' >&nbsp;\n"
+            html += "        <input type='text' name='"+self.name+"' value='"+v+"' onclick='showMediaSelector(this)'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"
