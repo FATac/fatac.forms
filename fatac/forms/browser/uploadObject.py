@@ -31,7 +31,6 @@ class uploadObject(BrowserView, funcionsCerca):
                     fieldName = nameparts[0]
                     prefix = None
                 
-                print fieldName
                 if fieldName in self.request:
                     fieldValue = self.request[fieldName]
                     if fieldName+'_lang' in self.request:
@@ -64,6 +63,10 @@ class uploadObject(BrowserView, funcionsCerca):
 
             result = resp.tee().read()
             
-            return result
+            if result!='error':
+                if '__relatedObject' in self.request:
+                    return result + "&nbsp;<a href='javascript:opener.setCurrentInputValue(\""+result+"\"); window.close();'>[Seleccionar]</a>"
+                else:
+                    return result
         else:
             return 'Oops!'

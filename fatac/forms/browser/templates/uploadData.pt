@@ -48,6 +48,7 @@
 		        			</td>
 		        		</tr>
 		        	</table>
+		        	<input type="hidden" name="__relatedObject" tal:attributes="value view/relatedObject">
 	        	</form>
 	        </div>
 	    </div>

@@ -1,10 +1,20 @@
 var langList = ["ca", "es", "en", "fr", "it", "de", "ar", "zh", "pt"]
 
 function getCurrentInputValue() {
-	if (window['currentInput'] != undefined) window['currentInput'].value;
+	if (window['currentInput'] != undefined) return window['currentInput'].value;
 }
 function setCurrentInputValue(value) {
-	if (window['currentInput'] != undefined) window['currentInput'].value = value;
+	if (window['currentInput'] != undefined) $(window['currentInput']).val(value);
+}
+
+function seekObject(obj, c) {
+	currentInput = $(obj).parent().children('.objectinput');
+	$('#seekObjectLink').trigger('click');
+}
+
+function createObject(obj, c) {
+	currentInput = $(obj).parent().children('.objectinput');
+	window.open("./uploadData?r=true&c="+c);
 }
 
 function mediaUrlPreview(url) {
@@ -66,7 +76,12 @@ function removeControl(name, obj) {
 	}
 }
 
+function getObjectInputValue(obj) {
+	return $(obj).parent().children('.objectinput').val();
+}
+
 function goToObject(id, pos) {
+	if (id == undefined || id.trim() == '') return;
 	var locator = document.myform.locator.value;
 	if (pos!=null)
 		$("#mydiv").append('<form action="/fatac/updateExisting" name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
@@ -169,6 +184,15 @@ jQuery(document).ready(function() {
 	
 	jQuery(function ($) { 
 	    $('#uploadMediaLink') 
+	        .prepOverlay({ 
+	            subtype: 'ajax', 
+	            filter: '#content > *',
+	            api: true
+	        }); 
+	});
+	
+	jQuery(function ($) { 
+	    $('#seekObjectLink') 
 	        .prepOverlay({ 
 	            subtype: 'ajax', 
 	            filter: '#content > *',

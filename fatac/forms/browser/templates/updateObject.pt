@@ -25,6 +25,7 @@
         <div tal:replace="structure view/render">
         </div>
     </div>
+    <div><a href="./inici">Inici</a></div>
 </metal:main>
 </body>
 </html>

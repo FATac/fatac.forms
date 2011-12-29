@@ -18,6 +18,11 @@ class uploadData(BrowserView, funcionsCerca):
         def __init__(self, value, name):
             self.name = name
             self.value = value
+            
+    def relatedObject(self):
+        if 'r' in self.request:
+            return 'true'
+        return ''
 
     def fillLevel(self, str, level):
         while level > 0:
@@ -45,6 +50,10 @@ class uploadData(BrowserView, funcionsCerca):
         jsonResult = resp.tee().read()
         jsonTree = json.loads(jsonResult)
         L = list()
-        self.treeToList(jsonTree, L, 0)
+        if type(jsonTree) != list: 
+            self.treeToList(jsonTree, L, 0)
+        else:
+            for t in jsonTree:
+                self.treeToList(t, L, 0)
 
         return L

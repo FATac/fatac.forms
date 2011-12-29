@@ -35,6 +35,8 @@
 	        </div>
 	    </div>
 	    <a href="./uploadMedia" id="uploadMediaLink"></a>
+	    <a href="./seek" id="seekObjectLink"></a>
+	    
 	</metal:content-core>
 </body>
 </html>
