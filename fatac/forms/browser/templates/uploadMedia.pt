@@ -41,7 +41,7 @@
 	    </div>
 	    <div>
 	    	<br/><br/><br/>
-	    	<input type="button" value="D'acord" class="close" onclick="setCurrentInputValue(document.mediaForm.mediaurl.value);">
+	    	<input type="button" value="D'acord" name="Okay" onclick="setCurrentInputValue(document.mediaForm.mediaurl.value); $('.close').trigger('click'); ">
 	    </div>
 	</form>
 	</metal:content-core>

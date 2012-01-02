@@ -2,6 +2,7 @@ var langList = ["ca", "es", "en", "fr", "it", "de", "ar", "zh", "pt"]
 
 function getCurrentInputValue() {
 	if (window['currentInput'] != undefined) return window['currentInput'].value;
+	else return null;
 }
 function setCurrentInputValue(value) {
 	if (window['currentInput'] != undefined) $(window['currentInput']).val(value);
@@ -9,7 +10,7 @@ function setCurrentInputValue(value) {
 
 function seekObject(obj, c) {
 	currentInput = $(obj).parent().children('.objectinput');
-	$('#seekObjectLink').trigger('click');
+	window.open('./seek?objectSelect=true&classSelect='+c);
 }
 
 function createObject(obj, c) {
@@ -184,19 +185,14 @@ jQuery(document).ready(function() {
 	
 	jQuery(function ($) { 
 	    $('#uploadMediaLink') 
-	        .prepOverlay({ 
-	            subtype: 'ajax', 
+	        .prepOverlay({
+	        	subtype: 'ajax', 
 	            filter: '#content > *',
-	            api: true
-	        }); 
-	});
-	
-	jQuery(function ($) { 
-	    $('#seekObjectLink') 
-	        .prepOverlay({ 
-	            subtype: 'ajax', 
-	            filter: '#content > *',
-	            api: true
+	            api: true,
+	            config: { onLoad: function() { 
+	            			$("#mediaurl").val(getCurrentInputValue());
+	            		}
+	            	}
 	        }); 
 	});
 

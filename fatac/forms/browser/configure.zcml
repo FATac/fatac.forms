@@ -149,5 +149,12 @@
         name="fatac.forms.js"
         directory="js"
         />
+        
+        <!-- Resource directory for images -->
+    <browser:resourceDirectory
+        name="fatac.forms.images"
+        directory="images"
+        />
+        
       
 </configure>

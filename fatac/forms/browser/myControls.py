@@ -147,8 +147,8 @@ class ObjectInputControl(GenericControl):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
-            html += "        <input type='text' name='"+self.name+"' value='"+v+"' class='objectinput'>&nbsp;<input type='button' value='Crear' onclick='createObject(this, \""+self.classNames+"\")' >&nbsp;<input type='button' value='Cercar' onclick='seekObject(this, \""+self.classNames+"\")' >\n"
-            html += "        <input type='button' onclick='goToObject(getObjectInputValue(this))' value='Anar-hi'>\n"
+            html += "        <input type='text' name='"+self.name+"' value='"+v+"' class='objectinput'>&nbsp;<input type='image' src='++resource++fatac.forms.images/crear.png' value='Crear' onclick='createObject(this, \""+self.classNames+"\"); return false;' >&nbsp;<input type='image' src='++resource++fatac.forms.images/cercar.png' value='Cercar' onclick='seekObject(this, \""+self.classNames+"\"); return false;' >\n"
+            html += "        <input type='image' src='++resource++fatac.forms.images/anar.png' onclick='goToObject(getObjectInputValue(this)); return false;' value='Anar-hi'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"

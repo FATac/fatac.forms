@@ -20,8 +20,14 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
-    <div id="content-core">
+	<metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Cercar objectes</h1>
+    </metal:content-title>
+    <metal:content-description fill-slot="content-description">
+            <div class="documentDescription" tal:content="view/classSelection"></div>
+    </metal:content-description>
+<metal:content-core fill-slot="content-core">
+	<div id="content-core">
         <div tal:replace="structure view/render">
         </div>
         <div>
@@ -33,8 +39,11 @@
 					</tr>
 					<tr tal:condition="item/link">
 						<td>&nbsp;</td>
-						<td>
+						<td tal:condition="item/legalLink">
 							<a tal:attributes="href item/link" href="">Editar</a>&nbsp;<a tal:attributes="href item/legalLink" href="">Legal</a>
+						</td>
+						<td tal:condition="not: item/legalLink">
+							<a tal:attributes="href item/link" href="">Seleccionar</a>
 						</td>
 					</tr>
 					<tr tal:condition="item/link">
@@ -44,6 +53,6 @@
         	</table>
         </div>
     </div>
-</metal:main>
+</metal:content-core>
 </body>
 </html>
