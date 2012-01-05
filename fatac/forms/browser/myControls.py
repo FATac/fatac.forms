@@ -11,7 +11,7 @@ class Form(object):
         for control in self.controlList:
             html += control.render()
         
-        html += "<input name='submit' type='submit' value='OK' >\n"
+        html += "<input name='submit' type='submit' value='Desar' >\n"
         html += "</form>\n"
         html += "<div id='mydiv'></div>\n"
         
@@ -72,15 +72,15 @@ class DateControl(GenericControl):
         html = "<div id='"+self.name+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
-            nameList = self.value
+            valueList = self.value
         else:
-            nameList = [self.value]
+            valueList = [self.value]
         
         for idxi, v in enumerate(valueList):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
-            html += "        <input type='text' name='"+self.name+"' value='"+v+"' size='9'>\n"
+            html += "        <input type='date' name='"+self.name+"' value='"+v+"' size='9'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"
@@ -147,8 +147,8 @@ class ObjectInputControl(GenericControl):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
-            html += "        <input type='text' name='"+self.name+"' value='"+v+"' class='objectinput'>&nbsp;<input type='image' src='++resource++fatac.forms.images/crear.png' value='Crear' onclick='createObject(this, \""+self.classNames+"\"); return false;' >&nbsp;<input type='image' src='++resource++fatac.forms.images/cercar.png' value='Cercar' onclick='seekObject(this, \""+self.classNames+"\"); return false;' >\n"
-            html += "        <input type='image' src='++resource++fatac.forms.images/anar.png' onclick='goToObject(getObjectInputValue(this)); return false;' value='Anar-hi'>\n"
+            html += "        <input type='text' name='"+self.name+"' value='"+v+"' class='objectinput'>&nbsp;<input type='image' src='++resource++fatac.forms.images/crear.png' title='Crear' onclick='createObject(this, \""+self.classNames+"\"); return false;' >&nbsp;<input type='image' src='++resource++fatac.forms.images/cercar.png' title='Cercar' onclick='seekObject(this, \""+self.classNames+"\"); return false;' >\n"
+            html += "        <input type='image' src='++resource++fatac.forms.images/anar.png' onclick='goToObject(getObjectInputValue(this)); return false;' title='Anar-hi'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
             html += "    </div>\n"

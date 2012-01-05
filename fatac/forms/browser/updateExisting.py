@@ -31,6 +31,18 @@ class updateExisting(BrowserView, funcionsCerca):
         
         return str.replace(oid, "_", " ") + " (" + classList + ")"
     
+    def objectId(self):
+        oid = self.request.form['id']
+        return oid
+    
+    def deleteLink(self):
+        oid = self.request.form['id']
+        return "deleteObject('" + oid + "')";
+    
+    def deleteConfirmedLink(self):
+        oid = self.request.form['id']
+        return "deleteObjectConfirmed('" + oid + "')";
+    
     class resultItem:
         value = None
         link = None

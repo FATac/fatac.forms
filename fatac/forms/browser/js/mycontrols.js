@@ -48,6 +48,14 @@ function autocompleteLanguages(control) {
 	return;
 }
 
+function deleteObject(id) {
+	deleteOverlay.show();
+}
+
+function deleteObjectConfirmed(id) {
+	window.location.href = './deleteObject?objectId=' + id;
+}
+
 function callExpander() {
 	$("a").css("cursor","pointer");
 	$('textarea.expand').autoResize({
@@ -83,11 +91,14 @@ function getObjectInputValue(obj) {
 
 function goToObject(id, pos) {
 	if (id == undefined || id.trim() == '') return;
-	var locator = document.myform.locator.value;
+	var locator = "";
+	var target = "";
+	if (document.myform.locator != undefined) locator = document.myform.locator.value;
+	else target = 'target="gotowin"';
 	if (pos!=null)
-		$("#mydiv").append('<form action="/fatac/updateExisting" name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
+		$("#mydiv").append('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
 	else
-		$("#mydiv").append('<form action="/fatac/updateExisting" name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"></form>');
+		$("#mydiv").append('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"></form>');
 	document.myform2.submit();
 }
 
@@ -195,5 +206,15 @@ jQuery(document).ready(function() {
 	            	}
 	        }); 
 	});
+	
+	deleteOverlay  = $("#confirmDelete").overlay({
+			top: 260,
+			mask: {
+				color: '#fff',
+				loadSpeed: 200
+			},
+
+			closeOnClick: true
+		});
 
 });

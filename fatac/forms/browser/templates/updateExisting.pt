@@ -23,7 +23,7 @@
 <body>
 	<metal:content-title fill-slot="content-title">
 			<span tal:repeat="item view/locator">
-				<a tal:content="item/value" tal:attributes="href item/link"></a>&nbsp;>&nbsp;
+				<a tal:content="item/value" tal:attributes="href item/link"></a>&nbsp;>
 			</span>
             <h1 class="documentFirstHeading">Edició objecte</h1>
     </metal:content-title>
@@ -37,7 +37,14 @@
 	        <div tal:replace="structure view/render">
 	        </div>
 	    </div>
+	    <div style="text-align:right">
+	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteLink">Esborrar</a>
+	    </div>
 	    <a href="./uploadMedia" id="uploadMediaLink"></a>
+	    <div id="confirmDelete" style="display: none;">
+	    	<label>Segur que vol esborrar <span tal:content="view/objectId"></span>?</label>
+	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteConfirmedLink">Esborrar</a>
+	    </div>
     </metal:content-core>
 </body>
 </html>

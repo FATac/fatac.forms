@@ -269,6 +269,7 @@ class legalValidationAux(BrowserView, funcionsCerca):
         for s in jsonTree:
             if s is None:
                 continue
+            
             fieldList.append(s['name'])
             if not 'defaultValue' in s:
                 s['defaultValue'] = ''
@@ -281,7 +282,8 @@ class legalValidationAux(BrowserView, funcionsCerca):
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
                     name=s['name'],
-                    default=s['defaultValue']
+                    missing=u'',
+                    required=False
                     )
             elif s['type'] == 'date':
                 import datetime
@@ -291,14 +293,16 @@ class legalValidationAux(BrowserView, funcionsCerca):
                     validator=Range(
                         min=datetime.date(2010, 5, 5)
                         ),
-                    name=s['name']
+                    name=s['name'],
+                    missing=u''
                     )
             elif s['type'] == 'boolean':
                 inputField = colander.SchemaNode(
                     colander.Boolean(),
                     widget=deform.widget.CheckboxWidget(),
                     name=s['name'],
-                    default=s['defaultValue']
+                    default=s['defaultValue'],
+                    missing=False
                     )
             elif s['type'] == 'hidden':
                 inputField = colander.SchemaNode(
@@ -320,11 +324,14 @@ class legalValidationAux(BrowserView, funcionsCerca):
                     name=s['name'],
                     default=s['defaultValue']
                     )
-
+                
+                if 'autodata' in s:
+                    autodataKey = s['name']
+                    inputField.id = 'autodataField'
+                else:
+                    inputField.missing = u''
+                
             schema.add(inputField)
-
-            if 'autodata' in s:
-                autodataKey = s['name']
 
         schema.add(colander.SchemaNode(
             colander.String(),
@@ -351,6 +358,6 @@ class legalValidationAux(BrowserView, funcionsCerca):
 
         ajaxLink = ''
         if autodataKey is not None:
-            ajaxLink = "<a id='autodataLink'>Autodata</a><script> function getKeyVal() { return document.getElementById('deform')." + autodataKey + ".value; } $('#autodataLink').click(function() { $('#legalDataAjax').load('legalDataAjax?keyName=" + autodataKey + "&keyValue='+getKeyVal()+'&userId=" + userId + "') }); </script>"
+            ajaxLink = "<span>(*) Recupera dades de processos anteriors d'acord amb la referencia</span><script> function getKeyVal() { return document.getElementById('deform')." + autodataKey + ".value; } $(\"input[name='"+autodataKey+"']\").blur(function() { $('#legalDataAjax').load('legalDataAjax?keyName=" + autodataKey + "&keyValue='+getKeyVal()+'&userId=" + userId + "') }); </script>"
 
         return form.render() + ajaxLink

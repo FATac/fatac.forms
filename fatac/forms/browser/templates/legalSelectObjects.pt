@@ -20,7 +20,15 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
+		<metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Validació legal</h1>
+        </metal:content-title>
+
+        <metal:content-description fill-slot="content-description">
+            <div class="documentDescription">Selecció d'objectes</div>
+            <br/>
+        </metal:content-description>
+<metal:content-core fill-slot="content-core">
 	<script>
 	    function setObjectId(id)
 	    {
@@ -82,7 +90,7 @@
 	    	</tr>
 	    </table>
 	</form>
-</metal:main>
+</metal:content-core>
 </body>
 </html>
 

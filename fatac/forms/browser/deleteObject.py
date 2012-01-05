@@ -13,14 +13,11 @@ class deleteObject(BrowserView, funcionsCerca):
 
 
     def render(self):
-        if 'delete' in self.request and 'objectId' in self.request:
+        if 'objectId' in self.request:
             oid = self.request['objectId']
-            resp = request(self.retServidorRest() + '/objects/' + oid + '/delete')
+            resp = request(self.retServidorRest() + '/resource/' + oid + '/delete', method='DELETE')
 
             result = resp.tee().read()
-            if result == 'error':
-                return 'Error'
-            else:
-                return result
+            return result + "<br/><br/><a href='./inici'>Inici</>"
         else:
             return 'Oops!'
