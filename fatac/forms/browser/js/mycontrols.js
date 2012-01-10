@@ -52,8 +52,11 @@ function deleteObject(id) {
 	deleteOverlay.show();
 }
 
-function deleteObjectConfirmed(id) {
-	window.location.href = './deleteObject?objectId=' + id;
+function deleteObjectConfirmed(id,loc) {
+	if (loc == null || loc == '')
+		window.location.href = './deleteObject?objectId=' + id;
+	else
+		window.location.href = './deleteObject?objectId=' + id + '&loc=' + loc;
 }
 
 function callExpander() {
@@ -96,9 +99,9 @@ function goToObject(id, pos) {
 	if (document.myform.locator != undefined) locator = document.myform.locator.value;
 	else target = 'target="gotowin"';
 	if (pos!=null)
-		$("#mydiv").append('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
+		$("#mydiv").html('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"><input type="hidden" name="pos" value="'+pos+'"></form>');
 	else
-		$("#mydiv").append('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"></form>');
+		$("#mydiv").html('<form action="/fatac/updateExisting" '+target+' name="myform2" method="post"><input type="hidden" name="locator" value="'+locator+'"><input type="hidden" name="id" value="'+id+'"></form>');
 	document.myform2.submit();
 }
 

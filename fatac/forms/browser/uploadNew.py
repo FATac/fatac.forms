@@ -32,7 +32,7 @@ class uploadNew(BrowserView, funcionsCerca):
             if jsonTree['className'] == className:
                 tmpstore = dict()
                 
-                if '__relatedObject' in self.request.form:
+                if '__relatedObject' in self.request.form and self.request.form['__relatedObject'] == 'true' :
                     controlList.append(myControls.HiddenInputControl('__relatedObject','true'))
                     
                 controlList.append(myControls.HiddenInputControl('type', jsonTree['className']))

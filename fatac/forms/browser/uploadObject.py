@@ -65,7 +65,7 @@ class uploadObject(BrowserView, funcionsCerca):
             
             if result!='error':
                 if '__relatedObject' in self.request:
-                    return result + "&nbsp;<a href='javascript:opener.setCurrentInputValue(\""+result+"\"); window.close();'>[Seleccionar]</a>"
+                    return result + "&nbsp;<a href='javascript:opener.setCurrentInputValue(\""+result+"\"); opener.focus(); window.close();'>[Seleccionar]</a>"
                 else:
                     return result
         else:

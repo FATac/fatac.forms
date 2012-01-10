@@ -37,11 +37,16 @@ class updateExisting(BrowserView, funcionsCerca):
     
     def deleteLink(self):
         oid = self.request.form['id']
+         
         return "deleteObject('" + oid + "')";
     
     def deleteConfirmedLink(self):
         oid = self.request.form['id']
-        return "deleteObjectConfirmed('" + oid + "')";
+        try:
+            loc = self.request.form['locator']
+        except KeyError:
+            loc = ''
+        return "deleteObjectConfirmed('" + oid + "','"+loc+"')";
     
     class resultItem:
         value = None
