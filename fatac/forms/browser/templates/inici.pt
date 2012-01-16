@@ -6,12 +6,21 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
     <body>
-        <metal:main fill-slot="main">
+    	<metal:content-title fill-slot="content-title">
+            <h1 class="documentFirstHeading">Administració</h1>
+        </metal:content-title>
+        <metal:content-description fill-slot="content-description">
+            <div class="documentDescription">
+                Inici
+            </div>
+            <br/>
+        </metal:content-description>
+        <metal:content-core fill-slot="content-core">
             <ul>
                 <li><a tal:attributes="href string:${here/portal_url}/uploadData">Inserir nou objecte</a></li>
                 <li><a tal:attributes="href string:${here/portal_url}/seek">Buscar/Editar objectes</a></li>
                 <li><a tal:attributes="href string:${here/portal_url}/legalSelectObjects">Assignar drets legals</a></li>
             </ul>
-        </metal:main>
+        </metal:content-core>
     </body>
 </html>

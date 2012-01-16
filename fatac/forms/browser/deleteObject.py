@@ -38,7 +38,7 @@ class deleteObject(BrowserView, funcionsCerca):
                 
             return result
         except KeyError:
-            oid = self.request.form['id']
+            oid = self.request.form['objectId']
             result = [self.resultItem(oid,'javascript:goToObject("'+oid+'","0")')]
             return result
 

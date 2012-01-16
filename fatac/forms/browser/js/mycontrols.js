@@ -202,7 +202,7 @@ jQuery(document).ready(function() {
 	        .prepOverlay({
 	        	subtype: 'ajax', 
 	            filter: '#content > *',
-	            api: true,
+	            closeOnClick: false,
 	            config: { onLoad: function() { 
 	            			$("#mediaurl").val(getCurrentInputValue());
 	            		}

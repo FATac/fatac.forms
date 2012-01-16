@@ -2,6 +2,7 @@ import deform
 import colander
 import json
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from fatac.theme.browser.funcionsCerca import funcionsCerca
 
@@ -10,52 +11,110 @@ class searchFormSelect(BrowserView, funcionsCerca):
         self.request = request
         self.context = context
 
-    def __call__(self):
+    __call__ = ViewPageTemplateFile('templates/search.pt')
+    
+    def isSelect(self):
+        return self.request.get('objectSelect', None) or self.request.form.get('objectSelect', None)
+        
+    def isSearch(self):
+        return not self.isSelect()
+    
+    def classSelection(self):
+        try:
+            return self.request.form['classSelect']
+        except KeyError:
+            try:
+                return self.request['classSelect']
+            except KeyError:
+                return ''
+    
 
+    def render(self):
         class Schema(colander.Schema):
-            text = colander.SchemaNode(
-                colander.String(),
-                widget=deform.widget.TextInputWidget(size=60))
-            c = colander.SchemaNode(
-                colander.String(),
-                widget=deform.widget.HiddenWidget())
-            if 'c' in self.request:
-                c.default = self.request['c']
-            elif 'c' in self.request.form:
-                c.default = self.request.form['c']
+                text = colander.SchemaNode(
+                    colander.String(),
+                    validator=colander.Length(max=100),
+                    widget=deform.widget.TextInputWidget(size=60),
+                    description='Enter some text')
+                color = colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.SelectWidget(values=[("","---"),("green","verd"),("yellow","groc"),("orange","taronja"),("red","vermell"),("gray","gris")]),
+                    name="Color",
+                    missing=u''
+                    )
 
         schema = Schema()
+        
+        if self.isSelect():
+            schema.add(colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.HiddenWidget(),
+                    name='objectSelect',
+                    default='true'
+                    ))
+            
+        try:
+            classSelection = self.request.form['classSelect']
+        except KeyError:
+            try:
+                classSelection = self.request['classSelect']
+            except KeyError:
+                classSelection = None
+        
+        if classSelection is not None:
+            schema.add(colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.HiddenWidget(),
+                    name='classSelect',
+                    default=classSelection
+                    ))
+        
         form = deform.Form(schema, action='selectObject', buttons=('submit',))
-        r1 = form.render()
+        return form.render()
 
-        r2 = ''
-        if 'submit' in self.request:
-            clause = ""
-            if 'c' in self.request:
-                clause = "&c=" + self.request['c']
-            elif 'c' in self.request.form:
-                clause = "&c=" + self.request.form['c']
+    class resultItem:
+        name = None
+        value = None
+        link = None
+        legalLink = None
+
+        def __init__(self, name, value, link, legalLink):
+            self.name = name
+            self.value = value
+            self.link = link
+            self.legalLink = legalLink
+
+    def results(self):
+        result = list()
+        if self.request.get('submit', None):
+            vIsSearch = self.isSearch()
 
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
-            if self.request.AUTHENTICATED_USER and self.request.AUTHENTICATED_USER is not None and self.request.AUTHENTICATED_USER.getId() is not None:
+            if self.request.AUTHENTICATED_USER and (self.request.AUTHENTICATED_USER.getId() is not None):
                 usrId = '&u=' + self.request.AUTHENTICATED_USER.getId()
             else:
                 usrId = ''
 
-            resp = request(self.retServidorRest() + '/search?s=' + self.request['text'] + clause + usrId)
+            self.text = self.request['text']
+            self.color = self.request['color']
+            
+            classSelection = ''
+            if not vIsSearch:
+                classSelection = "&c=" + self.request.form['classSelect']
+                
+            colorSelection = ''
+            if self.color != '' and self.color is not None:
+                colorSelection = "&k=" + self.color
+            
+            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classSelection + colorSelection)
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
-            r2 = '<table>'
             for s in jsonTree.keys():
+                result.append(self.resultItem("ID", s, None, None))
                 for k in jsonTree[s].keys():
-                    if type(jsonTree[s][k]) != list:
-                        r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k] + '</td></tr>'
-                    else:
-                        r2 = r2 + '<tr><td>' + k + '</td><td>' + jsonTree[s][k][0] + '</td></tr>'
-                r2 = r2 + '<tr><td>&nbsp;</td><td><a href=\"javascript:window.opener.setObjectId(\'' + s + '\'); window.close();\">[Seleccionar]</a></tr>'
-                r2 = r2 + '<tr><td>&nbsp;</td></tr>'
-            r2 = r2 + '</table>'
+                    result.append(self.resultItem(k, jsonTree[s][k], None, None))
+                    result.append(self.resultItem('', '', 'javascript:opener.setObjectId("'+s+'");' , None))
 
-        return r1 + r2
+        return result
