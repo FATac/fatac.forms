@@ -1,15 +1,17 @@
-.treeview { 
-	list-style-type: none;
+.treeview {
+	list-style-type: none !important;
 }
 
 .treeview, .treeview ul { 
 	padding: 0;
 	margin: 0;
+	list-style-type: none !important;
 }
 
 .treeview ul {
 	background-color: white;
 	margin-top: 4px;
+	list-style-type: none !important;
 }
 
 .treeview .hitarea {
@@ -27,7 +29,7 @@
 }
 
 .treeview li { 
-	margin: 0;
+	margin: 0 !important;
 	padding: 3px 0pt 3px 16px;
 }
 
