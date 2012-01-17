@@ -21,7 +21,7 @@ class uploadNew(BrowserView, funcionsCerca):
         return self.request['item']
 
     def render(self):
-        if 'submit' in self.request and 'item' in self.request:
+        if 'item' in self.request:
             className = self.request['item']
             resp = request(self.retServidorRest() + '/classes/' + className + '/form')
             jsonResult = resp.tee().read()
