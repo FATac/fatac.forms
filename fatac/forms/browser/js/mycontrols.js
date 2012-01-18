@@ -1,5 +1,16 @@
 var langList = ["ca", "es", "en", "fr", "it", "de", "ar", "zh", "pt"]
 
+function validateNumber(evt) {
+	  var theEvent = evt || window.event;
+	  var key = theEvent.keyCode || theEvent.which;
+	  key = String.fromCharCode( key );
+	  var regex = /[0-9]|\./;
+	  if( !regex.test(key) ) {
+	    theEvent.returnValue = false;
+	    if(theEvent.preventDefault) theEvent.preventDefault();
+	  }
+}
+
 function getCurrentInputValue() {
 	if (window['currentInput'] != undefined) return window['currentInput'].value;
 	else return null;

@@ -88,6 +88,28 @@ class DateControl(GenericControl):
         html += "</div>\n"
         
         return html
+    
+class NumberControl(GenericControl):    
+    def render(self):
+        html = "<div id='"+self.name+"_cntrl'>\n"
+        valueList = []
+        if type(self.value) == list:
+            valueList = self.value
+        else:
+            valueList = [self.value]
+        
+        for idxi, v in enumerate(valueList):
+            idx = str(idxi)
+            html += "    <div id='"+self.name+"_"+idx+"' >\n"
+            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <input type='text' name='"+self.name+"' value='"+v+"' size='9' onkeypress='validateNumber(event)' >\n"
+            if self.prefix is not None:
+                html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
+            html += "    </div>\n"
+            
+        html += "</div>\n"
+        
+        return html
         
 class TextAreaControl(GenericControl):
     def render(self):

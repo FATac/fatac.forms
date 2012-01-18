@@ -50,7 +50,9 @@ class uploadNew(BrowserView, funcionsCerca):
                     elif s['controlType'] == 'checkInput':
                         controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                     elif s['controlType'] == 'fileInput':
-                        controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], ''))                    
+                        controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], ''))
+                    elif s['controlType'] == 'numericInput':
+                        controlList.append(myControls.NumberControl( _(s['name']), s['name'], ''))
                 
                 form = myControls.Form('uploadObject', controlList)                
                 return form.render()
