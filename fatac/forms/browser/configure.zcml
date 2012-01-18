@@ -30,6 +30,13 @@
         class=".uploadData.uploadData"
         permission="zope2.Public"
         />
+        
+    <browser:page
+        for="*"
+        name="manteniment"
+        class=".manteniment.manteniment"
+        permission="zope2.Public"
+        />
 
     <browser:page
         for="*"
@@ -142,7 +149,6 @@
         class=".uploadMediaAjax.uploadMediaAjax"
         permission="zope2.Public"
         />
-
         
     <!-- Resource directory for stylesheets -->
     <browser:resourceDirectory
