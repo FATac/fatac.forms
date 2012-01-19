@@ -20,6 +20,7 @@
                 <li><a tal:attributes="href string:${here/portal_url}/uploadData">Inserir nou objecte</a></li>
                 <li><a tal:attributes="href string:${here/portal_url}/seek">Buscar/Editar objectes</a></li>
                 <li><a tal:attributes="href string:${here/portal_url}/legalSelectObjects">Assignar drets legals</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/gestioMedias">Gestió dels media</a></li>
                 <li><a tal:attributes="href string:${here/portal_url}/manteniment">Accions de manteniment</a></li>
             </ul>
         </metal:content-core>

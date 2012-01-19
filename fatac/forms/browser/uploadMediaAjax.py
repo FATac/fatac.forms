@@ -24,7 +24,7 @@ class uploadMediaAjax(BrowserView, funcionsCerca):
                 last = len(parts) - 1
                 ext = parts[last]
                 
-                resp = request('http://localhost:8080/ArtsCombinatoriesRest/media/upload?fn='+ext,
+                resp = request('http://localhost:8080/ArtsCombinatoriesRest/media/upload?fn='+urllib.quote_plus(upload.filename),
                                                 method='POST',
                                                 headers={'Content-Type': 'multipart/form-data'},
                                                 body=upload)

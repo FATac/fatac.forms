@@ -150,6 +150,13 @@
         permission="zope2.Public"
         />
         
+    <browser:page
+        for="*"
+        name="gestioMedias"
+        class=".gestioMedias.gestioMedias"
+        permission="zope2.Public"
+        />
+        
     <!-- Resource directory for stylesheets -->
     <browser:resourceDirectory
         name="fatac.forms.js"
