@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import json
 import urllib
 from Products.Five.browser import BrowserView
@@ -17,8 +18,8 @@ class manteniment(BrowserView, funcionsCerca):
         if 'action' in self.request.form:
             action = self.request.form['action']
             if action == 'reset':                
-                if 'confirmReset' in self.request.form:
-                    confirmReset = self.request.form['confirmReset']
+                if 'parametre' in self.request.form:
+                    confirmReset = self.request.form['parametre']
                     if confirmReset != '':
                         call = self.retServidorRest() + '/reset?confirm=' + urllib.quote_plus(confirmReset)
                         resp = request(call)
@@ -28,6 +29,31 @@ class manteniment(BrowserView, funcionsCerca):
                         result = "Reset: Falta confirmar"
                 else:
                     resp = "Reset: Falta confirmar"
+            if action == 'thumbnail':
+                if 'parametre' in self.request.form:
+                    classeThumbnail = self.request.form['parametre']
+                    if classeThumbnail != '':
+                        call = self.retServidorRest() + '/generateAllThumbnails?c=' + urllib.quote_plus(classeThumbnail)
+                        resp = request(call)
+                        result = resp.tee().read()
+                        result = "Reset: " + result
+                    else:
+                        resp = "Generar miniatures: Falta escollir la classe"
+                else:
+                    resp = "Generar miniatures: Falta escollir la classe"
+            if action == 'replace':
+                if 'parametre' in self.request.form:
+                    replaceParams = self.request.form['parametre']
+                    pl = replaceParams.split(";")
+                    if replaceParams != '' or len(pl)< 3:
+                        call = self.retServidorRest() + '/replaceUri?uriField='+pl[0]+'&oldUri='+pl[1]+'&newUri='+pl[2]
+                        resp = request(call)
+                        result = resp.tee().read()
+                        result = "Substitueix: " + result
+                    else:
+                        result = "Substitueix: falten paràmetres per indicar "
+                else:
+                    result = "Substitueix: cal indicar els paràmetres "
             if action == 'ontology':
                 resp = request(self.retServidorRest() + '/reset?option=ontology')
                 result = resp.tee().read()
@@ -40,6 +66,7 @@ class manteniment(BrowserView, funcionsCerca):
                 resp = request(self.retServidorRest() + '/solr/reload')
                 result = resp.tee().read()
                 result = 'Indexar: ' + result
+            
         
         return result
                 

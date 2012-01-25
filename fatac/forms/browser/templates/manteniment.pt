@@ -54,17 +54,33 @@
                 		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('index'); document.manteniment.submit();">Executa</a></li>
                 	</ul>
                 </li>
+                <li>Generar miniatures
+                	<ul>
+                		<li>Genera les miniatures de tots els objectes d'una determinada classe. Això és útil per evitar sobrecarregar el servidor durant la cerca <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
+                		<li>Introdueix el nom de la classe <input id="nomClasse" value=""></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('thumbnail'); $('#parametreInput').val($('#nomClasse').val()); document.manteniment.submit();">Executa</a></li>
+                	</ul>
+                </li>
+                <li>Substituir textos
+                	<ul>
+                		<li>Substitueix de cop tots els textos d'un camp especificat. Acció útil per a canviar totes les URL de cop quan es canvia el domini del servidor. Cal indicar: el nom de la propietat que es canviarà (forma "prefix:NomPropietat"), el text a substituir, i el nou text.</li>
+                		<li>Nom de la propietat <input id="nomPropietat" value="ac:Uri"></li>
+                		<li>Text anterior <input id="textAnterior" value="www.hostanterior.org"></li>
+                		<li>Text nou <input id="textNou" value="www.hostnova.org"></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('replace'); $('#parametreInput').val($('#nomPropietat').val() + ';' + $('#textAnterior').val() + ';' + $('#textNou').val()); document.manteniment.submit();">Executa</a></li>
+                	</ul>
+                </li>
                 <li>Esborra totes les dades
                 	<ul>
                 		<li>Esborra <span style="font-weight:bold; color:red;" >de forma irreversible</span> totes les dades del sistema, arxius media, estadístiques i recarrega les ontologies. Per a confirmar aquest acció cal introduir la data i hora actual del servidor (en format tipus '30/11/11 16:37')</li>
-                		<li>Introdueixi l'hora  del servidor per confirmar <input id="confirmDate" value=""></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('reset'); $('#confirmResetInput').val($('#confirmDate').val()); document.manteniment.submit();">Executa</a></li>
+                		<li>Introdueix l'hora  del servidor per confirmar <input id="confirmDate" value=""></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('reset'); $('#parametreInput').val($('#confirmDate').val()); document.manteniment.submit();">Executa</a></li>
                 	</ul>
                 </li>
             </ul>
             <form name="manteniment" action="manteniment" method="post">
             	<input type="hidden" name="action" id="actionInput">
-            	<input type="hidden" name="confirmReset" id="confirmResetInput">
+            	<input type="hidden" name="parametre" id="parametreInput">
             </form>
         </metal:content-core>
     </body>

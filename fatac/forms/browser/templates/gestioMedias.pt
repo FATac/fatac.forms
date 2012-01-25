@@ -33,8 +33,8 @@
         <metal:content-core fill-slot="content-core">
         	<table width="100%">
         		<thead><tr><td>Media</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
-        		<tbody tal:repeat="item view/getMediaList">
-        			<tr>        			
+        		<tbody>
+        			<tr tal:repeat="item view/getMediaList">        			
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
 	        			<td><a tal:attributes="href item/urlDelete">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert">Convertir</a></td>
