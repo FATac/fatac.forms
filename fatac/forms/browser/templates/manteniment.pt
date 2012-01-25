@@ -50,8 +50,11 @@
                 </li>
                 <li>Indexar a Solr
                 	<ul>
-                		<li>Indexa les dades actuals perquè siguin disponibles al motor de cerca Solr, d'acord amb allò especificat al mapping <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
+                		<li>Indexa des de zero totes les dades actuals perquè siguin disponibles al motor de cerca Solr, d'acord amb allò especificat al mapping <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
                 		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('index'); document.manteniment.submit();">Executa</a></li>
+                		<li>Indexa només les dades recentment introduides o modificades, en el temps establert. No actualitza els objectes esborrats <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
+                		<li>Introdueix el temps en minuts <input id="minutes" value="60"></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('update'); $('#parametreInput').val($('#minutes').val()); document.manteniment.submit();">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Generar miniatures

@@ -41,6 +41,18 @@ class manteniment(BrowserView, funcionsCerca):
                         resp = "Generar miniatures: Falta escollir la classe"
                 else:
                     resp = "Generar miniatures: Falta escollir la classe"
+            if action == 'update':
+                if 'parametre' in self.request.form:
+                    time = self.request.form['parametre']
+                    if time != '':
+                        call = self.retServidorRest() + '/solr/update?time='+time
+                        resp = request(call)
+                        result = resp.tee().read()
+                        result = "Indexar dades recents: " + result
+                    else:
+                        resp = "Indexar dades recents: cal indicar el temps "
+                else:
+                    resp = "Indexar dades recents: cal indicar el temps "
             if action == 'replace':
                 if 'parametre' in self.request.form:
                     replaceParams = self.request.form['parametre']
@@ -65,7 +77,7 @@ class manteniment(BrowserView, funcionsCerca):
             if action == 'index':
                 resp = request(self.retServidorRest() + '/solr/reload')
                 result = resp.tee().read()
-                result = 'Indexar: ' + result
+                result = 'Indexar tot: ' + result
             
         
         return result
