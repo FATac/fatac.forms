@@ -13,9 +13,10 @@ class gestioMedias(BrowserView, funcionsCerca):
     __call__ = ViewPageTemplateFile('templates/gestioMedias.pt')
     
     class myItem:
-        def __init__(self, itemUrl, itemId):
+        def __init__(self, itemUrl, itemId, format):
             self.url = itemUrl
             self.id =  itemId
+            self.format = format
             self.urlDelete = "javascript:call('delete','"+itemId+"');"
             self.urlConvert = "javascript:call('convert','"+itemId+"');"
     
@@ -35,7 +36,11 @@ class gestioMedias(BrowserView, funcionsCerca):
         jsonTree = json.loads(jsonResult)
         
         result = list()
-        for item in jsonTree:
-            result.append(self.myItem(restUrl + '/media/' + item, item))
+        for it in jsonTree:
+            itl = it.split(".")
+            item = itl[0]
+            format = ""
+            if len(itl)>1: format = itl[1]
+            result.append(self.myItem(restUrl + '/media/' + item, item, format))
         
         return result

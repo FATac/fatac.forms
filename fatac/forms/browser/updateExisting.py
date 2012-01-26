@@ -162,6 +162,8 @@ class updateExisting(BrowserView, funcionsCerca):
                         controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                 elif s['controlType'] == 'fileInput':
                     controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], currValue))
+                elif s['controlType'] == 'numericInput':
+                    controlList.append(myControls.NumberControl(_(s['name']), s['name'], currValue))
                     
             if self.request.get('pos', None):
                 pos = self.request.form['pos']
