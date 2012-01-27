@@ -18,6 +18,13 @@ class legalValidation(BrowserView, funcionsCerca):
 
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
 
+    def retIds(self):
+        """
+        """
+        if 'objectIdsVal' in self.request:
+            return self.request['objectIdsVal']
+        return None
+
     def retIdsObjectes(self):
         """ retorna una llista amb els ids dels objectes sobre els que estem
         treballant
@@ -93,7 +100,7 @@ class legalValidation(BrowserView, funcionsCerca):
         for s in jsonTree:
             if s is None:
                 continue
-            
+
             fieldList.append(s['name'])
             if not 'defaultValue' in s:
                 s['defaultValue'] = ''
@@ -148,13 +155,13 @@ class legalValidation(BrowserView, funcionsCerca):
                     name=s['name'],
                     default=s['defaultValue']
                     )
-                
+
                 if 'autodata' in s:
                     autodataKey = s['name']
                     inputField.id = 'autodataField'
                 else:
                     inputField.missing = u''
-                
+
             schema.add(inputField)
 
         schema.add(colander.SchemaNode(
@@ -193,7 +200,7 @@ class legalValidationAux(BrowserView, funcionsCerca):
         self.context = context
 
     __call__ = ViewPageTemplateFile('templates/legalValidation.pt')
-    
+
     def retIdsObjectes(self):
         """ retorna una llista amb els ids dels objectes sobre els que estem
         treballant
@@ -269,7 +276,7 @@ class legalValidationAux(BrowserView, funcionsCerca):
         for s in jsonTree:
             if s is None:
                 continue
-            
+
             fieldList.append(s['name'])
             if not 'defaultValue' in s:
                 s['defaultValue'] = ''
@@ -324,13 +331,13 @@ class legalValidationAux(BrowserView, funcionsCerca):
                     name=s['name'],
                     default=s['defaultValue']
                     )
-                
+
                 if 'autodata' in s:
                     autodataKey = s['name']
                     inputField.id = 'autodataField'
                 else:
                     inputField.missing = u''
-                
+
             schema.add(inputField)
 
         schema.add(colander.SchemaNode(

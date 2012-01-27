@@ -42,12 +42,41 @@
             <div id="legalDataAjax"></div>
 
             <div class="visualClear"></div>
+
+            <input id="ids_objectes" type="hidden" tal:attributes="value view/retIds" />
+
             <!-- TODO: fer la crida on toqui! -->
             <script type="text/javascript">
                 $(document).ready(function() {
-                    $(".scrollable_legal_documents").scrollable({api:true, vertical: true, mousewheel: true});
+
+                    var llista_ids = $('#ids_objectes').attr('value');
+                    llista_ids = llista_ids.split(',')
+                    var resultats_per_pagina = llista_ids.length;
+                    parametres_visualitzacio = {llista_ids: llista_ids, visualitzacio: 'fitxa_home', pagina_actual: 1, resultats_per_pagina: resultats_per_pagina};
+                    $('#visual-portal-wrapper').get(0).parametres_visualitzacio = parametres_visualitzacio;
+                    parametres_visualitzacio_json = JSON.stringify(parametres_visualitzacio);
+                    $.post('displayResultatsPaginaView', {parametres_visualitzacio: parametres_visualitzacio_json}, function(data){
+                        $('.items_legal_documents').replaceWith(data);
+
+                        //envolcallem cada 5 elements en un div, xq funcioni l'scrollable
+                        var fila_actual = 1;
+                        var nova_fila = 1;
+                        $('.scrollable_legal_documents .genericview_fitxa_home').each(function(i) {
+                            nova_fila = (parseInt(i/5) + 1);
+                            if (nova_fila !== fila_actual) {
+                                $('.scrollable_legal_documents .fila' + fila_actual).wrapAll( '<div class="fila fila' + fila_actual + '" />' );
+                                fila_actual = nova_fila;
+                            }
+                            $(this).addClass('fila' + nova_fila);
+                        });
+                        $('.scrollable_legal_documents .fila' + fila_actual).wrapAll( '<div class="fila fila' + fila_actual + '" />' );
+                        if (fila_actual === 1) { $('.arrow_up').addClass("hidden"); $('.arrow_down').addClass("hidden"); }
+                        $(".scrollable_legal_documents").scrollable({api:true, vertical: true, mousewheel: true});
+                    });
+
                 });
             </script>
+
             <div id="legal_documents" i18n:domain="fatac.theme">
                 <div class="requadre_resultats">
                     <a class="arrow_left prev browse left">
@@ -57,15 +86,7 @@
 
                     <div class="scrollable_legal_documents scrollable_fatac">
                         <div class="items_legal_documents items_fatac">
-                            <tal:def tal:define="resultats view/retLegalDocuments" tal:repeat="resultat resultats">
-                                <tal:cond tal:define="num repeat/resultat/number; final repeat/resultat/end" tal:condition="python: num%5 == 1" tal:replace='structure string:<div class="item_legal item_fatac">' />
-                                <div tal:attributes="id resultat/id; class string:resultat resultat-${repeat/resultat/number}">
-                                    <a tal:attributes="href string:${here/portal_url}/legalValidation?objectIdsVal=${resultat/id}">
-                                        <tal:repl tal:replace="structure resultat/html" />
-                                    </a>
-                                </div>
-                                <tal:cond tal:condition="python: num%5 == 0 or final" tal:define="num repeat/resultat/number; final repeat/resultat/end" tal:replace="structure string:</div>" />
-                            </tal:def>
+                            <img class="spinner_home" src="spinner.gif" />
                         </div>
                     </div>
 
