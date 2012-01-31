@@ -34,12 +34,20 @@
         	<table width="100%">
         		<thead><tr><td>Media</td><td>Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
         		<tbody>
-        			<tr tal:repeat="item view/getMediaList">        			
+        		<tal:block tal:repeat="item view/getMediaList">
+        			<tr bgcolor="#E0E0E0" tal:condition="repeat/item/odd">        			
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert">Convertir</a></td>
 	        		</tr>
+	        		<tr tal:condition="repeat/item/even">        			
+        				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
+        				<td tal:content="item/format"></td>
+	        			<td><a tal:attributes="href item/urlDelete">Esborrar</a></td>
+	        			<td><a tal:attributes="href item/urlConvert">Convertir</a></td>
+	        		</tr>
+	        	</tal:block>
         		</tbody>
         	</table>
         	<form name="gestioMedias" method="post">
