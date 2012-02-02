@@ -73,6 +73,12 @@
                 		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('replace'); $('#parametreInput').val($('#nomPropietat').val() + ';' + $('#textAnterior').val() + ';' + $('#textNou').val()); document.manteniment.submit();">Executa</a></li>
                 	</ul>
                 </li>
+                <li>Reiniciar rols
+                	<ul>
+                		<li>Acció necessària perquè els canvis de rol dels usuaris es facin efectius</li>
+                		<li><a href="javascript:void(0);" onclick=" $('#actionInput').val('roles'); document.manteniment.submit();">Executa</a></li>
+                	</ul>
+                </li>
                 <li>Esborra totes les dades
                 	<ul>
                 		<li>Esborra <span style="font-weight:bold; color:red;" >de forma irreversible</span> totes les dades del sistema, arxius media, estadístiques i recarrega les ontologies. Per a confirmar aquest acció cal introduir la data i hora actual del servidor (en format tipus '30/11/11 16:37')</li>

@@ -29,7 +29,7 @@ class manteniment(BrowserView, funcionsCerca):
                         result = "Reset: Falta confirmar"
                 else:
                     resp = "Reset: Falta confirmar"
-            if action == 'thumbnail':
+            elif action == 'thumbnail':
                 if 'parametre' in self.request.form:
                     classeThumbnail = self.request.form['parametre']
                     if classeThumbnail != '':
@@ -41,7 +41,7 @@ class manteniment(BrowserView, funcionsCerca):
                         resp = "Generar miniatures: Falta escollir la classe"
                 else:
                     resp = "Generar miniatures: Falta escollir la classe"
-            if action == 'update':
+            elif action == 'update':
                 if 'parametre' in self.request.form:
                     time = self.request.form['parametre']
                     if time != '':
@@ -53,7 +53,7 @@ class manteniment(BrowserView, funcionsCerca):
                         resp = "Indexar dades recents: cal indicar el temps "
                 else:
                     resp = "Indexar dades recents: cal indicar el temps "
-            if action == 'replace':
+            elif action == 'replace':
                 if 'parametre' in self.request.form:
                     replaceParams = self.request.form['parametre']
                     pl = replaceParams.split(";")
@@ -66,18 +66,22 @@ class manteniment(BrowserView, funcionsCerca):
                         result = "Substitueix: falten paràmetres per indicar "
                 else:
                     result = "Substitueix: cal indicar els paràmetres "
-            if action == 'ontology':
+            elif action == 'ontology':
                 resp = request(self.retServidorRest() + '/reset?option=ontology')
                 result = resp.tee().read()
                 result = 'Ontologies: ' + result
-            if action == 'oai':
+            elif action == 'oai':
                 resp = request(self.retServidorRest() + '/oai')
                 result = resp.tee().read()
                 result = 'OAI: ' + result
-            if action == 'index':
+            elif action == 'index':
                 resp = request(self.retServidorRest() + '/solr/reload')
                 result = resp.tee().read()
                 result = 'Indexar tot: ' + result
+            elif action == 'roles':
+                resp = request(self.retServidorRest() + '/reset?option=roles')
+                result = resp.tee().read()
+                result = 'Reiniciar rols: ' + result
             
         
         return result
