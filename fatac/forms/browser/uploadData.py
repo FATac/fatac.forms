@@ -1,8 +1,11 @@
+# -*- encoding: utf-8 -*-
 import json
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from fatac.theme.browser.funcionsCerca import funcionsCerca
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("fatac.forms")
 
 class uploadData(BrowserView, funcionsCerca):
     def __init__(self, context, request):
@@ -59,10 +62,13 @@ class uploadData(BrowserView, funcionsCerca):
         return L
     
     def toHtmlTree(self, T, first=0):
+        print _("Executa")
+        
         html = ""
         if type(T).__name__ == 'dict':
             for e in T:
-                html += "<li><a href='javascript:void(0);' onclick='uploadNew(\""+e+"\")'>" + e + "</a> " + self.toHtmlTree(T[e]) + "</li>"
+                print e
+                html += "<li><a href='javascript:void(0);' onclick='uploadNew(\""+e+"\")'>" + _(e) + "</a> " + self.toHtmlTree(T[e]) + "</li>"
             return html
         elif type(T).__name__ == 'list':
             if first==1: html = "<ul id='treeview'>" 
@@ -71,7 +77,7 @@ class uploadData(BrowserView, funcionsCerca):
                 html += self.toHtmlTree(e)
             return html + "</ul>"
         else:
-            return "<li><a href='javascript:void(0);' onclick='uploadNew(\""+T+"\")'>" + T + "</a></li>"
+            return "<li><a href='javascript:void(0);' onclick='uploadNew(\""+T+"\")'>" + _(T) + "</a></li>"
     
     def classesTree(self):
         if 'c' in self.request.form:
