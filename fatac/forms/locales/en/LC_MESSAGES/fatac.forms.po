@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FATAC\n"
+"POT-Creation-Date: 2011-10-20 09:56+0000\n"
+"PO-Revision-Date: 2011-10-20 10:52+0100\n"
+"Last-Translator: Laura <laura.perez-mayos@upcnet.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: fatac.forms\n"
+
+#: ../../../browser/cercador.pt:5
+msgid "Explorar"
+msgstr "Explore"
+
+#: ../../../browser/opcions.pt:2
+msgid "Fitxa d'expedient"
+msgstr "Fitxa d'expedient"
+
+#: ../../../browser/cercador.pt:4
+msgid "Search Site"
+msgstr "Search Site"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "ca"
+msgstr "cat"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "en"
+msgstr "eng"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "es"
+msgstr "cast"
+
+msgid "Cerca"
+msgstr "Search"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "ultims_documents"
+msgstr "Last documents"
+
+msgid "ultims_consultats"
+msgstr "Last viewed"
+
+msgid "Filtre de búsqueda"
+msgstr "Filter search"
+
+msgid "reduir_filtres"
+msgstr "minimize filters"
+
+msgid "ampliar_filtres"
+msgstr "maximize filters"
+
+msgid "esquerra"
+msgstr "previous page"
+
+msgid "dreta"
+msgstr "next page"
+
+msgid "class"
+msgstr "Class"
+
+msgid "Year"
+msgstr "Years"
+
+msgid "Country"
+msgstr "Countries"
+
+msgid "Translation"
+msgstr "Translations"
+
+msgid "Media"
+msgstr "Media"
+
+msgid "License"
+msgstr "Licenses"
+
+msgid "Role"
+msgstr "Roles"
+
+msgid "Person"
+msgstr "Persons"
+
+msgid "Organisation"
+msgstr "Organisations"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Publications"
+msgstr "Publications"
+
+msgid "ArtWork"
+msgstr "ArtWork"
+
+msgid "Collection"
+msgstr "Collections"
+
+msgid "CulturalManagement"
+msgstr "Cultural Management"
+
+msgid "ProtectionPromotion"
+msgstr "Protection Promotion"
+
+msgid "ordre"
+msgstr "order type:"
+
+msgid "AlphabeticalOrder"
+msgstr "alphabetic"
+
+msgid "ChronologicalOrder"
+msgstr "chronologic"
+
+msgid "Visualització de búsqueda"
+msgstr "Search view"
+
+msgid "visualitzacio1"
+msgstr "List"
+
+msgid "visualitzacio2"
+msgstr "Mini"
+
+msgid "visualitzacio3"
+msgstr "Thumbnail"
+
+msgid "visualitzacio4"
+msgstr "Fullscreen"
+
+msgid "small"
+msgstr "Smaller"
+
+msgid "large"
+msgstr "Larger"
+
+msgid "pagina"
+msgstr "page"
+
+msgid "de"
+msgstr "of"
+
+msgid "arxius"
+msgstr "files"
+
+msgid "mes_opcions"
+msgstr "more options"
+
+msgid "cap_resultat"
+msgstr "0 results"
+
+msgid "Tots"
+msgstr "All"

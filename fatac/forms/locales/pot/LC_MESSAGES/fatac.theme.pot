@@ -1,0 +1,42 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-10-20 09:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: fatac.theme\n"
+
+#: ../../../browser/cercador.pt:5
+msgid "Explorar"
+msgstr ""
+
+#: ../../../browser/opcions.pt:2
+msgid "Fitxa d'expedient"
+msgstr ""
+
+#: ../../../browser/cercador.pt:4
+msgid "Search Site"
+msgstr ""
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "ca"
+msgstr "cat"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "es"
+msgstr "cast"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "en"
+msgstr "eng"
