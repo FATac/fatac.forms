@@ -45,7 +45,7 @@
 
             <input id="ids_objectes" type="hidden" tal:attributes="value view/retIds" />
 
-            <!-- TODO: fer la crida on toqui! -->
+            <!-- TODO: correcte posar aquest js aquí? Hi ha un lloc millor? -->
             <script type="text/javascript">
                 $(document).ready(function() {
 
