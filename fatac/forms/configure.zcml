@@ -22,6 +22,8 @@
         description="Installs the fatac.forms package"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
+        
+    <i18n:registerTranslations directory="locales" />
 
     <!-- -*- extra stuff goes here -*- -->
 

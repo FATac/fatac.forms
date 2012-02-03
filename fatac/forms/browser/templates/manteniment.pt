@@ -21,12 +21,12 @@
                              disable_column_one python:request.set('disable_plone.leftcolumn',1);
                              disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
 </head>
-    <body>
+    <body i18n:domain="fatac.forms">
     	<metal:content-title fill-slot="content-title">
-            <h1 class="documentFirstHeading">Administració</h1>
+            <h1 class="documentFirstHeading" i18n:translate="Administracio">Administració</h1>
         </metal:content-title>
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription">
+            <div class="documentDescription" i18n:translate="Manteniment">
                 Manteniment
             </div>
             <br/>
@@ -36,32 +36,32 @@
 	        </div>
 	        <br/>
             <ul id="treeview">
-                <li>Recarregar ontologies
+                <li><span i18n:translate="RecarregarOntologies">Recarregar ontologies</span>
                 	<ul>
-                		<li>Actualitza les ontologies amb les especificades a la variable de configuració ONTOLOGY_NAMESPACE</li>
+                		<li i18n:translate="ActualitzaOntologies">Actualitza les ontologies amb les especificades a la variable de configuració ONTOLOGY_NAMESPACE</li>
                 		<li><a href="javascript:void(0);" onclick=" $('#actionInput').val('ontology'); document.manteniment.submit();">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Exportar a OAI
                 	<ul>
                 		<li>Assegura que les dades actuals estiguin disponibles pel servidor OAI-PMH, d'acord amb allò especificat al oai-mapping <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('oai'); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('oai'); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Indexar a Solr
                 	<ul>
                 		<li>Indexa des de zero totes les dades actuals perquè siguin disponibles al motor de cerca Solr, d'acord amb allò especificat al mapping <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('index'); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('index'); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 		<li>Indexa només les dades recentment introduides o modificades, en el temps establert. No actualitza els objectes esborrats <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
                 		<li>Introdueix el temps en minuts <input id="minutes" value="60"></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('update'); $('#parametreInput').val($('#minutes').val()); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('update'); $('#parametreInput').val($('#minutes').val()); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Generar miniatures
                 	<ul>
                 		<li>Genera les miniatures de tots els objectes d'una determinada classe. Això és útil per evitar sobrecarregar el servidor durant la cerca <span style="font-weight:bold" >(aquesta acció pot trigar una estona)</span></li>
                 		<li>Introdueix el nom de la classe <input id="nomClasse" value=""></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('thumbnail'); $('#parametreInput').val($('#nomClasse').val()); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('thumbnail'); $('#parametreInput').val($('#nomClasse').val()); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Substituir textos
@@ -70,20 +70,20 @@
                 		<li>Nom de la propietat <input id="nomPropietat" value="ac:Uri"></li>
                 		<li>Text anterior <input id="textAnterior" value="www.hostanterior.org"></li>
                 		<li>Text nou <input id="textNou" value="www.hostnova.org"></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('replace'); $('#parametreInput').val($('#nomPropietat').val() + ';' + $('#textAnterior').val() + ';' + $('#textNou').val()); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('replace'); $('#parametreInput').val($('#nomPropietat').val() + ';' + $('#textAnterior').val() + ';' + $('#textNou').val()); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Reiniciar rols
                 	<ul>
                 		<li>Acció necessària perquè els canvis de rol dels usuaris es facin efectius</li>
-                		<li><a href="javascript:void(0);" onclick=" $('#actionInput').val('roles'); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick=" $('#actionInput').val('roles'); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
                 <li>Esborra totes les dades
                 	<ul>
                 		<li>Esborra <span style="font-weight:bold; color:red;" >de forma irreversible</span> totes les dades del sistema, arxius media, estadístiques i recarrega les ontologies. Per a confirmar aquest acció cal introduir la data i hora actual del servidor (en format tipus '30/11/11 16:37')</li>
                 		<li>Introdueix l'hora  del servidor per confirmar <input id="confirmDate" value=""></li>
-                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('reset'); $('#parametreInput').val($('#confirmDate').val()); document.manteniment.submit();">Executa</a></li>
+                		<li><a href="javascript:void(0);" onclick="$('#actionInput').val('reset'); $('#parametreInput').val($('#confirmDate').val()); document.manteniment.submit();" i18n:translate="Executa">Executa</a></li>
                 	</ul>
                 </li>
             </ul>

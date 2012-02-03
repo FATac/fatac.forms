@@ -5,6 +5,8 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from fatac.theme.browser.funcionsCerca import funcionsCerca
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("fatac.forms")
 
 class manteniment(BrowserView, funcionsCerca):
     def __init__(self, context, request):
@@ -14,7 +16,7 @@ class manteniment(BrowserView, funcionsCerca):
     __call__ = ViewPageTemplateFile('templates/manteniment.pt')
     
     def action(self):
-        result = "Selecciona una tasca a realitzar"
+        result = _("SeleccionaTasca",default="Selecciona una tasca a realitzar")
         if 'action' in self.request.form:
             action = self.request.form['action']
             if action == 'reset':                
