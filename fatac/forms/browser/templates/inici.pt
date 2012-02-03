@@ -5,23 +5,23 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
-    <body>
+    <body i18n:domain="fatac.forms">
     	<metal:content-title fill-slot="content-title">
-            <h1 class="documentFirstHeading">Administració</h1>
+            <h1 class="documentFirstHeading" i18n:translate="Administracio">Administració</h1>
         </metal:content-title>
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription">
+            <div class="documentDescription" i18n:translate="Inici">
                 Inici
             </div>
             <br/>
         </metal:content-description>
         <metal:content-core fill-slot="content-core">
             <ul>
-                <li><a tal:attributes="href string:${here/portal_url}/uploadData">Inserir nou objecte</a></li>
-                <li><a tal:attributes="href string:${here/portal_url}/seek">Buscar/Editar objectes</a></li>
-                <li><a tal:attributes="href string:${here/portal_url}/legalSelectObjects">Assignar drets legals</a></li>
-                <li><a tal:attributes="href string:${here/portal_url}/gestioMedias">Gestió dels media</a></li>
-                <li><a tal:attributes="href string:${here/portal_url}/manteniment">Accions de manteniment</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/uploadData" i18n:translate="InserirObjecte">Inserir nou objecte</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/seek" i18n:translate="BuscarEditarObjectes">Buscar/Editar objectes</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/legalSelectObjects" i18n:translate="AssignarDretsLegals">Assignar drets legals</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/gestioMedias" i18n:translate="GestioMedia">Gestió dels media</a></li>
+                <li><a tal:attributes="href string:${here/portal_url}/manteniment" i18n:translate="AccionsManteniment">Accions de manteniment</a></li>
             </ul>
         </metal:content-core>
     </body>

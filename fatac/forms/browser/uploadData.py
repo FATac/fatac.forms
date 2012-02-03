@@ -4,8 +4,6 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from restkit import request
 from fatac.theme.browser.funcionsCerca import funcionsCerca
-from zope.i18nmessageid import MessageFactory
-_ = MessageFactory("fatac.forms")
 
 class uploadData(BrowserView, funcionsCerca):
     def __init__(self, context, request):
@@ -62,8 +60,6 @@ class uploadData(BrowserView, funcionsCerca):
         return L
     
     def toHtmlTree(self, T, first=0):
-        print _("Executa")
-        
         html = ""
         if type(T).__name__ == 'dict':
             for e in T:

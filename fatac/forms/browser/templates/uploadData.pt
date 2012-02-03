@@ -22,12 +22,12 @@
                              disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
 </head>
 
-<body>
+<body i18n:domain="fatac.forms">
 	<metal:content-title fill-slot="content-title">
-    	<h1 class="documentFirstHeading">Nou objecte</h1>
+    	<h1 class="documentFirstHeading" i18n:domain="InserirObjecte">Nou objecte</h1>
     </metal:content-title>
     <metal:content-description fill-slot="content-description">
-            <div class="documentDescription">Selecció de classe</div>
+            <div class="documentDescription" i18n:domain="SeleccioClasse">Selecció de classe</div>
             <div class="visualClear"><br/><br/></div>
     </metal:content-description>
 	<metal:content-core fill-slot="content-core">
