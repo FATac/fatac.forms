@@ -63,8 +63,7 @@ class uploadData(BrowserView, funcionsCerca):
         html = ""
         if type(T).__name__ == 'dict':
             for e in T:
-                print e
-                html += "<li><a href='javascript:void(0);' onclick='uploadNew(\""+e+"\")'>" + _(e) + "</a> " + self.toHtmlTree(T[e]) + "</li>"
+                html += "<li><a href='javascript:void(0);' onclick='uploadNew(\""+e+"\")'>" + e + "</a> " + self.toHtmlTree(T[e]) + "</li>"
             return html
         elif type(T).__name__ == 'list':
             if first==1: html = "<ul id='treeview'>" 
@@ -73,7 +72,7 @@ class uploadData(BrowserView, funcionsCerca):
                 html += self.toHtmlTree(e)
             return html + "</ul>"
         else:
-            return "<li><a href='javascript:void(0);' onclick='uploadNew(\""+T+"\")'>" + _(T) + "</a></li>"
+            return "<li><a href='javascript:void(0);' onclick='uploadNew(\""+T+"\")'>" + T + "</a></li>"
     
     def classesTree(self):
         if 'c' in self.request.form:

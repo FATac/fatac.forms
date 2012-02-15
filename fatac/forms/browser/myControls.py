@@ -35,7 +35,7 @@ class GenericControl(object):
 
 class TextControl(GenericControl):    
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -54,7 +54,7 @@ class TextControl(GenericControl):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
             if self.multi and self.multi == True:
-                html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;\n"
+                html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;\n"
             html += "        <label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v[0]+"'>\n"
             if v[1] is not None:
@@ -69,7 +69,7 @@ class TextControl(GenericControl):
     
 class DateControl(GenericControl):    
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -79,7 +79,7 @@ class DateControl(GenericControl):
         for idxi, v in enumerate(valueList):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
-            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='date' name='"+self.name+"' value='"+v+"' size='9'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
@@ -91,7 +91,7 @@ class DateControl(GenericControl):
     
 class NumberControl(GenericControl):    
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -101,7 +101,7 @@ class NumberControl(GenericControl):
         for idxi, v in enumerate(valueList):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
-            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v+"' size='9' onkeypress='validateNumber(event)' >\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
@@ -113,7 +113,7 @@ class NumberControl(GenericControl):
         
 class TextAreaControl(GenericControl):
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -131,7 +131,7 @@ class TextAreaControl(GenericControl):
         for idxi, v in enumerate(map(None, valueList, langList)):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
-            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <textarea class='expand' rows=1 type='text' name='"+self.name+"'>\n"+v[0]+"</textarea>\n"
             if v[1] is not None:
                 html += "        <input type='text' name='"+self.name+"_lang' onchange='autocompleteLanguages(this);' value='"+v[1]+"' size='2'>\n"
@@ -158,7 +158,7 @@ class ObjectInputControl(GenericControl):
             self.name = name    
     
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -168,7 +168,7 @@ class ObjectInputControl(GenericControl):
         for idxi, v in enumerate(valueList):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
-            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v+"' class='objectinput'>&nbsp;<input type='image' src='++resource++fatac.forms.images/crear.png' title='Crear' onclick='createObject(this, \""+self.classNames+"\"); return false;' >&nbsp;<input type='image' src='++resource++fatac.forms.images/cercar.png' title='Cercar' onclick='seekObject(this, \""+self.classNames+"\"); return false;' >\n"
             html += "        <input type='image' src='++resource++fatac.forms.images/anar.png' onclick='goToObject(getObjectInputValue(this)); return false;' title='Anar-hi'>\n"
             if self.prefix is not None:
@@ -212,7 +212,7 @@ class CheckControl(GenericControl):
         chcked = ''
         if self.value and self.value == True: chcked = 'checked'
         
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         html += "    <div id='"+self.name+"' >\n"
         html += "        <label>\n"+self.label+"</label>\n"
         html += "        <input type='checkbox' name='"+self.name+"' "+chcked+">\n"
@@ -225,7 +225,7 @@ class CheckControl(GenericControl):
     
 class FileUrlInput(GenericControl):
     def render(self):
-        html = "<div id='"+self.name+"_cntrl'>\n"
+        html = "<div id='"+self.name.replace(u".",u"")+"_cntrl'>\n"
         valueList = []
         if type(self.value) == list:
             valueList = self.value
@@ -235,7 +235,7 @@ class FileUrlInput(GenericControl):
         for idxi, v in enumerate(valueList):
             idx = str(idxi)
             html += "    <div id='"+self.name+"_"+idx+"' >\n"
-            html += "        <a onclick='addControl(\""+self.name+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
+            html += "        <a onclick='addControl(\""+self.name.replace(u".",u"")+"\")'>+</a>&nbsp;<a onclick='removeControl(\""+self.name.replace(u".",u"")+"\",this)'>-</a>&nbsp;<label>\n"+self.label+"</label>\n"
             html += "        <input type='text' name='"+self.name+"' value='"+v+"' onclick='showMediaSelector(this)'>\n"
             if self.prefix is not None:
                 html += "        <input type='hidden' name='"+self.name+"_prefix' value='"+self.prefix+"'>\n"
