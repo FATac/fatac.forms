@@ -41,6 +41,6 @@ class gestioMedias(BrowserView, funcionsCerca):
             item = itl[0]
             format = ""
             if len(itl)>1: format = itl[1]
-            result.append(self.myItem(restUrl + '/media/' + item, item, format))
+            result.append(self.myItem(restUrl + '/media/' + it, item, format))
         
         return result
