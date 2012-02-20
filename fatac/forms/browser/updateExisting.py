@@ -55,6 +55,11 @@ class updateExisting(BrowserView, funcionsCerca):
         def __init__(self, value, link):
             self.value = value
             self.link = link
+            
+    def color(self):
+        oid = self.request.form['id']
+        resp = request(self.retServidorRest() + '/resource/' + oid + '/color')
+        return resp.tee().read()
     
     def locator(self):
         try:

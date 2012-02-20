@@ -36,6 +36,7 @@
 		<div>
 	    	<a tal:attributes="href string:legalValidation?objectIdsVal=${view/objectId}">Validació legal</a>
 	    </div>
+	    <div tal:attributes="style string:background-color: ${view/color}; "  >&nbsp;</div>
 	    <div class="deformFormFieldset" id="content-core">
 	        <div tal:replace="structure view/render">
 	        </div>
