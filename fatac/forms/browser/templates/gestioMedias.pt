@@ -31,6 +31,25 @@
             <br/>
         </metal:content-description>
         <metal:content-core fill-slot="content-core">
+        	<form name="gestioMedias" method="post">
+        		<input type="text" name="search" tal:attributes="value view/getSearchText">
+        		<input type="submit" value="Buscar">
+        		<input type="hidden" id="actionInput" name="action">
+        		<input type="hidden" id="idInput" name="id">
+        		<input type="hidden" id="pagInput" name="pag">
+        		<tal:def tal:define="link python: context.REQUEST.get('link')">
+        			<input type="hidden" name="link" tal:attributes="value link">
+        		</tal:def>
+        	</form>
+        	<br/>
+        	<div>
+        		<span>
+        			<span tal:condition="view/getPagMinus1"><a href="javascript:void(0);" tal:attributes="onclick view/getPagMinus1">&lt;&lt;</a></span>
+        			Pàgina&nbsp;
+        			<span tal:content="view/getPag"></span>
+        			<a href="javascript:void(0);" tal:attributes="onclick view/getPagPlus1">&gt;&gt;</a>
+        		</span>
+        	</div>
         	<table width="100%">
         		<thead><tr><td i18n:translate="Media">Media</td><td i18n:translate="Format">Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
         		<tbody>
@@ -40,20 +59,27 @@
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert" i18n:translate="Convertir">Convertir</a></td>
-	        		</tr>
+	        			<tal:def tal:define="link python: context.REQUEST.get('link')">
+	        				<td tal:condition="link">
+	        					<a href="javascript:void(0);" tal:attributes="onclick string:opener.mediaUrlPreview('${item/url}');;window.close();;" i18n:translate="Link">Seleccionar</a>
+	        				</td>
+	        			</tal:def>		
+	           		</tr>
 	        		<tr tal:condition="repeat/item/even">        			
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert" i18n:translate="Convertir">Convertir</a></td>
+	        			<tal:def tal:define="link python: context.REQUEST.get('link')">
+	        				<td tal:condition="link">
+	        					<a href="javascript:void(0);" tal:attributes="onclick string:opener.mediaUrlPreview('${item/url}');;window.close();;" i18n:translate="Link">Seleccionar</a>
+	        				</td>
+	        			</tal:def>	
 	        		</tr>
 	        	</tal:block>
         		</tbody>
         	</table>
-        	<form name="gestioMedias" method="post">
-        		<input type="hidden" id="actionInput" name="action">
-        		<input type="hidden" id="idInput" name="id">
-        	</form>
+        	
         </metal:content-core>
     </body>
 </html>

@@ -29,6 +29,7 @@
 	        <label>Url</label>
 	        <input type="text" name="mediaurl" id="mediaurl" size="40">
 	        <input type="button" value="Preview" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)">
+	        <a href="javascript:window.open('./gestioMedias?link=1');void(0);">Seleccionar media</a>
 	        <br><br>
 	        <h3 class="documentDescription">Utilitzar fitxer media</h3><br/>
             <div class="visualClear"></div>
