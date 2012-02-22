@@ -51,6 +51,7 @@ class gestioMedias(BrowserView, funcionsCerca):
     
     def getMediaList(self):
         restUrl = self.retServidorRest()
+        mediaUrl = self.retServidorMedia()
         search = ""
         pag = ""
         if "action" in self.request.form:
@@ -84,6 +85,6 @@ class gestioMedias(BrowserView, funcionsCerca):
             item = itl[0]
             format = ""
             if len(itl)>1: format = itl[1]
-            result.append(self.myItem(restUrl + '/media/' + it, it, format))
+            result.append(self.myItem(mediaUrl + it, it, format))
         
         return result
