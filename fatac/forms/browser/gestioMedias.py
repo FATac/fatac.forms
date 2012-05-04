@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import urllib
 from Products.Five.browser import BrowserView
@@ -50,15 +51,16 @@ class gestioMedias(BrowserView, funcionsCerca):
         
     
     def getMediaList(self):
-        restUrl = self.retServidorRest()
-        mediaUrl = self.retServidorMedia()
+        restUrl = self.getSettings('rest_server')
+        mediaUrl = self.getSettings('rest_media')
         search = ""
         pag = ""
         if "action" in self.request.form:
             search = "?s="
-            pag = "?pag="        
+            pag = "?pag="
             action = self.request.form["action"]
             id = self.request.form["id"]
+            # TODO potser haruia de ser la url pública?
             if action == 'delete':
                 request(restUrl + '/media/'+id+'/delete')
             if action == 'convert':
