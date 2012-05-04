@@ -7,154 +7,154 @@
         for="*"
         name="inici"
         class=".inici.Inici"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="LegalResultWidget"
         class=".widgets.LegalResultWidget"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="ObjectInputWidget"
         class=".widgets.ObjectInputWidget"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="uploadData"
         class=".uploadData.uploadData"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
         
     <browser:page
         for="*"
         name="manteniment"
         class=".manteniment.manteniment"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="uploadNew"
         class=".uploadNew.uploadNew"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
       
     <browser:page
         for="*"
         name="uploadObject"
         class=".uploadObject.uploadObject"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="seek"
         class=".searchForm.searchForm"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
        
     <browser:page
         for="*"
         name="updateExisting"
         class=".updateExisting.updateExisting"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="updateObject"
         class=".updateObject.updateObject"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="deleteObject"
         class=".deleteObject.deleteObject"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="selectObject"
         class=".searchFormSelect.searchFormSelect"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="legalSelectObjects"
         class=".legalSelectObjects.legalSelectObjects"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="legalSelectObjectsAux"
         class=".legalSelectObjects.legalSelectObjectsAux"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="legalValidation"
         class=".legalValidation.legalValidation"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="legalValidationAux"
         class=".legalValidation.legalValidationAux"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="legalDataAjax"
         class=".legalDataAjax.legalDataAjax"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
       />
 
     <browser:page
         for="*"
         name="viewObject"
         class=".viewObject.viewObject"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
       
     <browser:page
         for="*"
         name="viewRdf"
         class=".viewRdf.viewRdf"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
         
     <browser:page
         for="*"
         name="uploadMedia"
         class=".uploadMedia.uploadMedia"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
 
     <browser:page
         for="*"
         name="uploadMediaAjax"
         class=".uploadMediaAjax.uploadMediaAjax"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
         
     <browser:page
         for="*"
         name="gestioMedias"
         class=".gestioMedias.gestioMedias"
-        permission="zope2.Public"
+        permission="cmf.ManagePortal"
         />
         
     <!-- Resource directory for stylesheets -->

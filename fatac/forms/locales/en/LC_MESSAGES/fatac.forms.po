@@ -158,4 +158,92 @@ msgstr "0 results"
 msgid "Tots"
 msgstr "All"
 
+msgid "Inici"
+msgstr "Start"
 
+msgid "Administració"
+msgstr "Adminsitration"
+
+msgid "InserirObjecte"
+msgstr "Insert New Object"
+
+msgid "BuscarEditarObjectes"
+msgstr "Search/Edit Objects"
+
+msgid "AssignarDretsLegals"
+msgstr "Assign Rights"
+
+msgid "GestioMedia"
+msgstr "Manage Media"
+
+msgid "AccionsManteniment"
+msgstr "Maintenance Actions"
+
+msgid "Manteniment"
+msgstr "Maintenance"
+
+msgid "RecarregarOntologies"
+msgstr "Reload ontologies"
+
+msgid "ActualitzaOntologies"
+msgstr "Update ontologies with the ones currently specified in ONTOLOGY_NAMESPACE variable"
+
+msgid "ExportarOAI"
+msgstr "Export to OAI"
+
+msgid "ExportarOAIExplicacio"
+msgstr "Make data available to OAI-PMH server, according to oai-mapping specification (this action may take a while)"
+
+msgid "IndexarSolr"
+msgstr "Solr index"
+
+msgid "IndexarSolrExplicacio1"
+msgstr "Index all data to make it avialable from Solr search engine, according to mapping specification (this action may take a while)"
+
+msgid "IndexarSolrExplicacio2"
+msgstr "Index only recently modified data, in the specified time in minutes. It does not update deleted objectes (this action may take a while)"
+
+msgid "IntroduirTemps"
+msgstr "Set the time in minutes"
+
+msgid "GenerarMiniatures"
+msgstr "Generate thumbnails"
+
+msgid "GenerarMiniaturesExplicacio"
+msgstr "Generate thumbnails of all objectes of an specified class. This action is useful to save server load on search time (this action may take a while)"
+
+msgid "IntroduirNomClasse"
+msgstr "Set the class name"
+
+msgid "SubstituirTextos"
+msgstr "Replace text"
+
+msgid "SubstituirTextosExplicacio"
+msgstr "Replace all existing coincidences of the old text to the new one, of an specified field. This action is necessary to change URL when server domain is changed. You must fill: property name that will be changed (e.g.: 'prefix:PropertyName'), text to replace and the new text."
+
+msgid "NomPropietat"
+msgstr "Property name"
+
+msgid "TextAnterior"
+msgstr "Previous text"
+
+msgid "TextNou"
+msgstr "New text"
+
+msgid "ReiniciarRols"
+msgstr "Restart roles"
+
+msgid "ReiniciarRolsExplicacio"
+msgstr "Necessary action to be called in order to reflect the last user role changes"
+
+msgid "EsborraDades"
+msgstr "Remove data"
+
+msgid "EsborraDadesExplicacio"
+msgstr "Remove irreversibly ALL data, media and system data and reloads ontologies. To confirm this action you must put current server date time (format '30/11/11 16:37')"
+
+msgid "IntroduirHoraServidor"
+msgstr "Set the current server date and time to continue"
+
+msgid "Executa"
+msgstr "Execute"
