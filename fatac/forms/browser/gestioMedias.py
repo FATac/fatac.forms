@@ -52,7 +52,7 @@ class gestioMedias(BrowserView, funcionsCerca):
 
     def getMediaList(self):
         restUrl = self.getSettings('rest_server')
-        mediaUrl = self.getSettings('rest_media')
+        mediaUrl = self.getSettings('media_server')
         search = ""
         pag = ""
         if "action" in self.request.form:
