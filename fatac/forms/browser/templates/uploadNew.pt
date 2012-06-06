@@ -22,6 +22,13 @@
 
 <body>
 	<metal:content-title fill-slot="content-title">
+            <div class="ac_breadcrump div_dotted_line_bottom">
+                <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
+                <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+                <a href="./uploadData" class="TerminalDosis600">Nou objecte</a>
+                <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+                <span class="TerminalDosis200" tal:content="view/className">[ontology object]</span>
+            </div>
             <h1 class="documentFirstHeading">Nou objecte</h1>
     </metal:content-title>
     <metal:content-description fill-slot="content-description">

@@ -22,11 +22,16 @@
 </head>
     <body i18n:domain="fatac.forms">
     	<metal:content-title fill-slot="content-title">
-            <h1 class="documentFirstHeading" i18n:translate="Administracio">Administració</h1>
+            <div class="ac_breadcrump div_dotted_line_bottom">
+                <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
+                <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+                <span class="TerminalDosis200">Gestió de medias</span>
+            </div>
+            <h1 class="documentFirstHeading" i18n:translate="Administracio">Gestió de medias</h1>
         </metal:content-title>
         <metal:content-description fill-slot="content-description">
             <div class="documentDescription" i18n:translate="GestioMedia">
-                Gestió de medias
+                Cerca i gestió de medias
             </div>
             <br/>
         </metal:content-description>
@@ -51,10 +56,10 @@
         		</span>
         	</div>
         	<table width="100%">
-        		<thead><tr><td i18n:translate="Media">Media</td><td i18n:translate="Format">Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
+        		<thead style="font-weight:bold"><tr><td i18n:translate="Media">Media</td><td i18n:translate="Format">Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
         		<tbody>
         		<tal:block tal:repeat="item view/getMediaList">
-        			<tr bgcolor="#E0E0E0" tal:condition="repeat/item/odd">        			
+        			<tr bgcolor="#E0E0E0" tal:condition="repeat/item/odd">
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
@@ -63,9 +68,9 @@
 	        				<td tal:condition="link">
 	        					<a href="javascript:void(0);" tal:attributes="onclick string:opener.mediaUrlPreview('${item/url}');;window.close();;" i18n:translate="Link">Seleccionar</a>
 	        				</td>
-	        			</tal:def>		
+	        			</tal:def>
 	           		</tr>
-	        		<tr tal:condition="repeat/item/even">        			
+	        		<tr tal:condition="repeat/item/even">
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
@@ -74,12 +79,12 @@
 	        				<td tal:condition="link">
 	        					<a href="javascript:void(0);" tal:attributes="onclick string:opener.mediaUrlPreview('${item/url}');;window.close();;" i18n:translate="Link">Seleccionar</a>
 	        				</td>
-	        			</tal:def>	
+	        			</tal:def>
 	        		</tr>
 	        	</tal:block>
         		</tbody>
         	</table>
-        	
+
         </metal:content-core>
     </body>
 </html>
