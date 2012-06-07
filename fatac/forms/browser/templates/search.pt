@@ -23,8 +23,8 @@
 	<metal:content-title fill-slot="content-title">
             <div class="ac_breadcrump div_dotted_line_bottom">
                 <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
-                <span class="TerminalDosis200 ac_breacrump_sep">></span>
-                <span class="TerminalDosis200">Cercar objectes</span>
+                <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+                <span class="TerminalDosis200">Buscar/Editar objectes</span>
             </div>
             <h1 class="documentFirstHeading">Cercar objectes</h1>
     </metal:content-title>
@@ -45,12 +45,12 @@
 					<tr tal:condition="item/link">
 						<td>&nbsp;</td>
 						<td tal:condition="item/legalLink">
-							<a tal:attributes="href item/link" href="">Editar</a>
+							<a tal:attributes="href item/link" href="">Edita</a>
                             <span class="separator"> | </span>
                             <a tal:attributes="href item/legalLink" href="">Legal</a>
 						</td>
 						<td tal:condition="not: item/legalLink">
-							<a tal:attributes="href item/link" href="">Seleccionar</a>
+							<a tal:attributes="href item/link" href="">Selecciona</a>
 						</td>
 					</tr>
 					<tr tal:condition="item/link">
