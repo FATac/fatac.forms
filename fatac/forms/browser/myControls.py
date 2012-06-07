@@ -11,7 +11,7 @@ class Form(object):
         for control in self.controlList:
             html += control.render()
         
-        html += "<input name='submit' type='submit' value='Desar' >\n"
+        html += "<input name='submit' type='submit' value='Desa' >\n"
         html += "</form>\n"
         html += "<div id='mydiv'></div>\n"
         
