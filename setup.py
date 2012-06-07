@@ -25,6 +25,7 @@ setup(name='fatac.forms',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'restkit'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
