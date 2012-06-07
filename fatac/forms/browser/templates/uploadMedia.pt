@@ -21,27 +21,29 @@
 
 <body>
 	<metal:content-title fill-slot="content-title">
-            <h1 class="documentFirstHeading">Selecció de URL</h1><br>
+            <h1 class="documentFirstHeading">ac:Uri</h1><br>
     </metal:content-title>
 	<metal:content-core fill-slot="content-core">
 	<form name="mediaForm" id="mediaForm" target="mediaFrame" enctype="multipart/form-data" method="post" action="./uploadMediaAjax">
 	    <div id="header-core">
-	        <label>Url</label>
-	        <input type="text" name="mediaurl" id="mediaurl" size="40">
-	        <input type="button" value="Preview" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)">
-	        <a href="javascript:window.open('./gestioMedias?link=1');void(0);">Seleccionar media</a>
-	        <br><br>
-	        <h3 class="documentDescription">Utilitzar fitxer media</h3><br/>
-            <div class="visualClear"></div>
-	        <label>Media</label>
-	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();">
+            <h3 class="documentDescription">Introduir URI</h3>
+            <p>
+    	        <label>Url</label>
+    	        <input type="text" name="mediaurl" id="mediaurl" size="40"/>
+                <input type="button" onclick="window.open('./gestioMedias?link=1');" value="Seleccionar media"/>
+	        </p>
+
+    	   <h3 class="documentDescription">Pujar media</h3>
+           <p>
+    	        <label>Media</label>
+    	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();" />
+           </p>
 	    </div>
-	    <div>&nbsp;</div>
 	    <div id='preview' style='horizontal-align:center'>
-	    <iframe width='600' height='400' name='mediaFrame'></iframe>
+            <h3 class="documentDescription">Previsualització <input type="button" value="Recarregar" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)"/></h3>
+            <iframe width="100%" height='400' name='mediaFrame' style="box-shadow:none; border:solid 1px"></iframe>
 	    </div>
 	    <div>
-	    	<br/><br/><br/>
 	    	<input type="button" value="D'acord" name="Okay" onclick="setCurrentInputValue(document.mediaForm.mediaurl.value); $('.close').trigger('click'); ">
 	    </div>
 	</form>

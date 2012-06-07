@@ -65,8 +65,8 @@ class uploadObject(BrowserView, funcionsCerca):
             
             if result!='error':
                 if '__relatedObject' in self.request:
-                    return result + "&nbsp;<a href='javascript:opener.setCurrentInputValue(\""+result+"\"); opener.focus(); window.close();'>[Seleccionar]</a>"
+                    return "&nbsp;<a href='javascript:opener.setCurrentInputValue(\""+result+"\"); opener.focus(); window.close();'>[Seleccionar]</a>"
                 else:
-                    return result
+                    return "<a href='./genericView?idobjecte="+result+"' target='_fitaWindow'>Veure fitxa</a>"
         else:
             return 'Oops!'

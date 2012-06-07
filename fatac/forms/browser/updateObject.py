@@ -108,7 +108,7 @@ class updateObject(BrowserView, funcionsCerca):
                 myformHtml = "" 
             
             if result == 'success':
-                return "Objecte desat " + myformHtml 
+                return "Objecte desat <a href='./genericView?idobjecte=" + self.request.form['about'] + "' target='_fitxaWindow'>Veure fitxa</a>" + myformHtml 
             else:
                 return "Hi ha hagut algun error."
         else:
