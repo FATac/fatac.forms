@@ -35,5 +35,4 @@ setup(name='fatac.forms',
       target = plone
       """,
       setup_requires=[""],
-      paster_plugins=[""],
       )
