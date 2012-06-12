@@ -14,12 +14,13 @@ class gestioMedias(BrowserView, funcionsCerca):
     __call__ = ViewPageTemplateFile('templates/gestioMedias.pt')
 
     class myItem:
-        def __init__(self, itemUrl, itemId, format):
+        def __init__(self, itemUrl, itemId, objectIdList, format):
             self.url = itemUrl
             self.id = itemId
             self.format = format
             self.urlDelete = "javascript:call('delete','" + itemId + "');"
             self.urlConvert = "javascript:call('convert','" + itemId + "');"
+	    self.urlObjects = objectIdList
 
     def getSearchText(self):
         if "search" in self.request.form:
@@ -82,12 +83,18 @@ class gestioMedias(BrowserView, funcionsCerca):
         jsonTree = json.loads(jsonResult)
 
         result = list()
-        for it in jsonTree:
-            itl = it.split(".")
+        for elem in jsonTree:
+	    elems = elem.split(",")
+            it = elems[0]
+	    if len(elems)>1:
+	        idObjects = elems[1:]
+	    else:
+		idObjects = list()
+	    itl = it.split(".")
             # item = itl[0]
             format = ""
             if len(itl) > 1:
                 format = itl[1]
-            result.append(self.myItem(mediaUrl + it, it, format))
+            result.append(self.myItem(mediaUrl + it, it, idObjects, format))
 
         return result

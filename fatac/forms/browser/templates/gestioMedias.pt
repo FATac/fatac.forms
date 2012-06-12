@@ -56,11 +56,12 @@
         		</span>
         	</div>
         	<table width="100%">
-        		<thead style="font-weight:bold"><tr><td i18n:translate="Media">Media</td><td i18n:translate="Format">Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
+        		<thead style="font-weight:bold"><tr><td i18n:translate="Media">Media</td><td i18n:translate="Objectes">Objectes</td><td i18n:translate="Format">Format</td><td>&nbsp;</td><td>&nbsp;</td></tr></thead>
         		<tbody>
         		<tal:block tal:repeat="item view/getMediaList">
         			<tr bgcolor="#E0E0E0" tal:condition="repeat/item/odd">
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
+					<td><tal:block repeat="urlObj item/urlObjects"> <a tal:attributes="href string:./updateExisting?id=${urlObj}" target="_blank" tal:content="urlObj"></a></tal:block></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert" i18n:translate="Convertir">Convertir</a></td>
@@ -72,6 +73,7 @@
 	           		</tr>
 	        		<tr tal:condition="repeat/item/even">
         				<td><a target="mediaPreview" tal:attributes="href item/url" tal:content="item/id"></a></td>
+					<td><tal:block repeat="urlObj item/urlObjects"> <a tal:attributes="href string:./updateExisting?id=${urlObj}" target="_blank" tal:content="urlObj"></a></tal:block></td>
         				<td tal:content="item/format"></td>
 	        			<td><a tal:attributes="href item/urlDelete" i18n:translate="Esborrar">Esborrar</a></td>
 	        			<td><a tal:attributes="href item/urlConvert" i18n:translate="Convertir">Convertir</a></td>
