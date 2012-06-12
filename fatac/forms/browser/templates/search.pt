@@ -46,8 +46,10 @@
 						<td>&nbsp;</td>
 						<td tal:condition="item/legalLink">
 							<a tal:attributes="href item/link" href="">Edita</a>
-                            <span class="separator"> | </span>
-                            <a tal:attributes="href item/legalLink" href="">Legal</a>
+		                        	        <span class="separator"> | </span>
+                  			                <a tal:attributes="href item/legalLink" href="">Legal</a>
+							<span class="separator"> | </span>
+							<a tal:attributes="href item/fitxaLink" href="" target="_blank">Fitxa</a>
 						</td>
 						<td tal:condition="not: item/legalLink">
 							<a tal:attributes="href item/link" href="">Selecciona</a>

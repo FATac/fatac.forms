@@ -72,12 +72,15 @@ class searchForm(BrowserView, funcionsCerca):
         value = None
         link = None
         legalLink = None
+	fitxaLink = None
 
-        def __init__(self, name, value, link, legalLink):
+        def __init__(self, name, value, link, legalLink, fitxaLink):
             self.name = name
             self.value = value
             self.link = link
             self.legalLink = legalLink
+	    self.fitxaLink = fitxaLink
+
 
     def results(self):
         result = list()
@@ -104,12 +107,12 @@ class searchForm(BrowserView, funcionsCerca):
             
 
             for s in jsonTree.keys():
-                result.append(self.resultItem("ID", s, None, None))
+                result.append(self.resultItem("ID", s, None, None, None))
                 for k in jsonTree[s].keys():
-                    result.append(self.resultItem(k, jsonTree[s][k], None, None))
+                    result.append(self.resultItem(k, jsonTree[s][k], None, None, None))
                 if vIsSearch:
-                    result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s))
+                    result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s))
                 else:
-                    result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("'+s+'"); window.close();' , None))
+                    result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("'+s+'"); window.close();', None, None))
 
         return result
