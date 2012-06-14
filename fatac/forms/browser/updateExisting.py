@@ -161,9 +161,9 @@ class updateExisting(BrowserView, funcionsCerca):
                 elif s['controlType'] == 'objectInput':
                     controlList.append(myControls.ObjectInputControl(_(s['name']), s['name'], currValue, s['objectClass']))
                 elif s['controlType'] == 'checkInput':
-                    if currValue == 'true':
+		     if len(currValue) > 0 and (currValue[0] == 'on' or currValue[0] == u'on'):
                         controlList.append(myControls.CheckControl(_(s['name']), s['name'], True))
-                    else:
+                     else:
                         controlList.append(myControls.CheckControl(_(s['name']), s['name'], False))
                 elif s['controlType'] == 'fileInput':
                     controlList.append(myControls.FileUrlInput( _(s['name']), s['name'], currValue))
