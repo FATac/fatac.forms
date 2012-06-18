@@ -113,6 +113,7 @@ class legalValidation(BrowserView, funcionsCerca):
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=L),
                     name=s['name'],
+		    default=s['defaultValue'],
                     missing=u'',
                     required=False
                     )
@@ -147,6 +148,12 @@ class legalValidation(BrowserView, funcionsCerca):
                     colander.String(),
                     widget=LegalResultWidget(),
                     name=s['name']
+                    )
+	    elif s['type'] == 'label':
+                inputField = colander.SchemaNode(
+                    colander.String(),
+                    name=s['name'],
+		    missing=u''
                     )
             else:
                 inputField = colander.SchemaNode(

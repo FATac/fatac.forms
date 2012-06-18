@@ -62,6 +62,8 @@ class uploadObject(BrowserView, funcionsCerca):
                                 body=json.dumps(jsonRequest))
 
             result = resp.tee().read()
+
+	    self.newId = result
             
             if result!='error':
                 if '__relatedObject' in self.request:
