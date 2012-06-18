@@ -53,7 +53,15 @@ class deleteObject(BrowserView, funcionsCerca):
                 myformHtml = "<form name='myform'><input type='hidden' name='locator' value='" + self.request.form['loc'] + "'></form> <div id='mydiv'></div>"
             except KeyError:
                 myformHtml = ""
-            # TODO delete (if exists) dummy object
+
+            # Esborrar objecte dummy si existeix
+            # http://collective-docs.readthedocs.org/en/latest/content/deleting.html
+            try:
+                arts = self.getSettings('arts_folder')
+                getattr(self.context, arts).manage_delObjects([oid])
+            except:
+                pass
+
             return "Object esborrat <br/><br/><a href='./inici'>Inici</a>" + myformHtml
         else:
             return 'Oops!'
