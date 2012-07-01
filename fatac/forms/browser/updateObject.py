@@ -71,7 +71,7 @@ class updateObject(BrowserView, funcionsCerca):
                         fieldLang = self.request[fieldName + '_lang']
                         if type(fieldValue) == list:
                             for v, l in zip(fieldValue, fieldLang):
-                                if fieldLang != '':
+                                if l != '':
                                     tmp.append(v + '@' + l)
                                 else:
                                     tmp.append(v)
