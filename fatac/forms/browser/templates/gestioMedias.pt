@@ -20,17 +20,17 @@
                              disable_column_one python:request.set('disable_plone.leftcolumn',1);
                              disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
 </head>
-    <body i18n:domain="fatac.forms">
+    <body i18n:domain="fatac.theme">
     	<metal:content-title fill-slot="content-title">
             <div class="ac_breadcrump div_dotted_line_bottom">
                 <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <span class="TerminalDosis200">Gestió de medias</span>
             </div>
-            <h1 class="documentFirstHeading" i18n:translate="Administracio">Gestió de medias</h1>
+            <h1 class="documentFirstHeading" i18n:translate="GestioMedias">Gestió de medias</h1>
         </metal:content-title>
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription" i18n:translate="GestioMedia">
+            <div class="documentDescription" i18n:translate="GestioCercaMedia">
                 Cerca i gestió de medias
             </div>
             <br/>

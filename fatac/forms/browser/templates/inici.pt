@@ -5,7 +5,7 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
-    <body i18n:domain="fatac.forms">
+    <body i18n:domain="fatac.theme">
         <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)">
         </metal:block>
     	<metal:content-title fill-slot="content-title">
