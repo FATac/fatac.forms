@@ -13,7 +13,7 @@
               tal:attributes="href string:$here_url/search_rss?${request/QUERY_STRING}"/>
     <script type="text/javascript" src="++resource++fatac.forms.js/jquery.treeview.js"></script>
     <link rel="stylesheet" href="++resource++fatac.forms.js/jquery.treeview.css" />
-    
+
     </metal:block>
 
     <metal:block fill-slot="top_slot"
@@ -22,7 +22,7 @@
                              disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
 </head>
 
-<body i18n:domain="fatac.forms">
+<body i18n:domain="fatac.theme">
 	<metal:content-title fill-slot="content-title">
         <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
             <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
