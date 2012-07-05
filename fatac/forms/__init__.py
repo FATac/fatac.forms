@@ -1,6 +1,6 @@
 from zope.i18nmessageid import MessageFactory
 
-FatAcMessageFactory = MessageFactory('fatac.forms')
+FatAcMessageFactory = MessageFactory('fatac.theme')
 
 
 def initialize(context):
