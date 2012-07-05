@@ -107,8 +107,10 @@ class updateObject(BrowserView, funcionsCerca):
                 myformHtml = ""
 
             if result == 'success':
-                return "Objecte desat <a href='./genericView?idobjecte=" + self.request.form['about'] + "' target='_fitxaWindow'>Veure fitxa</a>" + myformHtml
+                return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + self.request.form['about'] + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + self.request.form['about'] + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + self.request.form['about'] + "'>Fitxa</a>" + myformHtml
             else:
                 return "Hi ha hagut algun error."
         else:
             return 'Oops!'
+
+

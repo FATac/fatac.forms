@@ -23,7 +23,7 @@
 <body>
 	<metal:content-title fill-slot="content-title">
             <div class="ac_breadcrump div_dotted_line_bottom">
-                <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
+                <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <a href="./uploadData" class="TerminalDosis600">Inserir nou objecte</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>

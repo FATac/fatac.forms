@@ -6,21 +6,25 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
     <body i18n:domain="fatac.forms">
-        <metal:block fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)">
+
+        <metal:block 
+            fill-slot="top_slot" tal:define="dummy python:request.set('disable_border',1)">
         </metal:block>
-    	<metal:content-title fill-slot="content-title">
-            <div class="ac_breadcrump div_dotted_line_bottom">
+    	
+        <metal:content-title fill-slot="content-title">
+            <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
                 <span class="TerminalDosis600">Administració</span>
             </div>
             <h1 class="documentFirstHeading" i18n:translate="Administracio">Administració</h1>
-
         </metal:content-title>
+
         <metal:content-description fill-slot="content-description">
             <div class="documentDescription" i18n:translate="Inici">
                 Inici
             </div>
             <br/>
         </metal:content-description>
+        
         <metal:content-core fill-slot="content-core">
             <ul>
                 <li><a tal:attributes="href string:${here/portal_url}/uploadData" i18n:translate="InserirObjecte">Inserir nou objecte</a></li>

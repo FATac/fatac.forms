@@ -162,7 +162,7 @@ msgid "Inici"
 msgstr "Start"
 
 msgid "Administració"
-msgstr "Adminsitration"
+msgstr "Administration"
 
 msgid "InserirObjecte"
 msgstr "Insert New Object"
