@@ -22,11 +22,18 @@
 
 <body>
 	<metal:content-title fill-slot="content-title">
-			<span tal:repeat="item view/locator">
-				<a tal:content="item/value" tal:attributes="href item/link"></a>&nbsp;>
-			</span>
-            <h1 class="documentFirstHeading">Edició objecte</h1>
+        <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
+            <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
+            <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>            
+            <span tal:repeat="item view/locator">
+              <a class="TerminalDosis200" tal:content="item/value" tal:attributes="href item/link"></a>&nbsp;>
+            </span>
+        </div>
+
+        <h1 class="documentFirstHeading">Edició objecte</h1>
     </metal:content-title>
+
+
     <metal:content-description fill-slot="content-description">
             <div class="documentDescription" tal:content="view/about"></div>
             <br/>
@@ -36,7 +43,6 @@
 	        <div tal:replace="structure view/render">
 	        </div>
 	    </div>
-	    <div><br/><a href="./inici">Inici</a></div>
 	</metal:content-core>
 </body>
 </html>

@@ -1,0 +1,249 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FATAC\n"
+"POT-Creation-Date: 2011-10-20 09:56+0000\n"
+"PO-Revision-Date: 2011-10-20 10:52+0100\n"
+"Last-Translator: Laura <laura.perez-mayos@upcnet.es>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: fatac.forms\n"
+
+#: ../../../browser/cercador.pt:5
+msgid "Explorar"
+msgstr "Explore"
+
+#: ../../../browser/opcions.pt:2
+msgid "Fitxa d'expedient"
+msgstr "Fitxa d'expedient"
+
+#: ../../../browser/cercador.pt:4
+msgid "Search Site"
+msgstr "Search Site"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "ca"
+msgstr "cat"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "en"
+msgstr "eng"
+
+#: ../../../browser/languageselector.pt:13, 29
+msgid "es"
+msgstr "cast"
+
+msgid "Cerca"
+msgstr "Search"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "ultims_documents"
+msgstr "Last documents"
+
+msgid "ultims_consultats"
+msgstr "Last viewed"
+
+msgid "Filtre de búsqueda"
+msgstr "Filter search"
+
+msgid "reduir_filtres"
+msgstr "minimize filters"
+
+msgid "ampliar_filtres"
+msgstr "maximize filters"
+
+msgid "esquerra"
+msgstr "previous page"
+
+msgid "dreta"
+msgstr "next page"
+
+msgid "class"
+msgstr "Class"
+
+msgid "Year"
+msgstr "Years"
+
+msgid "Country"
+msgstr "Countries"
+
+msgid "Translation"
+msgstr "Translations"
+
+msgid "Media"
+msgstr "Media"
+
+msgid "License"
+msgstr "Licenses"
+
+msgid "Role"
+msgstr "Roles"
+
+msgid "Person"
+msgstr "Persons"
+
+msgid "Organisation"
+msgstr "Organisations"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Publications"
+msgstr "Publications"
+
+msgid "ArtWork"
+msgstr "ArtWork"
+
+msgid "Collection"
+msgstr "Collections"
+
+msgid "CulturalManagement"
+msgstr "Cultural Management"
+
+msgid "ProtectionPromotion"
+msgstr "Protection Promotion"
+
+msgid "ordre"
+msgstr "order type:"
+
+msgid "AlphabeticalOrder"
+msgstr "alphabetic"
+
+msgid "ChronologicalOrder"
+msgstr "chronologic"
+
+msgid "Visualització de búsqueda"
+msgstr "Search view"
+
+msgid "visualitzacio1"
+msgstr "List"
+
+msgid "visualitzacio2"
+msgstr "Mini"
+
+msgid "visualitzacio3"
+msgstr "Thumbnail"
+
+msgid "visualitzacio4"
+msgstr "Fullscreen"
+
+msgid "small"
+msgstr "Smaller"
+
+msgid "large"
+msgstr "Larger"
+
+msgid "pagina"
+msgstr "page"
+
+msgid "de"
+msgstr "of"
+
+msgid "arxius"
+msgstr "files"
+
+msgid "mes_opcions"
+msgstr "more options"
+
+msgid "cap_resultat"
+msgstr "0 results"
+
+msgid "Tots"
+msgstr "All"
+
+msgid "Inici"
+msgstr "Start"
+
+msgid "Administració"
+msgstr "Administration"
+
+msgid "InserirObjecte"
+msgstr "Insert New Object"
+
+msgid "BuscarEditarObjectes"
+msgstr "Search/Edit Objects"
+
+msgid "AssignarDretsLegals"
+msgstr "Assign Rights"
+
+msgid "GestioMedia"
+msgstr "Manage Media"
+
+msgid "AccionsManteniment"
+msgstr "Maintenance Actions"
+
+msgid "Manteniment"
+msgstr "Maintenance"
+
+msgid "RecarregarOntologies"
+msgstr "Reload ontologies"
+
+msgid "ActualitzaOntologies"
+msgstr "Update ontologies with the ones currently specified in ONTOLOGY_NAMESPACE variable"
+
+msgid "ExportarOAI"
+msgstr "Export to OAI"
+
+msgid "ExportarOAIExplicacio"
+msgstr "Make data available to OAI-PMH server, according to oai-mapping specification (this action may take a while)"
+
+msgid "IndexarSolr"
+msgstr "Solr index"
+
+msgid "IndexarSolrExplicacio1"
+msgstr "Index all data to make it avialable from Solr search engine, according to mapping specification (this action may take a while)"
+
+msgid "IndexarSolrExplicacio2"
+msgstr "Index only recently modified data, in the specified time in minutes. It does not update deleted objectes (this action may take a while)"
+
+msgid "IntroduirTemps"
+msgstr "Set the time in minutes"
+
+msgid "GenerarMiniatures"
+msgstr "Generate thumbnails"
+
+msgid "GenerarMiniaturesExplicacio"
+msgstr "Generate thumbnails of all objectes of an specified class. This action is useful to save server load on search time (this action may take a while)"
+
+msgid "IntroduirNomClasse"
+msgstr "Set the class name"
+
+msgid "SubstituirTextos"
+msgstr "Replace text"
+
+msgid "SubstituirTextosExplicacio"
+msgstr "Replace all existing coincidences of the old text to the new one, of an specified field. This action is necessary to change URL when server domain is changed. You must fill: property name that will be changed (e.g.: 'prefix:PropertyName'), text to replace and the new text."
+
+msgid "NomPropietat"
+msgstr "Property name"
+
+msgid "TextAnterior"
+msgstr "Previous text"
+
+msgid "TextNou"
+msgstr "New text"
+
+msgid "ReiniciarRols"
+msgstr "Restart roles"
+
+msgid "ReiniciarRolsExplicacio"
+msgstr "Necessary action to be called in order to reflect the last user role changes"
+
+msgid "EsborraDades"
+msgstr "Remove data"
+
+msgid "EsborraDadesExplicacio"
+msgstr "Remove irreversibly ALL data, media and system data and reloads ontologies. To confirm this action you must put current server date time (format '30/11/11 16:37')"
+
+msgid "IntroduirHoraServidor"
+msgstr "Set the current server date and time to continue"
+
+msgid "Executa"
+msgstr "Execute"
