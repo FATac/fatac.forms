@@ -20,19 +20,26 @@
 </head>
 
 <body>
+  
     <metal:content-title fill-slot="content-title">
-            <h1 class="documentFirstHeading">Inserció objecte</h1>
-    </metal:content-title>
+      <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
+        <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
+        <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+        <span class="TerminalDosis200">Inserció objecte</span>
+      </div>
+      <h1 class="documentFirstHeading" i18n:translate="Manteniment">Inserció objecte</h1>
+    </metal:content-title>  
+
     <metal:content-description fill-slot="content-description">
-            <br/>
+      <br/>
     </metal:content-description>
-        <metal:content-core fill-slot="content-core">
-            <div id="content-core">
-                <div tal:replace="structure view/render">
-                </div>
-            </div>
-            <div><br/><a href="./inici">Inici</a></div>
-        </metal:content-core>
+
+    <metal:content-core fill-slot="content-core">
+      <div id="content-core">
+          <div tal:replace="structure view/render">
+          </div>
+      </div>
+    </metal:content-core>
 
 </body>
 </html>
