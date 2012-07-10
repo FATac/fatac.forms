@@ -36,6 +36,17 @@
         <div tal:replace="structure view/render">
         </div>
         <div>
+                <span>
+                        <span tal:condition="view/getPagMinus1"><a href="javascript:void(0);" tal:attributes="onclick view/getPagMinus1">&lt;&lt;</a></span>
+                        Pàgina&nbsp;
+                        <span tal:content="view/getPag"></span>
+                        <a href="javascript:void(0);" tal:attributes="onclick view/getPagPlus1">&gt;&gt;</a>
+                </span>
+		<hr>
+		<div>&nbsp</div>
+        </div>
+
+        <div>
         	<table>
 	        	<tbody tal:repeat="item view/results">
 	        		<tr tal:condition="item/name">

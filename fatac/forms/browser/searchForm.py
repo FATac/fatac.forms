@@ -28,15 +28,38 @@ class searchForm(BrowserView, funcionsCerca):
                 return self.request['classSelect']
             except KeyError:
                 return ''
+
+    def getPagMinus1(self):
+	if self.getPag() == 0: return None
+	return "document.forms['deform'].page.value="+str(self.getPag()-1)+";$(document.forms['deform'].submit).click();"
+
+    def getPagPlus1(self):
+        return "document.forms['deform'].page.value="+str(self.getPag()+1)+";$(document.forms['deform'].submit).click();"
+
+
+    def getPag(self):
+	pageValue = self.request.get('page', 0)
+	if pageValue == 0: pageValue = self.request.form.get('page', 0)
+	return int(pageValue)
     
 
     def render(self):
+	pageValue = self.request.get('page', 0)
+	if pageValue == 0: pageValue = self.request.form.get('page', 0)
+
+	textValue = self.request.get('text', '')
+
         class Schema(colander.Schema):
                 text = colander.SchemaNode(
                     colander.String(),
                     validator=colander.Length(max=100),
                     widget=deform.widget.TextInputWidget(size=60),
-                    description='Enter some text')
+                    description='Enter some texit',
+		    default=textValue)
+		page = colander.SchemaNode(
+		    colander.Int(),
+		    widget = deform.widget.HiddenWidget(),
+		    default = pageValue)
 
         schema = Schema()
         
@@ -64,8 +87,8 @@ class searchForm(BrowserView, funcionsCerca):
                     default=classSelection
                     ))
         
-        form = deform.Form(schema, action='seek', buttons=('submit',))
-        return form.render()
+        form = deform.Form(schema, action='seek', buttons=[deform.Button('submit', 'Buscar')])
+        return form.render() 
 
     class resultItem:
         name = None
@@ -95,17 +118,16 @@ class searchForm(BrowserView, funcionsCerca):
                 usrId = ''
 
             self.text = self.request['text']
+	    self.page = self.getPag()
             
             classSelection = ''
             if not vIsSearch:
                 classSelection = "&c=" + self.request.form['classSelect']
              
-            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classSelection)
+            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classSelection + "&page=" + str(self.page))
             jsonResult = resp.tee().read()
-            jsonTree = json.loads(jsonResult)
+            jsonTree = json.loads(jsonResult)          
             
-            
-
             for s in jsonTree.keys():
                 result.append(self.resultItem("ID", s, None, None, None))
                 for k in jsonTree[s].keys():

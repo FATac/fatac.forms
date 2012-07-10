@@ -27,20 +27,45 @@ class searchFormSelect(BrowserView, funcionsCerca):
                 return self.request['classSelect']
             except KeyError:
                 return ''
+
+    def getPagMinus1(self):
+        if self.getPag() == 0: return None
+        return "document.forms['deform'].page.value="+str(self.getPag()-1)+";$(document.forms['deform'].submit).click();"
+
+    def getPagPlus1(self):
+        return "document.forms['deform'].page.value="+str(self.getPag()+1)+";$(document.forms['deform'].submit).click();"
+
+
+    def getPag(self):
+        pageValue = self.request.get('page', 0)
+        if pageValue == 0: pageValue = self.request.form.get('page', 0)
+        return int(pageValue)
     
 
     def render(self):
+	pageValue = self.request.get('page', 0)
+        if pageValue == 0: pageValue = self.request.form.get('page', 0)
+
+        textValue = self.request.get('text', '')
+	colorValue = self.request.get('color','')
+
         class Schema(colander.Schema):
                 text = colander.SchemaNode(
                     colander.String(),
                     validator=colander.Length(max=100),
                     widget=deform.widget.TextInputWidget(size=60),
-                    description='Enter some text')
+                    description='Enter some text',
+		    default= textValue)
+                page = colander.SchemaNode(
+                    colander.Int(),
+                    widget = deform.widget.HiddenWidget(),
+                    default = pageValue)
                 color = colander.SchemaNode(
                     colander.String(),
                     widget=deform.widget.SelectWidget(values=[("","---"),("green","verd"),("yellow","groc"),("orange","taronja"),("red","vermell"),("gray","gris")]),
                     name="Color",
-                    missing=u''
+                    missing=u'',
+		    default = colorValue
                     )
 
         schema = Schema()
@@ -98,6 +123,7 @@ class searchFormSelect(BrowserView, funcionsCerca):
 
             self.text = self.request['text']
             self.color = self.request['color']
+	    self.page = self.getPag()
             
             classSelection = ''
             if not vIsSearch:
@@ -107,7 +133,7 @@ class searchFormSelect(BrowserView, funcionsCerca):
             if self.color != '' and self.color is not None:
                 colorSelection = "&k=" + self.color
             
-            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classSelection + colorSelection)
+            resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classSelection + colorSelection + "&page="+str(self.page))
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
