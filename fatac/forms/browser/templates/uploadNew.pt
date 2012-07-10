@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
 	<metal:block metal:fill-slot="head_slot">
             <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -23,13 +23,14 @@
 <body>
 	<metal:content-title fill-slot="content-title">
             <div class="ac_breadcrump div_dotted_line_bottom">
-                <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
+                <a href="./inici" class="TerminalDosis600"
+                  i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
-                <a href="./uploadData" class="TerminalDosis600">Inserir nou objecte</a>
+                <a href="./uploadData" class="TerminalDosis600" i18n:translate="inserir_nou_objecte" >Inserir nou objecte</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <span class="TerminalDosis200" tal:content="view/className">[ontology object]</span>
             </div>
-            <h1 class="documentFirstHeading">Nou objecte</h1>
+            <h1 class="documentFirstHeading" i18n:translate="nou_objecte">Nou objecte</h1>
     </metal:content-title>
     <metal:content-description fill-slot="content-description">
             <div class="documentDescription" tal:content="view/className"></div>
