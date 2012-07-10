@@ -26,7 +26,7 @@
 	<metal:content-core fill-slot="content-core">
 	<form name="mediaForm" id="mediaForm" target="mediaFrame" enctype="multipart/form-data" method="post" action="./uploadMediaAjax">
 	    <div id="header-core">
-            <h3 class="documentDescription" i18n:translate="introduirURI">Introduïr URI</h3>
+            <h3 class="documentDescription" i18n:translate="introduirURI">Introduir URI</h3>
             <p>
     	        <label i18n:translate="URL">Url</label>
     	        <input type="text" name="mediaurl" id="mediaurl" size="40"/>

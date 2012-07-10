@@ -31,7 +31,7 @@
             <h1 class="documentFirstHeading" i18n:translate="gestio_de_medias">Gestió de medias</h1>
         </metal:content-title>
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription" i18n:translate="cerca_i_gestio_de_medias">
+            <div class="documentDescription" i18n:translate="GestioCercaMedia">
                 Cerca i gestió de medias
             </div>
             <br/>

@@ -26,7 +26,7 @@
                 <a href="./inici" class="TerminalDosis600"
                    i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
                 <span class="TerminalDosis600 ac_breacrump_sep">&gt;</span>
-                <a href="./seek" class="TerminalDosis600" i18n:translate="buscar_editar_objecte">Buscar/Editar objectes</a>
+                <a href="./seek" class="TerminalDosis600" i18n:translate="buscar_editar_objectes">Buscar/Editar objectes</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <tal:locator tal:repeat="item view/locator">
 	    		         <a tal:content="item/value" tal:attributes="href item/link"></a>
@@ -54,7 +54,7 @@
 	    </div>
 	    <a href="./uploadMedia" id="uploadMediaLink"></a>
 	    <div id="confirmDelete" style="display: none;">
-	    	<label i18n:translate="segur_que_vol_esborrar">Segur que vol esborrar <span tal:content="view/objectId"></span>?</label>
+	    	<label><span i18n:translate="segur_que_vol_esborrar">Segur que vol esborrar</span><span tal:content="view/objectId"></span>?</label>
 	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteConfirmedLink" i18n:translate="esborrar">Esborrar</a>
 	    </div>
     </metal:content-core>
