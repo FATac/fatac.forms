@@ -1,7 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="fatac.forms">
+    i18n_domain="fatac.theme">
 
     <browser:page
         for="*"

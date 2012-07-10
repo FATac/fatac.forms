@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -28,7 +28,7 @@
         		<tr tal:condition="item/name">
     					<td width="150px" tal:content="item/name" i18n:translate="">Name</td>
     					<td tal:content="item/value">Value</td>
-    					<td>&nbsp;<a tal:condition="item/link" tal:attributes="href item/link">Veure</a></td>
+    					<td>&nbsp;<a tal:condition="item/link" tal:attributes="href item/link" i18n:translate="veure">Veure</a></td>
 				    </tr>
       		</tbody>
       	</table>

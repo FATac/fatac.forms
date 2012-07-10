@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
     <head>
         <metal:block metal:fill-slot="head_slot">
             <script>
@@ -26,12 +26,13 @@
     <body>
         <metal:content-title fill-slot="content-title">
             <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
-                <a href="./inici" title="Inici" class="TerminalDosis600">Administració</a>
+                <a href="./inici" class="TerminalDosis600"
+                   i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
-                <span class="TerminalDosis200">Validació legal</span>
+                <span class="TerminalDosis200" i18n:translate="validacio_legal">Validació legal</span>
             </div>
 
-            <h1 class="documentFirstHeading">Validació legal</h1>
+            <h1 class="documentFirstHeading" i18n:translate="validacio_legal">Validació legal</h1>
         </metal:content-title>
 
         <metal:content-description fill-slot="content-description">
