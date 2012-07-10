@@ -29,6 +29,7 @@
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <tal:locator tal:repeat="item view/locator">
 	    		         <a tal:content="item/value" tal:attributes="href item/link"></a>
+				 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
 		            </tal:locator>
             </div>
 
