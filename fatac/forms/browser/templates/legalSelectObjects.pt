@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -21,82 +21,84 @@
 
 <body>
 		<metal:content-title fill-slot="content-title">
-            <div class="ac_breadcrump div_dotted_line_bottom">
-                <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
+            <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
+                <a href="./inici" class="TerminalDosis600" 
+                	i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
-                <span class="TerminalDosis200">Validació legal</span>
+                <span class="TerminalDosis200" i18n:translate="validacio_legal" >Validació legal</span>
             </div>
 
-            <h1 class="documentFirstHeading">Validació legal</h1>
+            <h1 class="documentFirstHeading" i18n:translate="validacio_legal">Validació legal</h1>
         </metal:content-title>
 
         <metal:content-description fill-slot="content-description">
-            <div class="documentDescription">Selecció d'objectes</div>
+            <div class="documentDescription" i18n:translate="seleccio_d_objectes">Selecció d'objectes</div>
             <br/>
         </metal:content-description>
-<metal:content-core fill-slot="content-core">
-	<script>
-	    function setObjectId(id)
-	    {
-	      var elOptNew = document.createElement('option');
-	      elOptNew.text = id;
-	      elOptNew.value = id;
-	      var elSel = document.getElementById('selectX');
-	
-	      try {
-	        elSel.add(elOptNew, null); // standards compliant; doesn't work in IE
-	      } catch(ex) {
-	        elSel.add(elOptNew); // IE only
-	      }
-	    }
-	
-	    function removeOptionSelected()
-	    {
-	      var elSel = document.getElementById('selectX');
-	      var i;
-	      for (i = elSel.length - 1; i>=0; i--) {
-	        if (elSel.options[i].selected) {
-	          elSel.remove(i);
-	        }
-	      }
-	    }
-	
-	    function serializeList() {
-	      var elSel = document.getElementById('selectX');
-	      var i;
-	      var result = '';
-	      for (i = elSel.length - 1; i>=0; i--) {
-	          if (result.match(elSel.options[i].value) == null) {
-	              result += elSel.options[i].value + ',';
-	          }
-	      }
-	
-	      return result.substring(0,result.length-1);
-	    }
-	</script>
-	
-	<form name='legalSelectObjects' action='legalValidation' method='POST'>
-		<table>
-			<tr>
-				<td>
-				    <select name='objectList' id='selectX' size='10'>
-				    </select>
-			    </td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>
-					<input type='button' value='Seek' onclick="var seekWin = window.open('./selectObject'); ">
-	    			<input type='button' value='Remove' onclick=" removeOptionSelected(); ">
-	    			<input type='hidden' name='objectIdsVal' value=''>
-	    			<input type='button' value='Ok' onclick=" document.legalSelectObjects.objectIdsVal.value = serializeList(); document.legalSelectObjects.submit(); ">
-	    		</td>
-	    	</tr>
-	    </table>
-	</form>
-</metal:content-core>
+
+		<metal:content-core fill-slot="content-core">
+			<script>
+			    function setObjectId(id)
+			    {
+			      var elOptNew = document.createElement('option');
+			      elOptNew.text = id;
+			      elOptNew.value = id;
+			      var elSel = document.getElementById('selectX');
+			
+			      try {
+			        elSel.add(elOptNew, null); // standards compliant; doesn't work in IE
+			      } catch(ex) {
+			        elSel.add(elOptNew); // IE only
+			      }
+			    }
+			
+			    function removeOptionSelected()
+			    {
+			      var elSel = document.getElementById('selectX');
+			      var i;
+			      for (i = elSel.length - 1; i>=0; i--) {
+			        if (elSel.options[i].selected) {
+			          elSel.remove(i);
+			        }
+			      }
+			    }
+			
+			    function serializeList() {
+			      var elSel = document.getElementById('selectX');
+			      var i;
+			      var result = '';
+			      for (i = elSel.length - 1; i>=0; i--) {
+			          if (result.match(elSel.options[i].value) == null) {
+			              result += elSel.options[i].value + ',';
+			          }
+			      }
+			
+			      return result.substring(0,result.length-1);
+			    }
+			</script>
+			
+			<form name='legalSelectObjects' action='legalValidation' method='POST'>
+				<table>
+					<tr>
+						<td>
+						    <select name='objectList' id='selectX' size='10'>
+						    </select>
+					    </td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<input type='button' value='Seek' onclick="var seekWin = window.open('./selectObject'); ">
+			    			<input type='button' value='Remove' onclick=" removeOptionSelected(); ">
+			    			<input type='hidden' name='objectIdsVal' value=''>
+			    			<input type='button' value='Ok' onclick=" document.legalSelectObjects.objectIdsVal.value = serializeList(); document.legalSelectObjects.submit(); ">
+			    		</td>
+			    	</tr>
+			    </table>
+			</form>
+		</metal:content-core>
 </body>
 </html>
 

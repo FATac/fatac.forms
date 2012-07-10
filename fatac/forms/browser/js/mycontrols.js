@@ -75,24 +75,20 @@ function deleteObjectConfirmed(id,loc) {
 function callExpander() {
 	$("a").css("cursor","pointer");
 	$('textarea.expand').autoResize({
-	    // On resize:
-	    onResize : function() {
-	        $(this).css({opacity:0.8});
-	    },
-	    // After resize:
-	    animateCallback : function() {
-	        $(this).css({opacity:1});
-	    },
-	    // Quite slow animation:
-	    animateDuration : 300,
-	    // More extra space:
 	    extraSpace : 5
 	});
 }
 
+function callExpander2(textobj) {
+	$(textobj).autoResize({ extraSpace : 5 });
+}
+
+
 function addControl(name) {
+	$("#"+name+"_cntrl div:last-child").css({"opacity":1.0});
 	var cntrl = $("#"+name+"_cntrl div:last-child").clone().hide();
-	$("#"+name+"_cntrl").append(cntrl.fadeIn(800, callExpander));
+	$("#"+name+"_cntrl").append(cntrl.fadeIn(800));
+	callExpander2($("#"+name+"_cntrl div:last-child textarea:last"));
 }
 
 function removeControl(name, obj) {

@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -20,19 +20,19 @@
 </head>
 
 <body>
-<metal:main fill-slot="main">
+  <metal:main fill-slot="main">
     <div id="content-core">
-        <div>
-        	<table>
-	        	<tbody tal:repeat="item view/results">
-	        		<tr tal:condition="item/name">
-						<td width="150px" tal:content="item/name" i18n:translate="">Name</td>
-						<td tal:content="item/value">Value</td>
-						<td>&nbsp;<a tal:condition="item/link" tal:attributes="href item/link">Veure</a></td>
-					</tr>
-        		</tbody>
-        	</table>
-        </div>
+      <div>
+      	<table>
+        	<tbody tal:repeat="item view/results">
+        		<tr tal:condition="item/name">
+    					<td width="150px" tal:content="item/name" i18n:translate="">Name</td>
+    					<td tal:content="item/value">Value</td>
+    					<td>&nbsp;<a tal:condition="item/link" tal:attributes="href item/link" i18n:translate="veure">Veure</a></td>
+				    </tr>
+      		</tbody>
+      	</table>
+      </div>
     </div>
     <div tal:condition="view/mediaLink">
     	<iframe width='100%' height='800px' tal:attributes="src view/mediaLink"></iframe>
@@ -40,6 +40,6 @@
     <div tal:condition="view/isAdmin">
     	<input type="button" value="Modificar" tal:attributes="onclick view/editLink">
     </div>
-</metal:main>
+  </metal:main>
 </body>
 </html>

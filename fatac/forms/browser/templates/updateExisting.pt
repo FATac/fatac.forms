@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -22,18 +22,19 @@
 
 <body>
 	<metal:content-title fill-slot="content-title">
-            <div class="ac_breadcrump div_dotted_line_bottom">
-                <a href="./inici" title="Inici" class="TerminalDosis600">Adminsitració</a>
+            <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
+                <a href="./inici" class="TerminalDosis600"
+                   i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
                 <span class="TerminalDosis600 ac_breacrump_sep">&gt;</span>
-                <a href="./seek" class="TerminalDosis600">Buscar/Editar objectes</a>
+                <a href="./seek" class="TerminalDosis600" i18n:translate="buscar_editar_objectes">Buscar/Editar objectes</a>
                 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
                 <tal:locator tal:repeat="item view/locator">
-	    		<a tal:content="item/value" tal:attributes="href item/link"></a>
-			<span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
-		</tal:locator>
+	    		         <a tal:content="item/value" tal:attributes="href item/link"></a>
+				 <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+		            </tal:locator>
             </div>
 
-            <h1 class="documentFirstHeading">Edició objecte</h1>
+            <h1 class="documentFirstHeading" i18n:translate="edicio_objecte">Edició objecte</h1>
     </metal:content-title>
     <metal:content-description fill-slot="content-description">
     	    <div class="documentDescription" tal:content="view/about"></div>
@@ -42,7 +43,7 @@
 	<metal:content-core fill-slot="content-core">
 		<br/><br/>
 		<div>
-	    	<a tal:attributes="href string:legalValidation?objectIdsVal=${view/objectId}">Validació legal</a>
+	    	<a tal:attributes="href string:legalValidation?objectIdsVal=${view/objectId}" i18n:translate="validacio_legal">Validació legal</a>
 	    </div>
 	    <div tal:attributes="style string:background-color: ${view/color}; "  >&nbsp;</div>
 	    <div class="deformFormFieldset" id="content-core">
@@ -50,12 +51,12 @@
 	        </div>
 	    </div>
 	    <div style="text-align:right">
-	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteLink">Esborrar</a>
+	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteLink" i18n:translate="esborrar">Esborrar</a>
 	    </div>
 	    <a href="./uploadMedia" id="uploadMediaLink"></a>
 	    <div id="confirmDelete" style="display: none;">
-	    	<label>Segur que vol esborrar <span tal:content="view/objectId"></span>?</label>
-	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteConfirmedLink">Esborrar</a>
+	    	<label><span i18n:translate="segur_que_vol_esborrar">Segur que vol esborrar</span><span tal:content="view/objectId"></span>?</label>
+	    	<a href="javascript:void(0);" tal:attributes="onclick view/deleteConfirmedLink" i18n:translate="esborrar">Esborrar</a>
 	    </div>
     </metal:content-core>
 </body>

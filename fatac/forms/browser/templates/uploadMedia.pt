@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="fatac.theme">
 <head>
     <metal:block metal:fill-slot="head_slot">
         <link rel="alternate" title="RSS 1.0" type="application/rss+xml"
@@ -26,21 +26,21 @@
 	<metal:content-core fill-slot="content-core">
 	<form name="mediaForm" id="mediaForm" target="mediaFrame" enctype="multipart/form-data" method="post" action="./uploadMediaAjax">
 	    <div id="header-core">
-            <h3 class="documentDescription">Introduir URI</h3>
+            <h3 class="documentDescription" i18n:translate="introduirURI">Introduir URI</h3>
             <p>
-    	        <label>Url</label>
+    	        <label i18n:translate="URL">Url</label>
     	        <input type="text" name="mediaurl" id="mediaurl" size="40"/>
                 <input type="button" onclick="window.open('./gestioMedias?link=1');" value="Seleccionar media"/>
 	        </p>
 
-    	   <h3 class="documentDescription">Pujar media</h3>
+    	   <h3 class="documentDescription" i18n:translate="PujarMedia">Pujar media</h3>
            <p>
-    	        <label>Media</label>
+    	        <label i18n:translate="Media">Media</label>
     	        <input type="file" name="mediafile" size="40" onchange="document.mediaForm.submit();" />
            </p>
 	    </div>
 	    <div id='preview' style='horizontal-align:center'>
-            <h3 class="documentDescription">Previsualització <input type="button" value="Recarregar" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)"/></h3>
+            <h3 class="documentDescription" i18n:translate="Previsualitzacio">Previsualització <input type="button" value="Recarregar" onclick="mediaUrlPreview(document.mediaForm.mediaurl.value)"/></h3>
             <iframe width="100%" height='400' name='mediaFrame' style="box-shadow:none; border:solid 1px"></iframe>
 	    </div>
 	    <div>
