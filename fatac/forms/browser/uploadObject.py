@@ -71,6 +71,7 @@ class uploadObject(BrowserView, funcionsCerca):
                 if '__relatedObject' in self.request:
                     return "&nbsp;<a href='javascript:opener.setCurrentInputValue(\"" + result + "\"); opener.focus(); window.close();'>[Seleccionar]</a>"
                 else:
-                    return "<a href='./genericView?idobjecte=" + result + "' target='_fitaWindow'>Veure fitxa</a>"
+                    # return "<a href='./genericView?idobjecte=" + result + "' target='_fitaWindow'>Veure fitxa</a>"
+                    return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + result + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + result + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + result + "'>Fitxa</a>"
         else:
             return 'Oops!'
