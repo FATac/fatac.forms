@@ -20,60 +20,58 @@
 </head>
 
 <body>
-	<metal:content-title fill-slot="content-title">
-            <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
-                <a href="./inici" class="TerminalDosis600"
-                    i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
-                <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
-                <span class="TerminalDosis200"  i18n:translate="buscar_editar_objectes">Buscar/Editar objectes</span>
-            </div>
-            <h1 class="documentFirstHeading" i18n:translate="cercar_objectes">Cercar objectes</h1>
+    <metal:content-title fill-slot="content-title">
+        <div class="ac_breadcrump div_dotted_line_bottom breadcrumb_cerca">
+            <a href="./inici" class="TerminalDosis600"
+                i18n:translate="administracio" i18n:attributes="alt;title">Administració</a>
+            <span class="TerminalDosis200 ac_breacrump_sep">&gt;</span>
+            <span class="TerminalDosis200"  i18n:translate="buscar_editar_objectes">Buscar/Editar objectes</span>
+        </div>
+        <h1 class="documentFirstHeading" i18n:translate="cercar_objectes">Cercar objectes</h1>
     </metal:content-title>
-    <metal:content-description fill-slot="content-description">
-            <div class="documentDescription" tal:content="view/classSelection"></div>
-    </metal:content-description>
-<metal:content-core fill-slot="content-core">
-	<div id="content-core">
-        <div tal:replace="structure view/render">
-        </div>
-        <div>
-                <span>
-                        <span tal:condition="view/getPagMinus1"><a href="javascript:void(0);" tal:attributes="onclick view/getPagMinus1">&lt;&lt;</a></span>
-                        Pàgina&nbsp;
-                        <span tal:content="view/getPag"></span>
-                        <a href="javascript:void(0);" tal:attributes="onclick view/getPagPlus1">&gt;&gt;</a>
-                </span>
-		<hr>
-		<div>&nbsp</div>
-        </div>
 
-        <div>
-        	<table>
-	        	<tbody tal:repeat="item view/results">
-	        		<tr tal:condition="item/name">
-						<td width="150px" tal:content="item/name" i18n:translate="">Name</td>
-						<td tal:content="item/value">Value</td>
-					</tr>
-					<tr tal:condition="item/link">
-						<td>&nbsp;</td>
-						<td tal:condition="item/legalLink">
-							<a tal:attributes="href item/link" href="" i18n:translate="edita">Edita</a>
-    	        <span class="separator"> | </span>
-              <a tal:attributes="href item/legalLink" href="" i18n:translate="legal">Legal</a>
-							<span class="separator"> | </span>
-							<a tal:attributes="href item/fitxaLink" href="" target="_blank" i18n:translate="fitxa">Fitxa</a>
-						</td>
-						<td tal:condition="not: item/legalLink">
-							<a tal:attributes="href item/link" href="" i18n:translate="selecciona">Selecciona</a>
-						</td>
-					</tr>
-					<tr tal:condition="item/link">
-						<td>&nbsp;</td>
-					</tr>
-        		</tbody>
-        	</table>
+    <metal:content-core fill-slot="content-core">
+        <div id="content-core">
+            <div tal:replace="structure view/render">
+            </div>
+            <div>
+                <span>
+                    <span tal:condition="view/getPagMinus1"><a href="javascript:void(0);" tal:attributes="onclick view/getPagMinus1">&lt;&lt;</a></span>
+                    Pàgina&nbsp;
+                    <span tal:content="view/getPag"></span>
+                    <a href="javascript:void(0);" tal:attributes="onclick view/getPagPlus1">&gt;&gt;</a>
+                </span>
+            <hr>
+            <div>&nbsp</div>
+            </div>
+
+            <div>
+                <table>
+                    <tbody tal:repeat="item view/results">
+                        <tr tal:condition="item/name">
+                            <td width="150px" tal:content="item/name" i18n:translate="">Name</td>
+                            <td tal:content="item/value">Value</td>
+                        </tr>
+                        <tr tal:condition="item/link">
+                            <td>&nbsp;</td>
+                            <td tal:condition="item/legalLink">
+                                <a tal:attributes="href item/link" href="" i18n:translate="edita">Edita</a>
+                                <span class="separator"> | </span>
+                                <a tal:attributes="href item/legalLink" href="" i18n:translate="legal">Legal</a>
+                                <span class="separator"> | </span>
+                                <a tal:attributes="href item/fitxaLink" href="" target="_blank" i18n:translate="fitxa">Fitxa</a>
+                            </td>
+                            <td tal:condition="not: item/legalLink">
+                                <a tal:attributes="href item/link" href="" i18n:translate="selecciona">Selecciona</a>
+                            </td>
+                        </tr>
+                        <tr tal:condition="item/link">
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</metal:content-core>
+    </metal:content-core>
 </body>
 </html>
