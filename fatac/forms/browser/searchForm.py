@@ -108,13 +108,15 @@ class searchForm(BrowserView, funcionsCerca):
         link = None
         legalLink = None
         fitxaLink = None
+        gestioLink = None
 
-        def __init__(self, name, value, link, legalLink, fitxaLink):
+        def __init__(self, name, value, link, legalLink, fitxaLink, gestioLink):
             self.name = name
             self.value = value
             self.link = link
             self.legalLink = legalLink
             self.fitxaLink = fitxaLink
+            self.gestioLink = gestioLink
 
     def results(self):
         result = list()
@@ -143,11 +145,11 @@ class searchForm(BrowserView, funcionsCerca):
             jsonTree = json.loads(jsonResult)
 
             for s in jsonTree.keys():
-                result.append(self.resultItem("ID", s, None, None, None))
+                result.append(self.resultItem("ID", s, None, None, None, None))
                 for k in jsonTree[s].keys():
-                    result.append(self.resultItem(k, jsonTree[s][k], None, None, None))
+                    result.append(self.resultItem(k, jsonTree[s][k], None, None, None, None))
                 if vIsSearch:
-                    result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s))
+                    result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, './ac/' + s + '/gestionarLlibre'))
                 else:
                     result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("' + s + '"); window.close();', None, None))
 

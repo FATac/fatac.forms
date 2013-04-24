@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1 (unreleased)
+-------------------
+
+- Afegit link per gestionar els llibres en la cerca
+
 1.0dev (unreleased)
 -------------------
 
