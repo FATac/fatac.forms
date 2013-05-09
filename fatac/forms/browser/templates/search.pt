@@ -47,7 +47,7 @@
 
             <div>
                 <table>
-                    <tbody tal:repeat="item view/results">
+                    <tbody tal:repeat="item view/results">                        
                         <tr tal:condition="item/name">
                             <td width="150px" tal:content="item/name" i18n:translate="">Name</td>
                             <td tal:content="item/value">Value</td>
@@ -60,9 +60,11 @@
                                 <a tal:attributes="href item/legalLink" href="" i18n:translate="legal">Legal</a>
                                 <span class="separator"> | </span>
                                 <a tal:attributes="href item/fitxaLink" href="" target="_blank" i18n:translate="fitxa">Fitxa</a>
-                                <span class="separator"> | </span>
-                                <a tal:attributes="href item/gestioLink" href="" target="_blank" i18n:translate="gestioLink">Gestionar Llibre</a>
-                            </td>
+                                <span tal:condition="item/gestioLink">
+                                    <span class="separator"> | </span>
+                                    <a tal:attributes="href item/gestioLink" href="" target="_blank" i18n:translate="gestioLink">Gestionar Llibre</a>
+                                </span>
+                            </td>                           
                             <td tal:condition="not: item/legalLink">
                                 <a tal:attributes="href item/link" href="" i18n:translate="selecciona">Selecciona</a>
                             </td>

@@ -121,7 +121,7 @@ class searchForm(BrowserView, funcionsCerca):
     def results(self):
         result = list()
         if self.request.get('submit', None):
-            vIsSearch = self.isSearch()
+            vIsSearch = self.isSearch()     
 
             sdm = self.context.session_data_manager
             session = sdm.getSessionData(create=True)
@@ -144,15 +144,20 @@ class searchForm(BrowserView, funcionsCerca):
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
-            for s in jsonTree.keys():
+            for s in jsonTree.keys(): 
+                GestionarLlibre = False      
                 result.append(self.resultItem("ID", s, None, None, None, None))
+                if u'ac:DisplayScreen' in jsonTree[s].keys():
+                    GestionarLlibre = True
                 for k in jsonTree[s].keys():
                     result.append(self.resultItem(k, jsonTree[s][k], None, None, None, None))
-                if vIsSearch:
+                    
+                if vIsSearch and GestionarLlibre:
                     result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, './ac/' + s + '/gestionarLlibre'))
+                elif vIsSearch:
+                    result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, ''))
                 else:
                     result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("' + s + '"); window.close();', None, None))
-
         return result
 
     def llistaClassesPrincipals(self, jsonTree):
