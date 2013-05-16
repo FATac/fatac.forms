@@ -5,6 +5,7 @@ Changelog
 -------------------
 
 - Afegit link per gestionar els llibres en la cerca
+- Solucionar error en administracio cerca de cerca
 
 1.0dev (unreleased)
 -------------------

@@ -157,7 +157,7 @@ class searchForm(BrowserView, funcionsCerca):
                 elif vIsSearch:
                     result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, ''))
                 else:
-                    result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("' + s + '"); window.close();', None, None))
+                    result.append(self.resultItem('', '', 'javascript:opener.setCurrentInputValue("' + s + '"); window.close();', None, None, None))
         return result
 
     def llistaClassesPrincipals(self, jsonTree):
