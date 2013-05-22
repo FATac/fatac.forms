@@ -54,6 +54,8 @@ class updateObject(BrowserView, funcionsCerca):
             resp = request(self.retServidorRest() + '/classes/' + className + '/form')
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
+          
+            GestionarLlibre = False 
 
             jsonRequest = {'type': className}
             for s in jsonTree['inputList']:
@@ -66,6 +68,8 @@ class updateObject(BrowserView, funcionsCerca):
 
                 if fieldName in self.request:
                     fieldValue = self.request[fieldName]
+                    if fieldName == u'DisplayScreen' and fieldValue == 'on':
+                        GestionarLlibre = True 
                     if fieldName + '_lang' in self.request:
                         tmp = []
                         fieldLang = self.request[fieldName + '_lang']
@@ -106,7 +110,9 @@ class updateObject(BrowserView, funcionsCerca):
             except KeyError:
                 myformHtml = ""
 
-            if result == 'success':
+            if result == 'success' and GestionarLlibre:
+                return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + self.request.form['about'] + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + self.request.form['about'] + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + self.request.form['about'] + "'>Fitxa</a><span class='separator'> | </span><a target='_blank' href='./ac/" + self.request.form['about'] + '/gestionarLlibre'"'>Gestionar Llibre</a>" + myformHtml
+            elif result == 'success':
                 return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + self.request.form['about'] + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + self.request.form['about'] + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + self.request.form['about'] + "'>Fitxa</a>" + myformHtml
             else:
                 return "Hi ha hagut algun error."

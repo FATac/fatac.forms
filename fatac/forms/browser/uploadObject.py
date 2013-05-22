@@ -20,6 +20,8 @@ class uploadObject(BrowserView, funcionsCerca):
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
+            # GestionarLlibre = False
+
             jsonRequest = {'type': className, 'about': about}
             for s in jsonTree['inputList']:
                 nameparts = s['name'].split(":")
@@ -30,6 +32,10 @@ class uploadObject(BrowserView, funcionsCerca):
 
                 if fieldName in self.request:
                     fieldValue = self.request[fieldName]
+
+                    #Com quan crees el llibre fins que no arriva al solr no es veu peta, per tal ho comentem
+                    # if fieldName == u'DisplayScreen' and fieldValue == 'on':
+                    #     GestionarLlibre = True 
                     if fieldName + '_lang' in self.request:
                         tmp = []
                         fieldLang = self.request[fieldName + '_lang']
@@ -70,6 +76,9 @@ class uploadObject(BrowserView, funcionsCerca):
             if result != 'error':
                 if '__relatedObject' in self.request:
                     return "&nbsp;<a href='javascript:opener.setCurrentInputValue(\"" + result + "\"); opener.focus(); window.close();'>[Seleccionar]</a>"
+                #Com quan crees el llibre fins que no arriva al solr no es veu peta, per tal ho comentem
+                # elif GestionarLlibre:
+                #     return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + result + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + result + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + result + "'>Fitxa</a><span class='separator'> | </span><a target='_blank' href='./ac/" + result + "'/gestionarLlibre'>Gestionar Llibre</a>"
                 else:
                     # return "<a href='./genericView?idobjecte=" + result + "' target='_fitaWindow'>Veure fitxa</a>"
                     return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + result + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + result + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + result + "'>Fitxa</a>"
