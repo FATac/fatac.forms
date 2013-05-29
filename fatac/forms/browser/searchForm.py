@@ -120,7 +120,7 @@ class searchForm(BrowserView, funcionsCerca):
 
     def results(self):
         result = list()
-        if self.request.get('submit', None):
+        if self.request.get('submit', None):            
             vIsSearch = self.isSearch()     
 
             sdm = self.context.session_data_manager
@@ -132,20 +132,37 @@ class searchForm(BrowserView, funcionsCerca):
 
             self.text = self.request['text']
             self.page = self.getPag()
-
             classe_aux = self.classSelection()
             classe = ''
             if classe_aux != 'Totes':
                 classe = "&c=" + classe_aux
 
+            # GestionarLlibreSolar = False
+            # if classe_aux == 'Totes':
+            #     querystring_str = self.text
+            #     lang = self.getLang()
+            #     url = self.retServidorRest() + '/solr/search?rows=9999&f=(id:' + querystring_str + ")&fields=id,Who,What,When,DisplayScreen,class&conf=Explorar&lang=" + lang
+
+            #     read = self.llegeixJson(url)
+            #     if read:
+            #         resultsolar = {'ordre_filtres': read['llista_claus'], 'dades_json': read['json']}
+            #         if 'DisplayScreen' in resultsolar['dades_json']['response']['docs'][0]:  
+            #             if resultsolar['dades_json']['response']['docs'][0]['DisplayScreen'] == (u'on'):
+            #                 if resultsolar['dades_json']['response']['docs'][0]['id'] == querystring_str:
+            #                     GestionarLlibreSolar = True
+            #             else:
+            #                 GestionarLlibreSolar = False
+            #         else:
+            #             GestionarLlibreSolar = False
+           
             self.context.plone_log('serahcForm.py: ' + self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classe + "&page=" + str(self.page))
             resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classe + "&page=" + str(self.page))
-
+                           
             jsonResult = resp.tee().read()
             jsonTree = json.loads(jsonResult)
 
-            for s in jsonTree.keys(): 
-                GestionarLlibre = False      
+            for s in jsonTree.keys():    
+                GestionarLlibre = False                
                 result.append(self.resultItem("ID", s, None, None, None, None))
                 if u'ac:DisplayScreen' in jsonTree[s].keys():
                     GestionarLlibre = True
@@ -153,6 +170,8 @@ class searchForm(BrowserView, funcionsCerca):
                     result.append(self.resultItem(k, jsonTree[s][k], None, None, None, None))
                     
                 if vIsSearch and GestionarLlibre:
+                    #forcem la visualitzacio del objecte perque no doni error si vas a opcio Gestionar Llibre directament
+                    fitxa = request(self.context.portal_url()+'/genericView?idobjecte=%s' % s)
                     result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, './ac/' + s + '/gestionarLlibre'))
                 elif vIsSearch:
                     result.append(self.resultItem('', '', './updateExisting?id=' + s, './legalValidation?objectIdsVal=' + s, './genericView?idobjecte=' + s, ''))

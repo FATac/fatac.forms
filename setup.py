@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 #PROVA!!!!!!
-version = '1.1a'
+version = '1.1b'
 
 setup(name='fatac.forms',
       version=version,

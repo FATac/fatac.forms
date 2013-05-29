@@ -111,6 +111,8 @@ class updateObject(BrowserView, funcionsCerca):
                 myformHtml = ""
 
             if result == 'success' and GestionarLlibre:
+                #forcem la visualitzacio del objecte perque no doni error si vas a opcio Gestionar Llibre directament
+                fitxa = request(self.context.portal_url()+'/genericView?idobjecte=%s' % self.request.form['about'])
                 return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + self.request.form['about'] + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + self.request.form['about'] + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + self.request.form['about'] + "'>Fitxa</a><span class='separator'> | </span><a target='_blank' href='./ac/" + self.request.form['about'] + '/gestionarLlibre'"'>Gestionar Llibre</a>" + myformHtml
             elif result == 'success':
                 return "Objecte desat correctament. <br/><br/><a href='./updateExisting?id=" + self.request.form['about'] + "'>Edita</a><span class='separator'> | </span><a href='./legalValidation?objectIdsVal=" + self.request.form['about'] + "'>Legal</a><span class='separator'> | </span><a target='_blank' href='./genericView?idobjecte=" + self.request.form['about'] + "'>Fitxa</a>" + myformHtml

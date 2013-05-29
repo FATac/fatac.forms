@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1b (unreleased)
+-------------------
+
+- Forcem la visualitzacio del llibre perque no doni error si vas a Gestionar Llibre directament
+
 1.1a (unreleased)
 -------------------
 
