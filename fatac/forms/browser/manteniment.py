@@ -57,6 +57,7 @@ class manteniment(BrowserView, funcionsCerca):
                     resp = _("IndexarRecentsFaltaTemps",default="Indexar dades recents: cal indicar el temps ")
             elif action == 'replace':
                 if 'parametre' in self.request.form:
+                   
                     replaceParams = self.request.form['parametre']
                     pl = replaceParams.split(";")
                     if replaceParams != '' or len(pl)< 3:

@@ -155,7 +155,7 @@ class searchForm(BrowserView, funcionsCerca):
             #         else:
             #             GestionarLlibreSolar = False
            
-            self.context.plone_log('serahcForm.py: ' + self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classe + "&page=" + str(self.page))
+            #self.context.plone_log('serahcForm.py: ' + self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classe + "&page=" + str(self.page))
             resp = request(self.retServidorRest() + '/search?s=' + str.replace(self.text, " ", "+") + classe + "&page=" + str(self.page))
                            
             jsonResult = resp.tee().read()
